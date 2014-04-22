@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+	http://www.springframework.org/schema/security 
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd
+	http://www.springframework.org/schema/jee
+	http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
+	">
+
+	<jee:jndi-lookup id="securityDataSource" jndi-name="java:/comp/env/jdbc/GPlatformDataSource"/>
+
+    <!--  -->
+	<security:debug/>
+
+    <security:global-method-security pre-post-annotations="enabled">
+        <security:expression-handler ref="expressionHandler"/>
+    </security:global-method-security>
+
+    <bean id="expressionHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler">
+        <property name="permissionEvaluator" ref="defaultPermissionEvaluator" />
+    </bean>
+
+    <bean id="defaultPermissionEvaluator" class="net.gplatform.server.infra.ss.DefaultPermissionEvaluator">
+    </bean>
+
+	<!-- for OPTIONS request (1, Add CORS header(this should move to filter due to ss will splite headers). 2, Block further process) -->
+	<bean id="OPTIONSRequestMatcher" class="org.springframework.security.web.util.RegexRequestMatcher">
+		<constructor-arg index="0" value=".*">
+		</constructor-arg>
+		<constructor-arg index="1" value="OPTIONS">
+		</constructor-arg>
+	</bean>
+
+	<bean id="stopperFilter" class="net.gplatform.server.infra.ss.filter.StopperFilter">
+	</bean>
+
+	<security:http auto-config="false" request-matcher-ref="OPTIONSRequestMatcher" create-session="stateless">
+		<security:form-login/>
+		<security:custom-filter ref="stopperFilter" after="HEADERS_FILTER"/>
+	</security:http>
+
+	<!-- for normall request -->
+	<bean id="errorResponseCodeHandler" class="net.gplatform.server.infra.ss.ResponseCodeHandler">
+		<property name="responseCode" value="601"/>
+	</bean>
+
+	<bean id="successResponseCodeHandler" class="net.gplatform.server.infra.ss.ResponseCodeHandler">
+		<property name="responseCode" value="204"/>
+	</bean>
+
+	<bean id="401ResponseCodeHandler" class="net.gplatform.server.infra.ss.ResponseCodeHandler">
+		<property name="responseCode" value="401"/>
+	</bean>
+
+	<bean id="customizeRequestFilter" class="net.gplatform.server.infra.ss.filter.CustomizeRequestFilter">
+		<property name="requestFullName" value="net.gplatform.server.infra.ss.MultipleReadRequestWrapper"/>
+	</bean>
+
+	<security:http auto-config="false" entry-point-ref="401ResponseCodeHandler" use-expressions="true" request-matcher="regex"
+	               pattern="/data/odata.svc/\$metadata|/data/odata.svc/Credential.*|/data/rest/SpringSecurity/.*|/data/rest/tools/.*|/j_spring_security_.*">
+		<security:intercept-url pattern="/data/odata.svc/Credential.*" method="GET" access="denyAll"/>
+		<security:intercept-url pattern=".*" access="permitAll"/>
+		<security:form-login authentication-failure-handler-ref="errorResponseCodeHandler"
+		                     authentication-success-handler-ref="successResponseCodeHandler"/>
+		<security:remember-me/>
+		<security:custom-filter ref="customizeRequestFilter" position="FIRST"/>
+		<security:logout delete-cookies="JSESSIONID" success-handler-ref="successResponseCodeHandler"/>
+		<security:session-management>
+			<security:concurrency-control max-sessions="1"/>
+		</security:session-management>
+	</security:http>
+
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:jdbc-user-service data-source-ref="securityDataSource"/>
+		</security:authentication-provider>
+	</security:authentication-manager>
+</beans>

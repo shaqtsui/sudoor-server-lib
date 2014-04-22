@@ -1,0 +1,232 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!--
+		NOTE :
+			Infra Lib Project Provide Interface:
+				CORS filter
+
+				Spring Security for login
+
+				Olingo for OData service
+				Jersey for REST router to Utils
+
+				JPAManager
+	-->
+
+	<!-- The Basics -->
+	<parent>
+		<groupId>net.gplatform</groupId>
+		<artifactId>infra-server-parent</artifactId>
+		<version>1.0</version>
+		<relativePath>../infra-server-parent</relativePath>
+	</parent>
+
+	<artifactId>infra-server-lib</artifactId>
+	<packaging>war</packaging>
+
+	<properties>
+		<org.apache.tomcat.version>7.0.52</org.apache.tomcat.version>
+		<commons-io.version>2.4</commons-io.version>
+		<commons-lang3.version>3.2.1</commons-lang3.version>
+		<org.apache.httpcomponents.version>4.3</org.apache.httpcomponents.version>
+		<org.jboss.weld.version>2.1.0.Final</org.jboss.weld.version>
+		<!-- can not upgrade version due to 3.1xsd can not laod issue in cargo -->
+		<org.springframework.security.version>3.2.3.RELEASE</org.springframework.security.version>
+		<org.springframework.data.version>1.4.2.RELEASE</org.springframework.data.version>
+		<org.eclipse.persistence.version>2.5.1</org.eclipse.persistence.version>
+		<org.hibernate.version>4.3.0.Final</org.hibernate.version>
+		<org.slf4j.version>1.7.5</org.slf4j.version>
+		<ch.qos.logback.version>1.0.13</ch.qos.logback.version>
+
+		<com.fasterxml.jackson.jaxrs.version>2.3.2</com.fasterxml.jackson.jaxrs.version>
+		<!-- from 2.7 it will use jdk 7 -->
+		<org.glassfish.jersey.containers.version>2.6</org.glassfish.jersey.containers.version>
+		<org.apache.olingo.version>1.2.0</org.apache.olingo.version>
+		<org.postgresql.version>9.2-1003-jdbc4</org.postgresql.version>
+	</properties>
+
+	<dependencies>
+		<!-- Infra Comp -->
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-catalina</artifactId>
+			<version>${org.apache.tomcat.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-coyote</artifactId>
+			<version>${org.apache.tomcat.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io.version}</version>
+		</dependency>
+
+		<!-- Spring Start -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${org.springframework.security.version}</version>
+			<exclusions>
+				<!-- exclude jcl, to use jcl-over-slf4j -->
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${org.springframework.security.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-acl</artifactId>
+			<version>${org.springframework.security.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+
+		<!-- for non-odata format data iterface db -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>${org.springframework.data.version}</version>
+		</dependency>
+		<!-- Spring End -->
+
+
+		<!-- Persist Comp -->
+		<!-- jdbc for postgreSQL -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${org.postgresql.version}</version>
+		</dependency>
+
+		<!-- Eclipse Link as JPA provider with JPA-RS to replace hibernate -->
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>eclipselink</artifactId>
+			<version>${org.eclipse.persistence.version}</version>
+		</dependency>
+		<!--
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${org.hibernate.version}</version>
+        </dependency>
+		-->
+		<!-- Rest Start -->
+
+		<!-- jackson -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-json-provider</artifactId>
+			<version>${com.fasterxml.jackson.jaxrs.version}</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-servlet</artifactId>
+			<version>${org.glassfish.jersey.containers.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-multipart</artifactId>
+			<version>${org.glassfish.jersey.containers.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.ext</groupId>
+			<artifactId>jersey-bean-validation</artifactId>
+			<version>${org.glassfish.jersey.containers.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.ext</groupId>
+			<artifactId>jersey-spring3</artifactId>
+			<version>${org.glassfish.jersey.containers.version}</version>
+		</dependency>
+
+		<!-- Rest End -->
+		<!-- OData Impl Start -->
+		<dependency>
+			<groupId>org.apache.olingo</groupId>
+			<artifactId>olingo-odata2-api</artifactId>
+			<version>${org.apache.olingo.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.olingo</groupId>
+			<artifactId>olingo-odata2-core</artifactId>
+			<version>${org.apache.olingo.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.olingo</groupId>
+			<artifactId>olingo-odata2-jpa-processor-api</artifactId>
+			<version>${org.apache.olingo.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.olingo</groupId>
+			<artifactId>olingo-odata2-api-annotation</artifactId>
+			<version>${org.apache.olingo.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.olingo</groupId>
+			<artifactId>olingo-odata2-jpa-processor-core</artifactId>
+			<version>${org.apache.olingo.version}</version>
+		</dependency>
+		<!-- OData Impl End -->
+
+		<!-- Log Comp -->
+		<!-- SLF4J Start -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${org.slf4j.version}</version>
+		</dependency>
+		<!-- redirect jcl log to slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${org.slf4j.version}</version>
+		</dependency>
+		<!-- redirect jul log to slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+			<version>${org.slf4j.version}</version>
+		</dependency>
+		<!-- slf4j impl: Logback -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${ch.qos.logback.version}</version>
+		</dependency>
+		<!-- SLF4J End -->
+	</dependencies>
+
+
+</project>
