@@ -23,7 +23,7 @@
 	</parent>
 
 	<artifactId>infra-server-lib</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<properties>
@@ -231,6 +231,6 @@
 	<!-- Environment Settings -->
 	<scm>
 		<developerConnection>scm:git:https://github.com/xfcjscn/infra-server-lib.git</developerConnection>
-	  <tag>1.0.0</tag>
+	  <tag>HEAD</tag>
   </scm>
 </project>
