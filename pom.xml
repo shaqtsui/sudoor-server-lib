@@ -3,7 +3,7 @@
 
 	<!--
 		NOTE :
-			Infra Lib Project Provide Interface:
+			sudoor Lib Project Provide Interface:
 				CORS filter
 
 				Spring Security for login
@@ -17,12 +17,12 @@
 	<!-- The Basics -->
 	<parent>
 		<groupId>net.gplatform</groupId>
-		<artifactId>infra-server-parent</artifactId>
-		<version>1.0.0</version>
-		<relativePath>../infra-server-parent</relativePath>
+		<artifactId>sudoor-server-parent</artifactId>
+		<version>1.0.1</version>
+		<relativePath>../sudoor-server-parent</relativePath>
 	</parent>
 
-	<artifactId>infra-server-lib</artifactId>
+	<artifactId>sudoor-server-lib</artifactId>
 	<version>1.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
@@ -48,7 +48,7 @@
 	</properties>
 
 	<dependencies>
-		<!-- Infra Comp -->
+		<!-- sudoor Comp -->
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-catalina</artifactId>
@@ -230,7 +230,7 @@
 
 	<!-- Environment Settings -->
 	<scm>
-		<developerConnection>scm:git:https://github.com/xfcjscn/infra-server-lib.git</developerConnection>
+		<developerConnection>scm:git:https://github.com/xfcjscn/sudoor-server-lib.git</developerConnection>
 	  <tag>HEAD</tag>
   </scm>
 </project>

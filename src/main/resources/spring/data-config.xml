@@ -11,7 +11,7 @@
 
 	<bean id="entityManagerFactory"
 	      class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-		<property name="persistenceUnitName" value="#{T(net.gplatform.server.infra.jpa.Constants).DEFAULT_ENTITY_UNIT_NAME}"></property>
+		<property name="persistenceUnitName" value="#{T(net.gplatform.sudoor.server.jpa.Constants).DEFAULT_ENTITY_UNIT_NAME}"></property>
 	</bean>
 
 	<bean id="transactionManager"
@@ -19,6 +19,6 @@
 		<property name="entityManagerFactory" ref="entityManagerFactory"></property>
 	</bean>
 
-	<jpa:repositories base-package="net.gplatform.server"/>
+	<jpa:repositories base-package="net.gplatform.sudoor"/>
 
 </beans>

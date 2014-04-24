@@ -5,9 +5,9 @@
 		<non-jta-data-source>java:/comp/env/jdbc/GPlatformDataSource</non-jta-data-source>
 
         <!-- Entity classes auto find only work during compilation. Explicit declare, so that not missed during sub-project compile -->
-        <class>net.gplatform.server.infra.tools.fileupload.File</class>
-        <class>net.gplatform.server.infra.ss.entity.CredentialUser</class>
-        <class>net.gplatform.server.infra.ss.entity.CredentialAuthority</class>
+        <class>net.gplatform.sudoor.server.tools.fileupload.File</class>
+        <class>net.gplatform.sudoor.server.ss.entity.CredentialUser</class>
+        <class>net.gplatform.sudoor.server.ss.entity.CredentialAuthority</class>
 
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
 

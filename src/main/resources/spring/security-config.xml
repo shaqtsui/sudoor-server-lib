@@ -24,7 +24,7 @@
         <property name="permissionEvaluator" ref="defaultPermissionEvaluator" />
     </bean>
 
-    <bean id="defaultPermissionEvaluator" class="net.gplatform.server.infra.ss.DefaultPermissionEvaluator">
+    <bean id="defaultPermissionEvaluator" class="net.gplatform.sudoor.server.ss.DefaultPermissionEvaluator">
     </bean>
 
 	<!-- for OPTIONS request (1, Add CORS header(this should move to filter due to ss will splite headers). 2, Block further process) -->
@@ -35,7 +35,7 @@
 		</constructor-arg>
 	</bean>
 
-	<bean id="stopperFilter" class="net.gplatform.server.infra.ss.filter.StopperFilter">
+	<bean id="stopperFilter" class="net.gplatform.sudoor.server.ss.filter.StopperFilter">
 	</bean>
 
 	<security:http auto-config="false" request-matcher-ref="OPTIONSRequestMatcher" create-session="stateless">
@@ -44,20 +44,20 @@
 	</security:http>
 
 	<!-- for normall request -->
-	<bean id="errorResponseCodeHandler" class="net.gplatform.server.infra.ss.ResponseCodeHandler">
+	<bean id="errorResponseCodeHandler" class="net.gplatform.sudoor.server.ss.ResponseCodeHandler">
 		<property name="responseCode" value="601"/>
 	</bean>
 
-	<bean id="successResponseCodeHandler" class="net.gplatform.server.infra.ss.ResponseCodeHandler">
+	<bean id="successResponseCodeHandler" class="net.gplatform.sudoor.server.ss.ResponseCodeHandler">
 		<property name="responseCode" value="204"/>
 	</bean>
 
-	<bean id="401ResponseCodeHandler" class="net.gplatform.server.infra.ss.ResponseCodeHandler">
+	<bean id="401ResponseCodeHandler" class="net.gplatform.sudoor.server.ss.ResponseCodeHandler">
 		<property name="responseCode" value="401"/>
 	</bean>
 
-	<bean id="customizeRequestFilter" class="net.gplatform.server.infra.ss.filter.CustomizeRequestFilter">
-		<property name="requestFullName" value="net.gplatform.server.infra.ss.MultipleReadRequestWrapper"/>
+	<bean id="customizeRequestFilter" class="net.gplatform.sudoor.server.ss.filter.CustomizeRequestFilter">
+		<property name="requestFullName" value="net.gplatform.sudoor.server.ss.MultipleReadRequestWrapper"/>
 	</bean>
 
 	<security:http auto-config="false" entry-point-ref="401ResponseCodeHandler" use-expressions="true" request-matcher="regex"

@@ -22,7 +22,7 @@
     <!-- spring security headers will seprate multiple values, which will cause error in android browser -->
     <filter>
         <filter-name>CorsFilter</filter-name>
-        <filter-class>net.gplatform.server.infra.cors.CorsFilter</filter-class>
+        <filter-class>net.gplatform.sudoor.server.cors.CorsFilter</filter-class>
         <init-param>
             <param-name>cors.allowed.origins</param-name>
             <param-value>*</param-value>
@@ -65,7 +65,7 @@
 
     <servlet>
         <servlet-name>JPAManager</servlet-name>
-        <servlet-class>net.gplatform.server.infra.jpa.JPAManager</servlet-class>
+        <servlet-class>net.gplatform.sudoor.server.jpa.JPAManager</servlet-class>
     </servlet>
 
 	<servlet>
@@ -81,7 +81,7 @@
         </init-param>
         <init-param>
             <param-name>org.apache.olingo.odata2.service.factory</param-name>
-            <param-value>net.gplatform.server.infra.olingo.batch.JPAServiceFactory</param-value>
+            <param-value>net.gplatform.sudoor.server.olingo.batch.JPAServiceFactory</param-value>
         </init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
@@ -91,7 +91,7 @@
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <init-param>
             <param-name>javax.ws.rs.Application</param-name>
-            <param-value>net.gplatform.server.infra.jaxrs.RestApplication</param-value>
+            <param-value>net.gplatform.sudoor.server.jaxrs.RestApplication</param-value>
         </init-param>
         <init-param>
             <param-name>jersey.config.server.wadl.disableWadl</param-name>
@@ -99,7 +99,7 @@
         </init-param>
         <init-param>
             <param-name>jersey.config.server.provider.packages</param-name>
-            <param-value>net.gplatform.server.infra.jaxrs.cache,net.gplatform.server.infra.ss,net.gplatform.server.infra.tools</param-value>
+            <param-value>net.gplatform.sudoor.server.jaxrs.cache,net.gplatform.sudoor.server.ss,net.gplatform.sudoor.server.tools</param-value>
         </init-param>
         <load-on-startup>2</load-on-startup>
     </servlet>
