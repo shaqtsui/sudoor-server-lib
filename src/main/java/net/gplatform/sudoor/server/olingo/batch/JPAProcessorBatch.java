@@ -1,5 +1,15 @@
 package net.gplatform.sudoor.server.olingo.batch;
 
+import java.io.InputStream;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.persistence.EntityManager;
+
 import org.apache.olingo.odata2.api.edm.EdmEntitySet;
 import org.apache.olingo.odata2.api.edm.EdmEntityType;
 import org.apache.olingo.odata2.api.edm.EdmNavigationProperty;
@@ -14,16 +24,14 @@ import org.apache.olingo.odata2.jpa.processor.core.ODataEntityParser;
 import org.apache.olingo.odata2.jpa.processor.core.access.data.JPAEntity;
 import org.apache.olingo.odata2.jpa.processor.core.access.data.JPAEntityParser;
 import org.apache.olingo.odata2.jpa.processor.core.access.data.JPAProcessorImpl;
-
-import javax.persistence.EntityManager;
-import java.io.InputStream;
-import java.lang.reflect.Method;
-import java.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by Administrator on 14-1-6.
  */
 public class JPAProcessorBatch extends JPAProcessorImpl {
+	final Logger logger = LoggerFactory.getLogger(JPAProcessorBatch.class);
 
 	/**
 	 * Duplicate here for processCreate use
@@ -39,16 +47,14 @@ public class JPAProcessorBatch extends JPAProcessorImpl {
 	}
 
 	@Override
-	public Object process(final PostUriInfo createView, final InputStream content,
-	                      final String requestedContentType) throws ODataJPAModelException,
+	public Object process(final PostUriInfo createView, final InputStream content, final String requestedContentType) throws ODataJPAModelException,
 			ODataJPARuntimeException {
 		Object result = processCreate(createView, content, null, requestedContentType);
 		return result;
 	}
 
 	@Override
-	public Object process(final PostUriInfo createView, final Map<String, Object> content)
-			throws ODataJPAModelException, ODataJPARuntimeException {
+	public Object process(final PostUriInfo createView, final Map<String, Object> content) throws ODataJPAModelException, ODataJPARuntimeException {
 		Object result = processCreate(createView, null, content, null);
 		return result;
 	}
@@ -85,13 +91,13 @@ public class JPAProcessorBatch extends JPAProcessorImpl {
 		oDataContext.setParameter(contentId + "", jpaEntity);
 	}
 
-	private void populateRelatedJPAEntity(JPAEntity jpaEntity,  ODataEntry oDataEntry, ODataJPAContext oDataJPAContext) {
+	private void populateRelatedJPAEntity(JPAEntity jpaEntity, ODataEntry oDataEntry, ODataJPAContext oDataJPAContext) {
 		ODataContext oDataContext = oDataJPAContext.getODataContext();
 
 		Map<String, List> assoInfo = getAssociateInfo(oDataEntry);
 		if (assoInfo.size() > 0) {
 			Set fieldNames = assoInfo.keySet();
-			for (java.util.Iterator iterator = fieldNames.iterator(); iterator.hasNext(); ) {
+			for (java.util.Iterator iterator = fieldNames.iterator(); iterator.hasNext();) {
 				String fName = (String) iterator.next();
 				List fValue = assoInfo.get(fName);
 
@@ -104,30 +110,30 @@ public class JPAProcessorBatch extends JPAProcessorImpl {
 					jpaObjectList.add(refJPAObj);
 				}
 				try {
-					EdmNavigationProperty edmNavigationProperty = (EdmNavigationProperty) jpaEntity.getEdmEntitySet().getEntityType().getProperty(fName);
+					EdmNavigationProperty edmNavigationProperty = (EdmNavigationProperty) jpaEntity.getEdmEntitySet().getEntityType()
+							.getProperty(fName);
 
-					Method accessModifiersWrite = jpaEntityParser.getAccessModifier(jpaEntity.getJPAEntity().getClass(), edmNavigationProperty,							JPAEntityParser.ACCESS_MODIFIER_SET);
+					Method accessModifiersWrite = jpaEntityParser.getAccessModifier(jpaEntity.getJPAEntity().getClass(), edmNavigationProperty,
+							JPAEntityParser.ACCESS_MODIFIER_SET);
 					switch (edmNavigationProperty.getMultiplicity()) {
-						case MANY:
-							accessModifiersWrite.invoke(jpaEntity.getJPAEntity(), jpaObjectList);
-							break;
-						case ONE:
-						case ZERO_TO_ONE:
-							accessModifiersWrite.invoke(jpaEntity.getJPAEntity(), jpaObjectList.get(0));
-							break;
+					case MANY:
+						accessModifiersWrite.invoke(jpaEntity.getJPAEntity(), jpaObjectList);
+						break;
+					case ONE:
+					case ZERO_TO_ONE:
+						accessModifiersWrite.invoke(jpaEntity.getJPAEntity(), jpaObjectList.get(0));
+						break;
 					}
 
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("populateRelatedJPAEntity() error", e);
 				}
 			}
 		}
 	}
 
-	private Object processCreate(final PostUriInfo createView, final InputStream content,
-	                             final Map<String, Object> properties,
-	                             final String requestedContentType) throws ODataJPAModelException,
-			ODataJPARuntimeException {
+	private Object processCreate(final PostUriInfo createView, final InputStream content, final Map<String, Object> properties,
+			final String requestedContentType) throws ODataJPAModelException, ODataJPARuntimeException {
 		try {
 
 			final EdmEntitySet oDataEntitySet = createView.getTargetEntitySet();
@@ -137,8 +143,7 @@ public class JPAProcessorBatch extends JPAProcessorImpl {
 
 			if (content != null) {
 				final ODataEntityParser oDataEntityParser = new ODataEntityParser(oDataJPAContext);
-				final ODataEntry oDataEntry =
-						oDataEntityParser.parseEntry(oDataEntitySet, content, requestedContentType, false);
+				final ODataEntry oDataEntry = oDataEntityParser.parseEntry(oDataEntitySet, content, requestedContentType, false);
 				virtualJPAEntity.create(oDataEntry);
 				populateRelatedJPAEntity(virtualJPAEntity, oDataEntry, oDataJPAContext);
 				saveJPAEntity(virtualJPAEntity, oDataJPAContext);
@@ -159,11 +164,9 @@ public class JPAProcessorBatch extends JPAProcessorImpl {
 
 			}
 		} catch (Exception e) {
-			throw ODataJPARuntimeException.throwException(
-					ODataJPARuntimeException.ERROR_JPQL_CREATE_REQUEST, e);
+			throw ODataJPARuntimeException.throwException(ODataJPARuntimeException.ERROR_JPQL_CREATE_REQUEST, e);
 		}
 		return null;
 	}
-
 
 }
