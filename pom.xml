@@ -27,7 +27,6 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<org.apache.tomcat.version>7.0.52</org.apache.tomcat.version>
 		<commons-io.version>2.4</commons-io.version>
 		<commons-lang3.version>3.2.1</commons-lang3.version>
 		<org.apache.httpcomponents.version>4.3</org.apache.httpcomponents.version>
@@ -44,25 +43,11 @@
 		<!-- from 2.7 it will use jdk 7 -->
 		<org.glassfish.jersey.containers.version>2.6</org.glassfish.jersey.containers.version>
 		<org.apache.olingo.version>1.2.0</org.apache.olingo.version>
-		<org.postgresql.version>9.2-1003-jdbc4</org.postgresql.version>
 		
 	</properties>
 
 	<dependencies>
 		<!-- Infra Comp -->
-		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-catalina</artifactId>
-			<version>${org.apache.tomcat.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-coyote</artifactId>
-			<version>${org.apache.tomcat.version}</version>
-			<scope>provided</scope>
-		</dependency>
-
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
@@ -119,14 +104,6 @@
 		</dependency>
 		<!-- Spring End -->
 
-
-		<!-- Persist Comp -->
-		<!-- jdbc for postgreSQL -->
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>${org.postgresql.version}</version>
-		</dependency>
 
 		<!-- Eclipse Link as JPA provider with JPA-RS to replace hibernate -->
 		<dependency>
