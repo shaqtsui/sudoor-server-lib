@@ -13,13 +13,13 @@
 
     <beans profile="dev">
         <context:property-placeholder location="classpath:spring/env.dev.properties"/>
-        <import resource="classpath:spring/security-config.xml"/>
-        <import resource="classpath:spring/data-config.xml"/>
+        <import resource="classpath:spring/data/*-config.xml"/>
+        <import resource="classpath:spring/security/*-config.xml"/>
     </beans>
     <beans profile="production">
         <context:property-placeholder location="classpath:spring/env.production.properties"/>
-        <import resource="classpath:spring/security-config.xml"/>
-        <import resource="classpath:spring/data-config.xml"/>
+        <import resource="classpath:spring/data/*-config.xml"/>
+        <import resource="classpath:spring/security/*-config.xml"/>
     </beans>
 
 </beans>
