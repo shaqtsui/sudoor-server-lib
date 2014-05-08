@@ -11,7 +11,7 @@
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
     </TestPlan>
     <hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="First File" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="500" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -46,22 +46,6 @@
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
         </HTTPSamplerProxy>
         <hashTree/>
-      </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Metadata" enabled="true">
-        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
-          <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
-        </elementProp>
-        <stringProp name="ThreadGroup.num_threads">500</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">5</stringProp>
-        <longProp name="ThreadGroup.start_time">1373789594000</longProp>
-        <longProp name="ThreadGroup.end_time">1373789594000</longProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-      </ThreadGroup>
-      <hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Metadata" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="Variables pré-définies" enabled="true">
             <collectionProp name="Arguments.arguments"/>
@@ -73,6 +57,26 @@
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
           <stringProp name="HTTPSampler.path">/sudoor-server-lib/data/odata.svc/$metadata</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Index" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="Variables pré-définies" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/sudoor-server-lib/index.html</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -101,6 +105,7 @@
       <ResultCollector guiclass="StatGraphVisualizer" testclass="ResultCollector" testname="Aggregate Graph" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
+          <name>saveConfig</name>
           <value class="SampleSaveConfiguration">
             <time>true</time>
             <latency>true</latency>
@@ -127,6 +132,7 @@
           </value>
         </objProp>
         <objProp>
+          <name></name>
           <value class="SampleSaveConfiguration">
             <time>true</time>
             <latency>true</latency>
@@ -158,6 +164,7 @@
       <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="用表格察看结果" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
+          <name>saveConfig</name>
           <value class="SampleSaveConfiguration">
             <time>true</time>
             <latency>true</latency>
@@ -184,6 +191,7 @@
           </value>
         </objProp>
         <objProp>
+          <name></name>
           <value class="SampleSaveConfiguration">
             <time>true</time>
             <latency>true</latency>
@@ -215,6 +223,7 @@
       <ResultCollector guiclass="SplineVisualizer" testclass="ResultCollector" testname="Spline Visualizer" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
+          <name>saveConfig</name>
           <value class="SampleSaveConfiguration">
             <time>true</time>
             <latency>true</latency>
@@ -241,6 +250,7 @@
           </value>
         </objProp>
         <objProp>
+          <name></name>
           <value class="SampleSaveConfiguration">
             <time>true</time>
             <latency>true</latency>
@@ -272,6 +282,7 @@
       <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="察看结果树" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
+          <name>saveConfig</name>
           <value class="SampleSaveConfiguration">
             <time>true</time>
             <latency>true</latency>
@@ -298,6 +309,7 @@
           </value>
         </objProp>
         <objProp>
+          <name></name>
           <value class="SampleSaveConfiguration">
             <time>true</time>
             <latency>true</latency>
