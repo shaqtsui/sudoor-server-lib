@@ -23,7 +23,7 @@
 	</parent>
 
 	<artifactId>sudoor-server-lib</artifactId>
-	<version>1.0.3</version>
+	<version>1.0.4-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<properties>
@@ -215,6 +215,6 @@
 		<connection>scm:git:https://github.com/xfcjscn/sudoor-server-lib.git</connection>
 		<developerConnection>scm:git:https://github.com/xfcjscn/sudoor-server-lib.git</developerConnection>
 		<url>https://github.com/xfcjscn/sudoor-server-lib</url>
-		<tag>1.0.3</tag>
+		<tag>HEAD</tag>
 	</scm>
 </project>
