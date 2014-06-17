@@ -830,8 +830,8 @@ public final class CorsFilter implements Filter {
 	 * @see <a href="http://tools.ietf.org/html/rfc952">RFC952</a>
 	 */
 	protected static boolean isValidOrigin(String origin) {
-		//Changed by Shark to support origin file://
-		if("file://".equals(origin)){
+		//Changed by Shark to support origin file:// & null
+		if("file://".equals(origin) || "null".equals(origin)){
 			return true;
 		}
 
