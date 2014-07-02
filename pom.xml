@@ -18,7 +18,7 @@
 	<parent>
 		<groupId>net.gplatform</groupId>
 		<artifactId>sudoor-server-parent</artifactId>
-		<version>1.0.3</version>
+		<version>1.0.4-SNAPSHOT</version>
 		<relativePath>../sudoor-server-parent</relativePath>
 	</parent>
 
@@ -27,31 +27,20 @@
 	<packaging>war</packaging>
 
 	<properties>
-		
-		<org.jboss.weld.version>2.1.0.Final</org.jboss.weld.version>
 		<org.eclipse.persistence.version>2.5.1</org.eclipse.persistence.version>
 
 		<com.fasterxml.jackson.jaxrs.version>2.3.2</com.fasterxml.jackson.jaxrs.version>
 		<!-- from 2.7 it will use jdk 7 -->
 		<org.glassfish.jersey.containers.version>2.6</org.glassfish.jersey.containers.version>
 		<org.apache.olingo.version>1.2.0</org.apache.olingo.version>
-
-		<io.spring.platform.version>1.0.0.RELEASE</io.spring.platform.version>
 	</properties>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>io.spring.platform</groupId>
-				<artifactId>platform-bom</artifactId>
-				<version>${io.spring.platform.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+	
 		<!-- Infra Comp -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -215,4 +204,12 @@
 		<url>https://github.com/xfcjscn/sudoor-server-lib</url>
 		<tag>HEAD</tag>
 	</scm>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>
