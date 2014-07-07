@@ -28,7 +28,7 @@
 
 	<properties>
 		<org.eclipse.persistence.version>2.5.1</org.eclipse.persistence.version>
-
+		<cxf.version>3.0.0</cxf.version>
 		<com.fasterxml.jackson.jaxrs.version>2.3.2</com.fasterxml.jackson.jaxrs.version>
 		<!-- from 2.7 it will use jdk 7 -->
 		<org.glassfish.jersey.containers.version>2.6</org.glassfish.jersey.containers.version>
@@ -57,6 +57,18 @@
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
+		</dependency>
+		
+		<!-- use cxf to provider ws support, as spring ws only support contract-first approach which is a effort consuming approach -->
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>${cxf.version}</version>
 		</dependency>
 
 		<!-- Rest Start -->
