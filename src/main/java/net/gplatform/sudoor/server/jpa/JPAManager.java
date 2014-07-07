@@ -22,23 +22,25 @@ package net.gplatform.sudoor.server.jpa;
  * #L%
  */
 
+import java.io.IOException;
+import java.io.Writer;
+
+import javax.persistence.EntityManagerFactory;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import net.gplatform.sudoor.server.spring.SpringContextsUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.persistence.EntityManagerFactory;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.Writer;
-
 /**
  * Created by Administrator on 14-3-5.
  */
+@WebServlet(urlPatterns = { "/JPAManager" })
 public class JPAManager extends HttpServlet {
 	final Logger logger = LoggerFactory.getLogger(JPAManager.class);
 	public final static String REFRESH_L1_CACHE = "refresh_l1_cache";
