@@ -29,10 +29,13 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by Administrator on 13-12-26.
  */
+
+@Component
 public class SpringContextsUtil implements ApplicationContextAware {
 	final Logger logger = LoggerFactory.getLogger(SpringContextsUtil.class);
 
