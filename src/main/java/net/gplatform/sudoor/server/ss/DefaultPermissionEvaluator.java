@@ -33,6 +33,7 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
 import java.io.Serializable;
@@ -43,6 +44,8 @@ import java.util.Properties;
 /**
  * Created by Administrator on 14-1-15.
  */
+
+@Component
 public class DefaultPermissionEvaluator implements PermissionEvaluator {
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultPermissionEvaluator.class);
 

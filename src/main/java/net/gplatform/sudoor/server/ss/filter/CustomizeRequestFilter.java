@@ -35,10 +35,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CustomizeRequestFilter implements Filter {
 	final Logger logger = LoggerFactory.getLogger(CustomizeRequestFilter.class);
 
+	@Value("net.gplatform.sudoor.server.ss.MultipleReadRequestWrapper")
 	String requestFullName;
 
 	public String getRequestFullName() {
