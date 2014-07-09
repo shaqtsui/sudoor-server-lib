@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<bean id="WSS4JInInterceptor" class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+		<constructor-arg>
+			<map>
+				<entry key="#{T(org.apache.wss4j.common.ConfigurationConstants).ACTION}" value="#{T(org.apache.wss4j.common.ConfigurationConstants).USERNAME_TOKEN}" />
+				<entry key="#{T(org.apache.wss4j.common.ConfigurationConstants).PASSWORD_TYPE}" value="PasswordText" />
+				<entry key="passwordCallbackRef">
+					<ref bean="springSecurityServerPasswordCallback" />
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+
+</beans>
