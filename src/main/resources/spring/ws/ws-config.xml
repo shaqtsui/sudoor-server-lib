@@ -14,4 +14,12 @@
 		</constructor-arg>
 	</bean>
 
+	<jaxws:endpoint id="authServiceEndPoint" implementor="#authServiceImpl" address="/authService">
+		<jaxws:inInterceptors>
+			<ref bean="WSS4JInInterceptor" />
+		</jaxws:inInterceptors>
+	</jaxws:endpoint>
+	
+	<jaxws:client id="authServiceClient" serviceClass="net.gplatform.sudoor.server.auth.ws.AuthService" address="http://localhost:8080/obiz/data/ws/authService" />
+
 </beans>
