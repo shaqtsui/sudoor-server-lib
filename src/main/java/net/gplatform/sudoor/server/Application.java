@@ -29,9 +29,8 @@ import org.springframework.context.annotation.ImportResource;
 
 @Configuration
 @ImportResource({ "classpath:META-INF/cxf/cxf.xml", "classpath:META-INF/cxf/cxf-servlet.xml", "classpath*:META-INF/cxf/cxf-extension-*.xml",
-		"classpath*:spring/security/security-config.xml" })
+		"classpath*:spring/security/security-config.xml", "classpath*:spring/ws/ws-config.xml" })
 @ComponentScan
-
 public class Application {
 
 	/*
