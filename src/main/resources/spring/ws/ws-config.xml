@@ -8,18 +8,36 @@
 				<entry key="#{T(org.apache.wss4j.common.ConfigurationConstants).ACTION}" value="#{T(org.apache.wss4j.common.ConfigurationConstants).USERNAME_TOKEN}" />
 				<entry key="#{T(org.apache.wss4j.common.ConfigurationConstants).PASSWORD_TYPE}" value="PasswordText" />
 				<entry key="passwordCallbackRef">
-					<ref bean="springSecurityServerPasswordCallback" />
+					<ref bean="serverPasswordCallback" />
 				</entry>
 			</map>
 		</constructor-arg>
 	</bean>
+
+	<bean id="WSS4JOutInterceptor" class="org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor">
+		<constructor-arg>
+			<map>
+				<entry key="#{T(org.apache.wss4j.common.ConfigurationConstants).ACTION}" value="#{T(org.apache.wss4j.common.ConfigurationConstants).USERNAME_TOKEN}" />
+				<entry key="#{T(org.apache.wss4j.common.ConfigurationConstants).PASSWORD_TYPE}" value="PasswordText" />
+				<entry key="#{T(org.apache.wss4j.common.ConfigurationConstants).USER}" value="testUser" />
+				<entry key="passwordCallbackRef">
+					<ref bean="clientPasswordCallback" />
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+
 
 	<jaxws:endpoint id="authServiceEndPoint" implementor="#authServiceImpl" address="/authService">
 		<jaxws:inInterceptors>
 			<ref bean="WSS4JInInterceptor" />
 		</jaxws:inInterceptors>
 	</jaxws:endpoint>
-	
-	<jaxws:client id="authServiceClient" serviceClass="net.gplatform.sudoor.server.auth.ws.AuthService" address="http://localhost:8080/obiz/data/ws/authService" />
+
+	<jaxws:client id="authServiceClient" serviceClass="net.gplatform.sudoor.server.auth.ws.AuthService" address="http://localhost:8080/obiz/data/ws/authService">
+		<jaxws:outInterceptors>
+			<ref bean="WSS4JOutInterceptor" />
+		</jaxws:outInterceptors>
+	</jaxws:client>
 
 </beans>
