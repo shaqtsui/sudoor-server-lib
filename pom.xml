@@ -19,7 +19,7 @@
 		<groupId>net.gplatform</groupId>
 		<artifactId>sudoor-server-parent</artifactId>
 		<version>1.0.5-SNAPSHOT</version>
-		<relativePath>../sudoor-server-parent</relativePath>
+		<relativePath />
 	</parent>
 
 	<artifactId>sudoor-server-lib</artifactId>
