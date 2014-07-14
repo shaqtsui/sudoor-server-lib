@@ -23,14 +23,18 @@ package net.gplatform.sudoor.server;
  */
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @ImportResource({ "classpath:META-INF/cxf/cxf.xml", "classpath:META-INF/cxf/cxf-servlet.xml", "classpath*:META-INF/cxf/cxf-extension-*.xml",
 		"classpath*:spring/security/security-config.xml", "classpath*:spring/ws/ws-config.xml" })
 @ComponentScan
+@EntityScan
+@EnableJpaRepositories("net.gplatform.sudoor.server")
 public class Application {
 
 	/*
