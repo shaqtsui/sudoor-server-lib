@@ -10,6 +10,12 @@ import org.apache.wss4j.common.ext.WSPasswordCallback;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+/**
+ * NOT used, as it need to retrieve clear pw from spring security via callback while spring security store hash in DB,
+ * Use simple WS to do authenticate instead.
+ * @author xufucheng
+ *
+ */
 @Component
 public class ServerPasswordCallback implements CallbackHandler {
 

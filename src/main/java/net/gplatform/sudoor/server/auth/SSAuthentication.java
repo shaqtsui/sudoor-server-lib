@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SSAuthentication {
 	@Autowired
-	private static AuthenticationManager authenticationManager;
+	private AuthenticationManager authenticationManager;
 
 	public void authenticate(String username, String password) {
 		Authentication request = new UsernamePasswordAuthenticationToken(username, password);
