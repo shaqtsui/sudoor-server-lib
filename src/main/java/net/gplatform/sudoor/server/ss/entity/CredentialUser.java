@@ -24,6 +24,7 @@ package net.gplatform.sudoor.server.ss.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -46,7 +47,7 @@ public class CredentialUser {
 	Boolean enabled;
 	// End Files required by SS
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	List<CredentialAuthority> credentialAuthorities;
 
 	public String getUsername() {

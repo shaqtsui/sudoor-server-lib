@@ -3,7 +3,7 @@ package net.gplatform.sudoor.server.cxf;
 import java.util.Map;
 import java.util.Vector;
 
-import net.gplatform.sudoor.server.auth.SSAuthentication;
+import net.gplatform.sudoor.server.auth.SSAuth;
 
 import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.interceptor.Fault;
@@ -18,8 +18,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * NOT used, as it need to retrieve clear pw from spring security via callback while spring security store hash in DB,
- * Use simple WS to do authenticate instead.
+ * NOT used, as it need to retrieve clear pw from spring security via callback
+ * while spring security store hash in DB, Use simple WS to do authenticate
+ * instead.
+ * 
  * @author xufucheng
  *
  */
@@ -28,7 +30,7 @@ public class WSAuthenticationInInterceptor extends WSS4JInInterceptor {
 	final Logger logger = LoggerFactory.getLogger(WSAuthenticationInInterceptor.class);
 
 	@Autowired
-	private SSAuthentication SSAuthentication;
+	private SSAuth SSAuth;
 
 	public WSAuthenticationInInterceptor() {
 		super();
@@ -38,12 +40,12 @@ public class WSAuthenticationInInterceptor extends WSS4JInInterceptor {
 		super(properties);
 	}
 
-	public SSAuthentication getSSAuthentication() {
-		return SSAuthentication;
+	public SSAuth getSSAuth() {
+		return SSAuth;
 	}
 
-	public void setSSAuthentication(SSAuthentication sSAuthentication) {
-		SSAuthentication = sSAuthentication;
+	public void setSSAuth(SSAuth sSAuth) {
+		SSAuth = sSAuth;
 	}
 
 	@Override
@@ -65,7 +67,7 @@ public class WSAuthenticationInInterceptor extends WSS4JInInterceptor {
 								principal.setPassword("");
 							}
 
-							SSAuthentication.authenticate(principal.getName(), principal.getPassword());
+							SSAuth.authenticate(principal.getName(), principal.getPassword());
 						}
 					}
 				}

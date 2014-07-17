@@ -26,9 +26,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.Email;
 
 @Entity
 @Table(name = "authorities")
@@ -38,10 +35,12 @@ public class CredentialAuthority {
 	Long id;
 
 	// Start Files required by SS
-	@NotNull
-	@Email
+
+	// Can not enable validation, there is a bug in Hibernate when do cascade persist
+	//@NotNull
+	//@Email
 	String username;
-	@NotNull
+	//@NotNull
 	String authority;
 
 	// End Files required by SS
