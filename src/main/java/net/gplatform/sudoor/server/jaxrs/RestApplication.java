@@ -22,16 +22,19 @@ package net.gplatform.sudoor.server.jaxrs;
  * #L%
  */
 
-
-import org.glassfish.jersey.media.multipart.MultiPartFeature;
-
-import javax.ws.rs.core.Application;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
+
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 
 /**
  * Created by Administrator on 14-1-3.
  */
+
+@ApplicationPath("/data/rest")
 public class RestApplication extends Application {
 	@Override
 	public Set<Class<?>> getClasses() {

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:cxf="http://cxf.apache.org/core"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
+
+	<cxf:bus>
+		<cxf:features>
+			<cxf:logging />
+		</cxf:features>
+	</cxf:bus>
+
+	<bean id="WSS4JInInterceptor" class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+		<constructor-arg>
+			<map>
+				<entry key="#{T(org.apache.wss4j.common.ConfigurationConstants).ACTION}" value="#{T(org.apache.wss4j.common.ConfigurationConstants).USERNAME_TOKEN}" />
+				<entry key="#{T(org.apache.wss4j.common.ConfigurationConstants).PASSWORD_TYPE}" value="PasswordText" />
+				<entry key="passwordCallbackRef">
+					<ref bean="serverPasswordCallback" />
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<bean id="WSS4JOutInterceptor" class="org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor">
+		<constructor-arg>
+			<map>
+				<entry key="#{T(org.apache.wss4j.common.ConfigurationConstants).ACTION}" value="#{T(org.apache.wss4j.common.ConfigurationConstants).USERNAME_TOKEN}" />
+				<entry key="#{T(org.apache.wss4j.common.ConfigurationConstants).PASSWORD_TYPE}" value="PasswordText" />
+				<entry key="#{T(org.apache.wss4j.common.ConfigurationConstants).USER}" value="testUser" />
+				<entry key="passwordCallbackRef">
+					<ref bean="clientPasswordCallback" />
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+
+
+	<jaxws:endpoint id="authServiceEndPoint" implementor="#authServiceImpl" address="/authService">
+	</jaxws:endpoint>
+
+	<jaxws:client id="authServiceClient" serviceClass="net.gplatform.sudoor.server.auth.ws.AuthService" address="http://localhost:8080/obiz/data/ws/authService">
+	</jaxws:client>
+
+</beans>

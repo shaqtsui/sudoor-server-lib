@@ -18,17 +18,17 @@
 	<parent>
 		<groupId>net.gplatform</groupId>
 		<artifactId>sudoor-server-parent</artifactId>
-		<version>1.0.4-SNAPSHOT</version>
-		<relativePath>../sudoor-server-parent</relativePath>
+		<version>1.0.5-SNAPSHOT</version>
+		<relativePath />
 	</parent>
 
 	<artifactId>sudoor-server-lib</artifactId>
 	<version>1.0.4-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<properties>
 		<org.eclipse.persistence.version>2.5.1</org.eclipse.persistence.version>
-
+		<cxf.version>3.0.0</cxf.version>
 		<com.fasterxml.jackson.jaxrs.version>2.3.2</com.fasterxml.jackson.jaxrs.version>
 		<!-- from 2.7 it will use jdk 7 -->
 		<org.glassfish.jersey.containers.version>2.6</org.glassfish.jersey.containers.version>
@@ -36,9 +36,23 @@
 	</properties>
 
 	<dependencies>
+		<!-- used to track app status -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jolokia</groupId>
+			<artifactId>jolokia-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 	
 		<!-- Infra Comp -->
@@ -50,63 +64,24 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 		</dependency>
-
-		<!-- Spring Start -->
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-			<exclusions>
-				<!-- exclude jcl, to use jcl-over-slf4j -->
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-acl</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-
-		<!-- for non-odata format data iterface db -->
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-jpa</artifactId>
-		</dependency>
-		<!-- Spring End -->
-
-
-		<!-- Eclipse Link as JPA provider with JPA-RS to replace hibernate -->
-		<dependency>
-			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>eclipselink</artifactId>
-			<version>${org.eclipse.persistence.version}</version>
-		</dependency>
-		<!--
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-        </dependency>
-		-->
 		
-		
+		<!-- use cxf to provider ws support, as spring ws only support contract-first approach which is a effort consuming approach -->
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-ws-security</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+
 		<!-- Rest Start -->
 
 		<!-- jackson -->
@@ -129,11 +104,6 @@
 		<dependency>
 			<groupId>org.glassfish.jersey.ext</groupId>
 			<artifactId>jersey-bean-validation</artifactId>
-			<version>${org.glassfish.jersey.containers.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.ext</groupId>
-			<artifactId>jersey-spring3</artifactId>
 			<version>${org.glassfish.jersey.containers.version}</version>
 		</dependency>
 
@@ -168,29 +138,6 @@
 		</dependency>
 		<!-- OData Impl End -->
 
-
-		<!-- Log Comp -->
-		<!-- SLF4J Start -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-		</dependency>
-		<!-- redirect jcl log to slf4j -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-		</dependency>
-		<!-- redirect jul log to slf4j -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jul-to-slf4j</artifactId>
-		</dependency>
-		<!-- slf4j impl: Logback -->
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-		</dependency>
-		<!-- SLF4J End -->
 	</dependencies>
 
 	<!-- Environment Settings -->

@@ -34,6 +34,12 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
+/**
+ * No empty constructor so can not use annotation Component
+ * @author xufucheng
+ *
+ */
 public class MultipleReadRequestWrapper extends HttpServletRequestWrapper {
 
 	final Logger logger = LoggerFactory.getLogger(MultipleReadRequestWrapper.class);
