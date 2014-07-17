@@ -22,22 +22,37 @@ package net.gplatform.sudoor.server.ss.entity;
  * #L%
  */
 
-import org.hibernate.validator.constraints.Email;
-
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
 
 @Entity
 @Table(name = "authorities")
 public class CredentialAuthority {
 	@Id
+	@GeneratedValue
+	Long id;
+
+	// Start Files required by SS
 	@NotNull
 	@Email
 	String username;
 	@NotNull
 	String authority;
+
+	// End Files required by SS
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getUsername() {
 		return username;

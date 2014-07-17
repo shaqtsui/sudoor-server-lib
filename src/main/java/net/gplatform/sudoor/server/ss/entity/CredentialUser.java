@@ -22,14 +22,20 @@ package net.gplatform.sudoor.server.ss.entity;
  * #L%
  */
 
-import org.hibernate.validator.constraints.Email;
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
 
 @Entity
 @Table(name = "users")
 public class CredentialUser {
+	// Start Files required by SS
 	@Id
 	@NotNull
 	@Email
@@ -38,12 +44,10 @@ public class CredentialUser {
 	String password;
 	@NotNull
 	Boolean enabled;
+	// End Files required by SS
 
-	@OneToOne(cascade = CascadeType.PERSIST)
-	CredentialAuthority authorities;
-
-	// @OneToMany
-	// List<CredentialAuthorities> credentialAuthorities;
+	@OneToMany
+	List<CredentialAuthority> credentialAuthorities;
 
 	public String getUsername() {
 		return username;
@@ -69,11 +73,12 @@ public class CredentialUser {
 		this.enabled = enabled;
 	}
 
-	public CredentialAuthority getAuthorities() {
-		return authorities;
+	public List<CredentialAuthority> getCredentialAuthorities() {
+		return credentialAuthorities;
 	}
 
-	public void setAuthorities(CredentialAuthority authorities) {
-		this.authorities = authorities;
+	public void setCredentialAuthorities(List<CredentialAuthority> credentialAuthorities) {
+		this.credentialAuthorities = credentialAuthorities;
 	}
+
 }

@@ -1,5 +1,6 @@
 package net.gplatform.sudoor.server.auth.ws;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jws.WebService;
@@ -32,18 +33,19 @@ public class AuthServiceImpl implements AuthService {
 		credentialUser.setUsername(username);
 		credentialUser.setPassword(password);
 		credentialUser.setEnabled(true);
-		
+
 		CredentialAuthority credentialAuthority = new CredentialAuthority();
 		credentialAuthority.setUsername(username);
 		credentialAuthority.setAuthority("ROLE_USER");
-		
-		//credentialUser.setAuthorities(credentialAuthority);
+		List<CredentialAuthority> credentialAuthorities = new ArrayList<CredentialAuthority>();
+		credentialAuthorities.add(credentialAuthority);
+		credentialUser.setCredentialAuthorities(credentialAuthorities);
 		List<CredentialUser> l = credentialUserRepository.findAll();
-		for(CredentialUser cu:l){
-			System.out.println("=====================u"+cu.getUsername());
-			System.out.println("=====================p"+cu.getPassword());
+		for (CredentialUser cu : l) {
+			System.out.println("=====================u" + cu.getUsername());
+			System.out.println("=====================p" + cu.getPassword());
 		}
-		
+
 		credentialUserRepository.saveAndFlush(credentialUser);
 		return "SUCCESS";
 	}
