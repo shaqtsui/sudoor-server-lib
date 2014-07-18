@@ -32,9 +32,6 @@
 	http://www.springframework.org/schema/jee
 	http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
 	">
-	
-    <!--  -->
-	<security:debug/>
 
     <bean id="expressionHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler">
         <property name="permissionEvaluator" ref="defaultPermissionEvaluator" />
