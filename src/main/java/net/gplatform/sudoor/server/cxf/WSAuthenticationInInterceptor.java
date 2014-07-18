@@ -3,7 +3,7 @@ package net.gplatform.sudoor.server.cxf;
 import java.util.Map;
 import java.util.Vector;
 
-import net.gplatform.sudoor.server.auth.SSAuth;
+import net.gplatform.sudoor.server.security.auth.SSAuth;
 
 import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.interceptor.Fault;

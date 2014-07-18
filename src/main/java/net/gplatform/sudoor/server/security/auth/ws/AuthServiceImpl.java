@@ -1,4 +1,4 @@
-package net.gplatform.sudoor.server.auth.ws;
+package net.gplatform.sudoor.server.security.auth.ws;
 
 import javax.jws.WebService;
 
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @WebService
 public class AuthServiceImpl implements AuthService {
 	@Autowired
-	net.gplatform.sudoor.server.auth.SSAuth SSAuth;
+	net.gplatform.sudoor.server.security.auth.SSAuth SSAuth;
 
 	@Override
 	public String authenticate(String username, String password) {

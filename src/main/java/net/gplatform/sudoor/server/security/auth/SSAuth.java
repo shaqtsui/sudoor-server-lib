@@ -1,4 +1,4 @@
-package net.gplatform.sudoor.server.auth;
+package net.gplatform.sudoor.server.security.auth;
 
 import java.util.ArrayList;
 import java.util.List;

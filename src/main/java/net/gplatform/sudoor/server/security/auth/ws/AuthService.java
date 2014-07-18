@@ -1,4 +1,4 @@
-package net.gplatform.sudoor.server.auth.ws;
+package net.gplatform.sudoor.server.security.auth.ws;
 
 import javax.jws.WebService;
 

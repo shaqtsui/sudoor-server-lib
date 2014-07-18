@@ -38,7 +38,7 @@
 	<jaxws:endpoint id="authServiceEndPoint" implementor="#authServiceImpl" address="/authService">
 	</jaxws:endpoint>
 
-	<jaxws:client id="authServiceClient" serviceClass="net.gplatform.sudoor.server.auth.ws.AuthService" address="http://localhost:8080/obiz/data/ws/authService">
+	<jaxws:client id="authServiceClient" serviceClass="net.gplatform.sudoor.server.security.auth.ws.AuthService" address="http://localhost:8080/obiz/data/ws/authService">
 	</jaxws:client>
 
 </beans>
