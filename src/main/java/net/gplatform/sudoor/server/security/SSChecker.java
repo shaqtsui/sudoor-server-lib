@@ -1,4 +1,4 @@
-package net.gplatform.sudoor.server.ss;
+package net.gplatform.sudoor.server.security;
 
 /*
  * #%L

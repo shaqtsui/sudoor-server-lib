@@ -3,9 +3,9 @@ package net.gplatform.sudoor.server.auth;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.gplatform.sudoor.server.ss.CredentialUserRepository;
-import net.gplatform.sudoor.server.ss.entity.CredentialAuthority;
-import net.gplatform.sudoor.server.ss.entity.CredentialUser;
+import net.gplatform.sudoor.server.security.CredentialUserRepository;
+import net.gplatform.sudoor.server.security.entity.CredentialAuthority;
+import net.gplatform.sudoor.server.security.entity.CredentialUser;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

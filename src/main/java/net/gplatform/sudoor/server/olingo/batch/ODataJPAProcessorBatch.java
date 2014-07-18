@@ -23,8 +23,8 @@ package net.gplatform.sudoor.server.olingo.batch;
  */
 
 
+import net.gplatform.sudoor.server.security.SSChecker;
 import net.gplatform.sudoor.server.spring.SpringContextsUtil;
-import net.gplatform.sudoor.server.ss.SSChecker;
 
 import org.apache.olingo.odata2.api.batch.BatchHandler;
 import org.apache.olingo.odata2.api.batch.BatchRequestPart;

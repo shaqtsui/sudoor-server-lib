@@ -54,15 +54,15 @@
 	</security:http>
 
 	<!-- for normall request -->
-	<bean id="errorResponseCodeHandler" class="net.gplatform.sudoor.server.ss.ResponseCodeHandler">
+	<bean id="errorResponseCodeHandler" class="net.gplatform.sudoor.server.security.ResponseCodeHandler">
 		<property name="responseCode" value="601"/>
 	</bean>
 
-	<bean id="successResponseCodeHandler" class="net.gplatform.sudoor.server.ss.ResponseCodeHandler">
+	<bean id="successResponseCodeHandler" class="net.gplatform.sudoor.server.security.ResponseCodeHandler">
 		<property name="responseCode" value="204"/>
 	</bean>
 
-	<bean id="401ResponseCodeHandler" class="net.gplatform.sudoor.server.ss.ResponseCodeHandler">
+	<bean id="401ResponseCodeHandler" class="net.gplatform.sudoor.server.security.ResponseCodeHandler">
 		<property name="responseCode" value="401"/>
 	</bean>
 
