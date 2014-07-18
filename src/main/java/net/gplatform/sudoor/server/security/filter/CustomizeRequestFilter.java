@@ -42,7 +42,7 @@ import org.springframework.stereotype.Component;
 public class CustomizeRequestFilter implements Filter {
 	final Logger logger = LoggerFactory.getLogger(CustomizeRequestFilter.class);
 
-	@Value("net.gplatform.sudoor.server.ss.MultipleReadRequestWrapper")
+	@Value("net.gplatform.sudoor.server.security.MultipleReadRequestWrapper")
 	String requestFullName;
 
 	public String getRequestFullName() {
