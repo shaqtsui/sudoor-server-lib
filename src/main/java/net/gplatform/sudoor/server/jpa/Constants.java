@@ -29,7 +29,7 @@ package net.gplatform.sudoor.server.jpa;
 public class Constants {
 
 	//This value should be same as the one defined in persistence.xml
-	public static final String DEFAULT_ENTITY_UNIT_NAME = "BizData";
+	public static final String DEFAULT_ENTITY_UNIT_NAME = "default";
 
 	//This value should be same as the one defined in data-config.xml
 	public static final String ENTITY_MANAGER_FACTORY_ID = "entityManagerFactory";

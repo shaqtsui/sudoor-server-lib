@@ -32,7 +32,7 @@
 		<com.fasterxml.jackson.jaxrs.version>2.3.2</com.fasterxml.jackson.jaxrs.version>
 		<!-- from 2.7 it will use jdk 7 -->
 		<org.glassfish.jersey.containers.version>2.6</org.glassfish.jersey.containers.version>
-		<org.apache.olingo.version>1.2.0</org.apache.olingo.version>
+		<org.apache.olingo.version>2.0.0</org.apache.olingo.version>
 	</properties>
 
 	<dependencies>

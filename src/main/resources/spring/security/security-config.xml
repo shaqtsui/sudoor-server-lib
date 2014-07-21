@@ -32,6 +32,9 @@
 	http://www.springframework.org/schema/jee
 	http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
 	">
+	
+	<!--  -->
+	<security:debug/>
 
     <bean id="expressionHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler">
         <property name="permissionEvaluator" ref="defaultPermissionEvaluator" />
@@ -45,10 +48,7 @@
 		</constructor-arg>
 	</bean>
 
-	<security:http auto-config="false" request-matcher-ref="OPTIONSRequestMatcher" create-session="stateless">
-		<security:form-login/>
-		<security:custom-filter ref="stopperFilter" after="HEADERS_FILTER"/>
-	</security:http>
+
 
 	<!-- for normall request -->
 	<bean id="errorResponseCodeHandler" class="net.gplatform.sudoor.server.security.ResponseCodeHandler">
@@ -70,7 +70,6 @@
 		<security:form-login authentication-failure-handler-ref="errorResponseCodeHandler"
 		                     authentication-success-handler-ref="successResponseCodeHandler"/>
 		<security:remember-me/>
-		<security:custom-filter ref="customizeRequestFilter" position="FIRST"/>
 		<security:logout delete-cookies="JSESSIONID" success-handler-ref="successResponseCodeHandler"/>
 		<security:session-management>
 			<security:concurrency-control max-sessions="1"/>

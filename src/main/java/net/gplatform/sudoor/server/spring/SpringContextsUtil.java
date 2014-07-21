@@ -32,7 +32,8 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by Administrator on 13-12-26.
+ * NOTE:
+ * This Class should only be used in those Object not managed by SIC
  */
 
 @Component
