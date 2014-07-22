@@ -37,7 +37,7 @@ public class LinkedInProfileController {
 	public String home(Principal currentUser, Model model) {
 		Connection<LinkedIn> connection = connectionRepository.findPrimaryConnection(LinkedIn.class);
 		if (connection == null) {
-			return "redirect:/connect/linkedin";
+			return "redirect:/web/connect/linkedin";
 		}
 		model.addAttribute("profile", connection.getApi().profileOperations().getUserProfileFull());
 		return "linkedin/profile";

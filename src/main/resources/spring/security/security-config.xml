@@ -70,6 +70,7 @@
 		<security:form-login authentication-failure-handler-ref="errorResponseCodeHandler"
 		                     authentication-success-handler-ref="successResponseCodeHandler"/>
 		<security:remember-me/>
+		<security:csrf />
 		<security:logout delete-cookies="JSESSIONID" success-handler-ref="successResponseCodeHandler"/>
 		<security:session-management>
 			<security:concurrency-control max-sessions="1"/>
