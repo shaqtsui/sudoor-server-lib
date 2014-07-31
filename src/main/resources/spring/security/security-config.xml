@@ -62,7 +62,7 @@
 	</bean>
 
 	<security:http auto-config="false" entry-point-ref="401ResponseCodeHandler" use-expressions="true" request-matcher="regex"
-		pattern="/data/odata.svc/Credential.*|/data/rest/SpringSecurity/.*|/data/rest/tools/.*|/web/j_spring_security_.*">
+		pattern="/data/odata.svc/Credential.*">
 		<security:intercept-url pattern="/data/odata.svc/Credential.*" method="GET" access="denyAll" />
 		<security:intercept-url pattern=".*" access="permitAll" />
 		<security:form-login authentication-failure-handler-ref="errorResponseCodeHandler" authentication-success-handler-ref="successResponseCodeHandler" />
@@ -74,7 +74,10 @@
 		</security:session-management>
 	</security:http>
 
-	<security:http pattern="/web/error|/data/odata.svc/\$metadata|/data/odata.svc/\$batch" request-matcher="regex" security="none" />
+	<!-- none security is not recommended, since security filter not only do auth but also other security check e.g. csrf -->
+	<security:http
+		pattern="/web/error|/web/j_spring_security_.*|/data/odata.svc/\$metadata|/data/odata.svc/\$batch|/data/rest/SpringSecurity/.*|/data/rest/tools/.*"
+		request-matcher="regex" security="none" />
 	<security:authentication-manager alias="authenticationManager">
 		<security:authentication-provider>
 			<security:jdbc-user-service data-source-ref="dataSource" />
