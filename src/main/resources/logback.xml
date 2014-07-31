@@ -34,15 +34,8 @@
 		</encoder>
 	</appender>
 	
-	<root level="info">
+	<root level="error">
 		<appender-ref ref="STDOUT"></appender-ref>
+		<appender-ref ref="FILE"></appender-ref>
 	</root>
-
-	<logger name="org.glassfish.jersey" level="trace" />
-	<logger name="org.odata4j" level="trace" />
-	<logger name="net.gplatform" level="trace" />
-	<logger name="org.eclipse.persistence" level="trace" />
-    <logger name="javax.validation" level="trace" />
-    <logger name="org.hibernate" level="trace" />
-
 </configuration>
