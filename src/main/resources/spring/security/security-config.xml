@@ -20,11 +20,9 @@
   <http://www.gnu.org/licenses/gpl-2.0.html>.
   #L%
   -->
-
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:security="http://www.springframework.org/schema/security"
-       xmlns:jee="http://www.springframework.org/schema/jee"
-       xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="
 	http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
 	http://www.springframework.org/schema/security 
@@ -34,11 +32,11 @@
 	">
 	
 	<!--  -->
-	<security:debug/>
+	<security:debug />
 
-    <bean id="expressionHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler">
-        <property name="permissionEvaluator" ref="defaultPermissionEvaluator" />
-    </bean>
+	<bean id="expressionHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler">
+		<property name="permissionEvaluator" ref="defaultPermissionEvaluator" />
+	</bean>
 	
 	<!-- for OPTIONS request (1, Add CORS header(this should move to filter due to ss will splite headers). 2, Block further process) -->
 	<bean id="OPTIONSRequestMatcher" class="org.springframework.security.web.util.RegexRequestMatcher">
@@ -52,37 +50,34 @@
 
 	<!-- for normall request -->
 	<bean id="errorResponseCodeHandler" class="net.gplatform.sudoor.server.security.ResponseCodeHandler">
-		<property name="responseCode" value="601"/>
+		<property name="responseCode" value="601" />
 	</bean>
 
 	<bean id="successResponseCodeHandler" class="net.gplatform.sudoor.server.security.ResponseCodeHandler">
-		<property name="responseCode" value="204"/>
+		<property name="responseCode" value="204" />
 	</bean>
 
 	<bean id="401ResponseCodeHandler" class="net.gplatform.sudoor.server.security.ResponseCodeHandler">
-		<property name="responseCode" value="401"/>
+		<property name="responseCode" value="401" />
 	</bean>
 
 	<security:http auto-config="false" entry-point-ref="401ResponseCodeHandler" use-expressions="true" request-matcher="regex"
-	               pattern="/data/odata.svc/Credential.*|/data/rest/SpringSecurity/.*|/data/rest/tools/.*|/web/j_spring_security_.*">
-		<security:intercept-url pattern="/data/odata.svc/Credential.*" method="GET" access="denyAll"/>
-		<security:intercept-url pattern=".*" access="permitAll"/>
-		<security:form-login authentication-failure-handler-ref="errorResponseCodeHandler"
-		                     authentication-success-handler-ref="successResponseCodeHandler"/>
-		<security:remember-me/>
+		pattern="/data/odata.svc/Credential.*|/data/rest/SpringSecurity/.*|/data/rest/tools/.*|/web/j_spring_security_.*">
+		<security:intercept-url pattern="/data/odata.svc/Credential.*" method="GET" access="denyAll" />
+		<security:intercept-url pattern=".*" access="permitAll" />
+		<security:form-login authentication-failure-handler-ref="errorResponseCodeHandler" authentication-success-handler-ref="successResponseCodeHandler" />
+		<security:remember-me />
 		<security:csrf />
-		<security:logout delete-cookies="JSESSIONID" success-handler-ref="successResponseCodeHandler"/>
+		<security:logout delete-cookies="JSESSIONID" success-handler-ref="successResponseCodeHandler" />
 		<security:session-management>
-			<security:concurrency-control max-sessions="1"/>
+			<security:concurrency-control max-sessions="1" />
 		</security:session-management>
 	</security:http>
-	
-	<security:http
-	               pattern="/web/error|/data/odata.svc/\$metadata|/data/odata.svc/\$batch" request-matcher="regex" security="none" />
 
+	<security:http pattern="/web/error|/data/odata.svc/\$metadata|/data/odata.svc/\$batch" request-matcher="regex" security="none" />
 	<security:authentication-manager alias="authenticationManager">
 		<security:authentication-provider>
-			<security:jdbc-user-service data-source-ref="dataSource"/>
+			<security:jdbc-user-service data-source-ref="dataSource" />
 		</security:authentication-provider>
 	</security:authentication-manager>
 </beans>
