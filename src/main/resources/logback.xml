@@ -27,6 +27,12 @@
 			<pattern>[SLF4J_LOGBACK] %level %logger %msg %n</pattern>
 		</encoder>
 	</appender>
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>/app.log</file>
+		<encoder>
+			<pattern>[SLF4J_LOGBACK] %-5level %logger{10} - %msg %n</pattern>
+		</encoder>
+	</appender>
 	
 	<root level="info">
 		<appender-ref ref="STDOUT"></appender-ref>
