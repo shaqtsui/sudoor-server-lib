@@ -31,7 +31,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @ImportResource({ "classpath:META-INF/cxf/cxf.xml", "classpath:META-INF/cxf/cxf-servlet.xml", "classpath*:META-INF/cxf/cxf-extension-*.xml",
-		"classpath*:spring/security/security-config.xml", "classpath*:spring/ws/ws-config.xml" })
+		"classpath*:spring/security/security-config-*.xml", "classpath*:spring/ws/ws-config-*.xml" })
 @ComponentScan
 @EntityScan
 @EnableJpaRepositories("net.gplatform.sudoor.server")
