@@ -73,11 +73,21 @@
 			<security:concurrency-control max-sessions="1" />
 		</security:session-management>
 	</security:http>
+	
+	<!-- Simpliest config for bypass requests  -->
+	<security:http use-expressions="true" request-matcher="regex"
+		pattern="/index.html|/web/error|/web/j_spring_security_.*|/data/odata.svc/\$metadata|/data/odata.svc/\$batch|/data/rest/SpringSecurity/.*|/data/rest/tools/.*">
+		<security:intercept-url pattern=".*" access="permitAll" />
+		<security:form-login />
+		<security:logout />
+	</security:http>
 
-	<!-- none security is not recommended, since security filter not only do auth but also other security check e.g. csrf -->
+	<!-- This can not be used in spring boot, since AuditListener audit will block it. Also none security is not recommended, since security filter not only do auth but also other security check e.g. csrf -->
+	<!-- 
 	<security:http
-		pattern="/web/error|/web/j_spring_security_.*|/data/odata.svc/\$metadata|/data/odata.svc/\$batch|/data/rest/SpringSecurity/.*|/data/rest/tools/.*"
+		pattern="/index.html|/web/error|/web/j_spring_security_.*|/data/odata.svc/\$metadata|/data/odata.svc/\$batch|/data/rest/SpringSecurity/.*|/data/rest/tools/.*"
 		request-matcher="regex" security="none" />
+	 -->
 	<security:authentication-manager alias="authenticationManager">
 		<security:authentication-provider>
 			<security:jdbc-user-service data-source-ref="dataSource" />
