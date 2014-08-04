@@ -1,0 +1,52 @@
+Web
+	1, Add Controller to accept request, invoke Domain Model and return View name
+		Convention: 
+			One Controller Object per Module
+			Controller Naming Convention: 
+				${base Package}.adapter.web.controller.${Module Name}Controller.java
+				E.g.
+					com.comp.team.product.adapter.web.controller.AccountController.java
+
+	2, Add Domain Model to impl biz logic(Include Data manipulation)
+		Convention: 
+			Model Naming Convention: 
+				${base Package}.core.${module Name}.${Model A Name}.java
+				${base Package}.core.${module Name}.${Model B Name}.java
+				E.g.
+					com.comp.team.product.core.loan.LoanInfo.java
+					com.comp.team.product.core.loan.LoanApply.java
+
+	3, Add View to present Domain Model
+		View is implemented via thymeleaf template
+		Convention: 
+			View Naming Convention:
+				src/main/resources/templates/${module Name}/${page Name}.html
+				E.g.
+					src/main/resources/templates/account/accountSummary.html
+
+
+
+DB Access
+	DB manipulation is done via Repository Object
+	Repository is just a Interface which extends JpaRepository, you no need to write impl, Spring Data will generate impl for you. 
+		E.g. 
+			public interface CredentialUserRepository extends JpaRepository<CredentialUser, String> {
+			}
+	
+	Repository Naming Convention: 
+		${base Package}.core.${module Name}.repository.${Data Model Name}Repository.java
+		E.g.
+			com.comp.team.product.core.loan.repository.LoanInfoRepository.java
+			com.comp.team.product.core.loan.repository.AddressInfoRepository.javal
+	
+	Usage:
+		a, Inject Repository object into your Domain Model(SPRING BEAN) field via spring annotation. 
+			Note: To make annotation injection work, Domain Model must be registed as a spring bean. 
+			E.g.
+				@Autowired
+				private CredentialUserRepository credentialUserRepository;
+				
+		b, Invoke parent Interface methods to manipulate DB.
+			E.g.
+				CredentialUser user=credentialUserRepository.findOne(userName);
+	
