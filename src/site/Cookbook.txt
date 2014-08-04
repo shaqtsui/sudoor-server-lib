@@ -50,3 +50,60 @@ DB Access
 			E.g.
 				CredentialUser user=credentialUserRepository.findOne(userName);
 	
+
+	
+Web Service
+	If you are Consumer(Client):
+		1, Consumer(Client) get wsdl from Provider(Server), so that he can know:
+			request & response elements
+			service URL
+		
+		2, Generate Stub from wsdl
+			a, Add maven plugin "cxf-codegen-plugin" to your maven build(if not in maven build)
+			b, Put wsdl in "src/main/resources/wsdl", plugin "cxf-codegen-plugin" will generate Stub for you during build
+				Note:
+					Generated Sub in: "target/generated-sources/cxf"
+			Note:
+				Stub Will do:
+					Encapsulate Codes to marshall & unmarshall request & responses (Message to Object mapping)
+					Send Msg & Receive Response
+		
+		3, Use Stub to send & receive Msg
+
+
+	If you are Provider(Server):
+		1, Create Service Interface
+			Any Interface annotated with @WebService should be ok
+			E.g.
+				@WebService
+				public interface AccountService {
+					public String getAccountName();
+				}
+				
+		
+		2, Create Service Impl
+			Class to impl the above defined interface, should be annotated with @WebService & @Component
+			E.g.
+				@Component
+				@WebService
+				public class AccountServiceImpl implements AccountService {
+					@Override
+					public String getAccountName() {
+						return "Hello World";
+					}
+				}
+		
+		3, Register in Spring
+			a, create/update "src/main/resources/spring/ws/ws-config-${module Name}.xml"
+				E.g.
+					<?xml version="1.0" encoding="UTF-8"?>
+					<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+						xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+					</beans>
+					
+			b, add entry:
+				<jaxws:endpoint id="${service Name}ServiceEndPoint" implementor="#${uncaptialized Service Impl Class Name }" address="/${module Name}/${service Name}Service" />
+				E.g.
+					<jaxws:endpoint id="accountServiceEndPoint" implementor="#accountServiceImpl" address="/account/accountService" />
+				
+				
