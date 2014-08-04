@@ -74,25 +74,33 @@ Web Service
 	If you are Provider(Server):
 		1, Create Service Interface
 			Any Interface annotated with @WebService should be ok
-			E.g.
-				@WebService
-				public interface AccountService {
-					public String getAccountName();
-				}
+			Convention: 
+				Service Interface Naming Convention: 
+					${base Package}.ws.${module Name}.${Service Interface Name}.java
+					E.g.
+						com.comp.team.product.ws.account.AccountService.java
+						@WebService
+						public interface AccountService {
+							public String getAccountName();
+						}
 				
 		
 		2, Create Service Impl
 			Class to impl the above defined interface, should be annotated with @WebService & @Component
-			E.g.
-				@Component
-				@WebService
-				public class AccountServiceImpl implements AccountService {
-					@Override
-					public String getAccountName() {
-						return "Hello World";
-					}
-				}
-		
+			Convention: 
+				Service Impl Naming Convention: 
+					${base Package}.ws.${module Name}.${Service Impl Name}.java
+					E.g.
+						com.comp.team.product.ws.account.AccountServiceImpl.java
+						@Component
+						@WebService
+						public class AccountServiceImpl implements AccountService {
+							@Override
+							public String getAccountName() {
+								return "Hello World";
+							}
+						}
+				
 		3, Register in Spring
 			a, create/update "src/main/resources/spring/ws/ws-config-${module Name}.xml"
 				E.g.
