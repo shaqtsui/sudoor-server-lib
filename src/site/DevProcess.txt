@@ -1,0 +1,20 @@
+PDCA
+	Plan
+		Scope:
+			1, If any non module specific requirement pls raise to me in FIRST ITERATION, so that it can be removed from your module scope & impleted in common.
+				If there is no requirement raised in FIRST ITERATION, I will assume all requirement will be implemented in your module 
+		
+		Schedule
+			2, module owner propose iteration plan & design
+				iteration should be delivery oriented
+				the iteration should from coarse-grained to fine-grained
+				next iteration should do enhance on previous delivery
+		3, tech issue by urself
+		4, project issue raise on time
+		5, conduct official process activity
+		6, domain expert setup when team is stable
+		7, child plan & design after high level plan & architecture
+		
+	Do
+	Check
+	Action
