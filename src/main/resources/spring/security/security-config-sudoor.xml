@@ -76,7 +76,7 @@
 	
 	<!-- Simpliest config for bypass requests  -->
 	<security:http use-expressions="true" request-matcher="regex"
-		pattern="/index.html|/web/error|/web/j_spring_security_.*|/data/odata.svc/\$metadata|/data/odata.svc/\$batch|/data/rest/SpringSecurity/.*|/data/rest/tools/.*">
+		pattern="/index.html|/web/error|/web/j_spring_security_.*|/web/sudoor/.*|/data/rest/sudoor/.*|/data/odata.svc/\$metadata|/data/odata.svc/\$batch">
 		<security:intercept-url pattern=".*" access="permitAll" />
 		<security:form-login />
 		<security:logout />

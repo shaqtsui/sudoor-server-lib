@@ -50,7 +50,7 @@ public class CaptchaImageCreateController {
                 this.captchaProducer = captchaProducer;
         }
 
-        @RequestMapping("/captcha-image.html")
+        @RequestMapping("/sudoor/captcha-image.html")
         public ModelAndView handleRequest(
                         HttpServletRequest request,
                         HttpServletResponse response) throws Exception {

@@ -49,7 +49,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * To change this template use File | Settings | File Templates.
  */
 
-@Path("/tools/fileupload/File")
+@Path("/sudoor/fileupload/File")
 public class FileResource {
 	final Logger logger = LoggerFactory.getLogger(FileResource.class);
 
