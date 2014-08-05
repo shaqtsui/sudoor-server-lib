@@ -1,0 +1,48 @@
+CORS
+
+Web Service:
+	JAXRS(jersey)
+	JAXWS(cxf)
+	
+	
+DB Access:
+	JPA(Hibernate)
+		JPAManager
+		
+	Spring Data JPA
+
+
+Standard Data API
+	Created by Olingo which comply to OData
+			
+
+Spring Security:
+	Login
+	Logout
+	Register
+	PW Reset
+	CSRF protect
+	
+	CredentialUserRepository
+	hasPermission Evaluator
+		SSChecker & DefaultPermissionEvaluator
+	SpringSecurityResource
+	SSAuth
+	AuthService
+	
+	
+Spring Social
+	Login via Linkedin, Facebook ...
+	Social Service API
+
+Spring:
+	SpringContextsUtil
+
+Captcha:
+	kaptcha
+	
+	
+Tools:
+	Fileupload
+		FileRepository
+		FileResource

@@ -33,6 +33,7 @@
 		<!-- from 2.7 it will use jdk 7 -->
 		<org.glassfish.jersey.containers.version>2.6</org.glassfish.jersey.containers.version>
 		<org.apache.olingo.version>2.0.0</org.apache.olingo.version>
+		<kaptcha.version>0.0.9</kaptcha.version>
 	</properties>
 
 	<dependencies>
@@ -159,6 +160,12 @@
 			<version>${org.apache.olingo.version}</version>
 		</dependency>
 		<!-- OData Impl End -->
+
+		<dependency>
+			<groupId>com.github.axet</groupId>
+			<artifactId>kaptcha</artifactId>
+			<version>${kaptcha.version}</version>
+		</dependency>
 
 	</dependencies>
 
