@@ -2,6 +2,10 @@ Web
 	1, Add Controller to accept request, invoke Domain Model and return View name
 		Convention: 
 			One Controller Object per Module
+			@RequestMapping Path Naming Convention:
+				/${module Name}/${method Name}
+				E.g.
+					/account/getAccountName
 			Controller Naming Convention: 
 				${base Package}.adapter.web.controller.${Module Name}Controller.java
 				E.g.
