@@ -1,24 +1,28 @@
 Web
 	1, Add Controller to accept request, invoke Domain Model and return View name
+		Controller include Web Controller, WS Controller and so on
 		Convention: 
-			One Controller Object per Module
+			One particular Controller Object per Module
 			@RequestMapping Path Naming Convention:
 				/${module Name}/${method Name}
 				E.g.
 					/account/getAccountName
 			Controller Naming Convention: 
-				${base Package}.adapter.web.controller.${Module Name}Controller.java
+				${base Package}.${module Name}.controller.${Controller Name}.java
 				E.g.
-					com.comp.team.product.adapter.web.controller.AccountController.java
+					com.comp.team.product.account.AccountController.java
 
 	2, Add Domain Model to impl biz logic(Include Data manipulation)
 		Convention: 
-			Model Naming Convention: 
-				${base Package}.core.${module Name}.${Model A Name}.java
-				${base Package}.core.${module Name}.${Model B Name}.java
+			Non-Data Model Naming Convention: 
+				${base Package}.${module Name}.model.${Model Name}.java
 				E.g.
-					com.comp.team.product.core.loan.LoanInfo.java
-					com.comp.team.product.core.loan.LoanApply.java
+					com.comp.team.product.loan.model.ValidateAndApplyLoan.java
+					
+			Data Model Naming Convention: 
+				${base Package}.${module Name}.model.entity.${Data Model Name}.java
+				E.g.
+					com.comp.team.product.loan.model.entity.LoanInfo.java
 
 	3, Add View to present Domain Model
 		View is implemented via thymeleaf template
@@ -38,10 +42,10 @@ DB Access
 			}
 	
 	Repository Naming Convention: 
-		${base Package}.core.${module Name}.repository.${Data Model Name}Repository.java
+		${base Package}.${module Name}.model.repository.${Data Model Name}Repository.java
 		E.g.
-			com.comp.team.product.core.loan.repository.LoanInfoRepository.java
-			com.comp.team.product.core.loan.repository.AddressInfoRepository.javal
+			com.comp.team.product.loan.model.repository.LoanInfoRepository.java
+			com.comp.team.product.loan.model.repository.AddressInfoRepository.javal
 	
 	Usage:
 		a, Inject Repository object into your Domain Model(SPRING BEAN) field via spring annotation. 
@@ -80,9 +84,9 @@ Web Service
 			Any Interface annotated with @WebService should be ok
 			Convention: 
 				Service Interface Naming Convention: 
-					${base Package}.ws.${module Name}.${Service Interface Name}.java
+					${base Package}.${module Name}.controller.${Service Interface Name}.java
 					E.g.
-						com.comp.team.product.ws.account.AccountService.java
+						com.comp.team.product.account.controller.AccountService.java
 						@WebService
 						public interface AccountService {
 							public String getAccountName();
@@ -93,9 +97,9 @@ Web Service
 			Class to impl the above defined interface, should be annotated with @WebService & @Component
 			Convention: 
 				Service Impl Naming Convention: 
-					${base Package}.ws.${module Name}.${Service Impl Name}.java
+					${base Package}.${module Name}.controller.${Service Impl Name}.java
 					E.g.
-						com.comp.team.product.ws.account.AccountServiceImpl.java
+						com.comp.team.product.account.controller.AccountServiceImpl.java
 						@Component
 						@WebService
 						public class AccountServiceImpl implements AccountService {
