@@ -49,20 +49,20 @@
 
 
 	<!-- for normall request -->
-	<bean id="errorResponseCodeHandler" class="net.gplatform.sudoor.server.security.ResponseCodeHandler">
+	<bean id="errorResponseCodeHandler" class="net.gplatform.sudoor.server.security.model.ResponseCodeHandler">
 		<property name="responseCode" value="601" />
 	</bean>
 
-	<bean id="successResponseCodeHandler" class="net.gplatform.sudoor.server.security.ResponseCodeHandler">
+	<bean id="successResponseCodeHandler" class="net.gplatform.sudoor.server.security.model.ResponseCodeHandler">
 		<property name="responseCode" value="204" />
 	</bean>
 
-	<bean id="401ResponseCodeHandler" class="net.gplatform.sudoor.server.security.ResponseCodeHandler">
+	<bean id="401ResponseCodeHandler" class="net.gplatform.sudoor.server.security.model.ResponseCodeHandler">
 		<property name="responseCode" value="401" />
 	</bean>
 
 	<security:http auto-config="false" entry-point-ref="401ResponseCodeHandler" use-expressions="true" request-matcher="regex"
-		pattern="/data/odata.svc/Credential.*">
+		pattern="/data/odata.svc/Credential.*|/app/connect.*|/app/linkedin.*">
 		<security:intercept-url pattern="/data/odata.svc/Credential.*" method="GET" access="denyAll" />
 		<security:intercept-url pattern=".*" access="permitAll" />
 		<security:form-login authentication-failure-handler-ref="errorResponseCodeHandler" authentication-success-handler-ref="successResponseCodeHandler" />
@@ -76,7 +76,7 @@
 	
 	<!-- Simpliest config for bypass requests  -->
 	<security:http use-expressions="true" request-matcher="regex"
-		pattern="/index.html|/web/error|/web/j_spring_security_.*|/web/sudoor/.*|/data/rest/sudoor/.*|/data/odata.svc/\$metadata|/data/odata.svc/\$batch">
+		pattern="/index.html|/app/error|/app/j_spring_security_.*|/app/web/.*|/app/sudoor/.*|/data/rest/sudoor/.*|/data/odata.svc/\$metadata|/data/odata.svc/\$batch">
 		<security:intercept-url pattern=".*" access="permitAll" />
 		<security:form-login />
 		<security:logout />
@@ -85,7 +85,7 @@
 	<!-- This can not be used in spring boot, since AuditListener audit will block it. Also none security is not recommended, since security filter not only do auth but also other security check e.g. csrf -->
 	<!-- 
 	<security:http
-		pattern="/index.html|/web/error|/web/j_spring_security_.*|/data/odata.svc/\$metadata|/data/odata.svc/\$batch|/data/rest/SpringSecurity/.*|/data/rest/tools/.*"
+		pattern="/index.html|/app/error|/app/j_spring_security_.*|/app/web/.*|/data/odata.svc/\$metadata|/data/odata.svc/\$batch|/data/rest/SpringSecurity/.*|/data/rest/tools/.*"
 		request-matcher="regex" security="none" />
 	 -->
 	<security:authentication-manager alias="authenticationManager">

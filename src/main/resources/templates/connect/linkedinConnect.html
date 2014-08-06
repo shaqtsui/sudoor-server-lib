@@ -7,7 +7,7 @@
 		<div id="content" layout:fragment="content">
 			<h3>Connect to LinkedIn</h3>
 			
-			<form th:action="@{/web/connect/linkedin}" method="POST">
+			<form th:action="@{/app/connect/linkedin}" method="POST">
 				<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
 				<input type="hidden" name="scope" value="r_basicprofile r_emailaddress r_network r_fullprofile rw_nus" />
 				<div class="formInfo">

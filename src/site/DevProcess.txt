@@ -16,5 +16,8 @@ PDCA
 		7, child plan & design after high level plan & architecture
 		
 	Do
+		There should be no changes in server-surdoor-lib project, if any pls raise
+		Don't check in DEV env files in to SCM
+		
 	Check
 	Action

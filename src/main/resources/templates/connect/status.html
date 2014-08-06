@@ -16,7 +16,7 @@
 				<span th:if="${#lists.isEmpty(connectionMap[__${providerId}__])}">
 					You are not yet connected to <span th:text="#{${providerId} + '.displayName'}">provider name</span>.
 				</span>
-				Click <a th:href="@{'/web/connect/' + ${providerId}}">here</a> to manage your <span th:text="#{${providerId} + '.displayName'}">provider name</span> connection.
+				Click <a th:href="@{'/app/connect/' + ${providerId}}">here</a> to manage your <span th:text="#{${providerId} + '.displayName'}">provider name</span> connection.
 				</p>
  			</div>
 		</div>

@@ -23,13 +23,15 @@ package net.gplatform.sudoor.server.olingo;
  */
 
 
-import net.gplatform.sudoor.server.jpa.Constants;
+import net.gplatform.sudoor.server.jpa.model.Constants;
 import net.gplatform.sudoor.server.spring.SpringContextsUtil;
+
 
 
 import org.apache.olingo.odata2.jpa.processor.api.ODataJPAContext;
 import org.apache.olingo.odata2.jpa.processor.api.ODataJPAServiceFactory;
 import org.apache.olingo.odata2.jpa.processor.api.exception.ODataJPARuntimeException;
+
 
 
 import javax.persistence.EntityManagerFactory;

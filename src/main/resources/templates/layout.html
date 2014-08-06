@@ -4,46 +4,46 @@
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	<head>
 		<title>Spring Social Showcase</title>
-		<link rel="stylesheet" th:href="@{/web/page.css}" type="text/css" media="screen"></link>
-		<link rel="stylesheet" th:href="@{/web/form.css}" type="text/css" media="screen"></link>
-		<link rel="stylesheet" th:href="@{/web/messages/messages.css}" type="text/css" media="screen"></link>
+		<link rel="stylesheet" th:href="@{/app/web/page.css}" type="text/css" media="screen"></link>
+		<link rel="stylesheet" th:href="@{/app/web/form.css}" type="text/css" media="screen"></link>
+		<link rel="stylesheet" th:href="@{/app/web/messages/messages.css}" type="text/css" media="screen"></link>
 	</head>
 	<body>
 		<div id="header">
-			<h1><a th:href="@{/web/}">Spring Social Showcase</a></h1>
+			<h1><a th:href="@{/app/}">Spring Social Showcase</a></h1>
 		</div>
 		
 		<div id="leftNav">
-			<h4><a th:href="@{/web/connect}">Connections</a></h4>
+			<h4><a th:href="@{/app/connect}">Connections</a></h4>
 			
-			<h4><a th:href="@{/web/twitter}">Twitter</a></h4>
+			<h4><a th:href="@{/app/twitter}">Twitter</a></h4>
 			<div social:connected="twitter">
 			<ul class="menu">
-				<li><a th:href="@{/web/twitter}">User Profile</a></li>
-				<li><a th:href="@{/web/twitter/timeline}">Timeline</a></li>
-				<li><a th:href="@{/web/twitter/friends}">Friends</a></li>
-				<li><a th:href="@{/web/twitter/followers}">Followers</a></li>
-				<li><a th:href="@{/web/twitter/messages}">Messages</a></li>
-				<li><a th:href="@{/web/twitter/trends}">Trends</a></li>
-				<li><a th:href="@{/web/twitter/revoked}">Sim Revoked</a></li>
+				<li><a th:href="@{/app/twitter}">User Profile</a></li>
+				<li><a th:href="@{/app/twitter/timeline}">Timeline</a></li>
+				<li><a th:href="@{/app/twitter/friends}">Friends</a></li>
+				<li><a th:href="@{/app/twitter/followers}">Followers</a></li>
+				<li><a th:href="@{/app/twitter/messages}">Messages</a></li>
+				<li><a th:href="@{/app/twitter/trends}">Trends</a></li>
+				<li><a th:href="@{/app/twitter/revoked}">Sim Revoked</a></li>
 			</ul>
 			</div>
-			<h4><a th:href="@{/web/facebook}">Facebook</a></h4>
+			<h4><a th:href="@{/app/facebook}">Facebook</a></h4>
 			<div social:connected="facebook">
 			<ul class="menu">
-				<li><a th:href="@{/web/facebook}">User Profile</a></li>
-				<li><a th:href="@{/web/facebook/feed}">Feed</a></li>
-				<li><a th:href="@{/web/facebook/friends}">Friends</a></li>
-				<li><a th:href="@{/web/facebook/albums}">Albums</a></li>
-				<li><a th:href="@{/web/facebook/expired}">Sim Expired</a></li>
+				<li><a th:href="@{/app/facebook}">User Profile</a></li>
+				<li><a th:href="@{/app/facebook/feed}">Feed</a></li>
+				<li><a th:href="@{/app/facebook/friends}">Friends</a></li>
+				<li><a th:href="@{/app/facebook/albums}">Albums</a></li>
+				<li><a th:href="@{/app/facebook/expired}">Sim Expired</a></li>
 			</ul>
 			</div>
 			
-			<h4><a th:href="@{/web/linkedin}">LinkedIn</a></h4>
+			<h4><a th:href="@{/app/linkedin}">LinkedIn</a></h4>
 			<div social:connected="linkedin">
 			<ul class="menu">
-				<li><a th:href="@{/web/linkedin}">User Profile</a></li>
-				<li><a th:href="@{/web/linkedin/connections}">Connections</a></li>
+				<li><a th:href="@{/app/linkedin}">User Profile</a></li>
+				<li><a th:href="@{/app/linkedin/connections}">Connections</a></li>
 			</ul>
 			</div>
 		</div>
