@@ -1,23 +1,28 @@
 PDCA
 	Plan
 		Scope:
-			1, If any non module specific requirement pls raise to me in FIRST ITERATION, so that it can be removed from your module scope & impleted in common.
-				If there is no requirement raised in FIRST ITERATION, I will assume all requirement will be implemented in your module 
+			Module Scope
+				If any non module specific requirement pls raise to me in FIRST ITERATION, so that it can be removed from your module scope & impleted in common.
+					If there is no requirement raised in FIRST ITERATION, I will assume all requirement will be implemented in your module 
 		
 		Schedule
-			2, module owner propose iteration plan & design
+			module owner propose iteration plan & design
 				iteration should be delivery oriented
 				the iteration should from coarse-grained to fine-grained
 				next iteration should do enhance on previous delivery
-		3, tech issue by urself
-		4, project issue raise on time
-		5, conduct official process activity
-		6, domain expert setup when team is stable
-		7, child plan & design after high level plan & architecture
+		tech issue by urself
+		project issue raise on time
+		Conduct official process activity
+			Weekly team meeting
+		domain expert setup when team is stable
+		child plan & design after high level plan & architecture
 		
 	Do
 		There should be no changes in server-surdoor-lib project, if any pls raise
-		Don't check in DEV env files in to SCM
+		Don't check in DEV env files into SCM
 		
 	Check
+		Submit Design & Impl to review every Friday morning
+		
 	Action
+		Correction in next iteration
