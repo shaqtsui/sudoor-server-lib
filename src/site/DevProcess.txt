@@ -20,6 +20,8 @@ PDCA
 	Do
 		There should be no changes in server-surdoor-lib project, if any pls raise
 		Don't check in DEV env files into SCM
+		Dev should strictly follow Cookbook
+		Page navigator should be form submit not ajax
 		
 	Check
 		Submit Design & Impl to review every Friday morning
