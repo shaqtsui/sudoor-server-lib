@@ -31,15 +31,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Email;
-
 @Entity
 @Table(name = "users")
 public class CredentialUser {
 	// Start Files required by SS
 	@Id
 	@NotNull
-	@Email
 	String username;
 	@NotNull
 	String password;
