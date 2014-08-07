@@ -123,3 +123,7 @@ Web Service
 					<jaxws:endpoint id="accountServiceEndPoint" implementor="#accountServiceImpl" address="/account/accountService" />
 				
 				
+
+Email
+	Inject MailClient & send()
+	

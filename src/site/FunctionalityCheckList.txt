@@ -18,8 +18,18 @@ Standard Data API
 
 Spring Security:
 	Login
+		Authentication & Authorization
+			Data Model:
+				CredentialUser
+				CredentialAuthority
+			Non-Data Model:
+				SSAuth
+					authenticate
+					register
+			Config:
+				src/main/resources/spring/security/security-config-*.xml
+			
 	Logout
-	Register
 	PW Reset
 	CSRF protect
 	
@@ -27,7 +37,7 @@ Spring Security:
 	hasPermission Evaluator
 		SSChecker & DefaultPermissionEvaluator
 	SpringSecurityResource
-	SSAuth
+	
 	AuthService
 	
 	
