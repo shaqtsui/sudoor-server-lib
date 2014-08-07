@@ -22,7 +22,7 @@ public class SSAuth {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
-	
+
 	@Autowired
 	private CredentialUserRepository credentialUserRepository;
 
@@ -33,8 +33,14 @@ public class SSAuth {
 		Authentication result = authenticationManager.authenticate(request);
 		SecurityContextHolder.getContext().setAuthentication(result);
 	}
-	
+
 	public String register(String username, String password) {
+		return register(username, password, "ROLE_USER");
+	}
+
+	public String register(String username, String password, String role) {
+		logger.debug("Register:" + username);
+
 		CredentialUser credentialUser = new CredentialUser();
 		credentialUser.setUsername(username);
 		credentialUser.setPassword(password);
@@ -42,10 +48,10 @@ public class SSAuth {
 
 		CredentialAuthority credentialAuthority = new CredentialAuthority();
 		credentialAuthority.setUsername(username);
-		credentialAuthority.setAuthority("ROLE_USER");
-		List<CredentialAuthority> credentialAuthorities = new ArrayList<CredentialAuthority>();		
+		credentialAuthority.setAuthority(role);
+		List<CredentialAuthority> credentialAuthorities = new ArrayList<CredentialAuthority>();
 		credentialAuthorities.add(credentialAuthority);
-		
+
 		credentialUser.setCredentialAuthorities(credentialAuthorities);
 
 		credentialUserRepository.saveAndFlush(credentialUser);
