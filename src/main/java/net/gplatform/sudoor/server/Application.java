@@ -34,10 +34,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableAutoConfiguration
 @ImportResource({ "classpath:META-INF/cxf/cxf.xml", "classpath:META-INF/cxf/cxf-servlet.xml", "classpath*:META-INF/cxf/cxf-extension-*.xml",
 		"classpath*:spring/**/*-config-*.xml" })
-@ComponentScan
 //TODO: Don't support multiple config, so can only config multiple value. Will change this once multiple config supported
-@EntityScan({ "net.gplatform.sudoor.server", "com.vcredit.jdev" })
-@EnableJpaRepositories({ "net.gplatform.sudoor.server", "com.vcredit.jdev" })
+@ComponentScan({ "net.gplatform.sudoor.server", "${application.basepackage}" })
+@EntityScan({ "net.gplatform.sudoor.server", "${application.basepackage}" })
+@EnableJpaRepositories({ "net.gplatform.sudoor.server", "${application.basepackage}" })
 public class Application {
 
 	/*
