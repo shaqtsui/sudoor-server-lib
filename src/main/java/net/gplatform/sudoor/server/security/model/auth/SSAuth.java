@@ -15,6 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -28,6 +29,24 @@ public class SSAuth {
 	@Autowired
 	private CredentialUserRepository credentialUserRepository;
 
+	public String getCurrentUser() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = null;
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		return username;
+	}
+
+	/**
+	 * WARNING: Normally this is used by non-web interface. For web interface, pls use
+	 * Spring Security config to auto authenticate
+	 * 
+	 * @param username
+	 * @param password
+	 */
 	public void authenticate(String username, String password) {
 		logger.debug("Authenticate:" + username);
 
