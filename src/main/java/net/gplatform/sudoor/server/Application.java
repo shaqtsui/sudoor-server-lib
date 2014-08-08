@@ -2,7 +2,7 @@ package net.gplatform.sudoor.server;
 
 /*
  * #%L
- * obiz
+ * sudoor-lib
  * %%
  * Copyright (C) 2013 - 2014 Shark Xu
  * %%
@@ -24,12 +24,20 @@ package net.gplatform.sudoor.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+/**
+ * This class as the entry point for application.
+ * SpringBootServletInitializer.configure() is entry point for external
+ * container deployment. main() is for spring boot jar direct start model.
+ * 
+ */
 @Configuration
 @EnableAutoConfiguration
 @ImportResource({ "classpath:META-INF/cxf/cxf.xml", "classpath:META-INF/cxf/cxf-servlet.xml", "classpath*:META-INF/cxf/cxf-extension-*.xml",
@@ -38,13 +46,18 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan({ "net.gplatform.sudoor.server", "${application.basepackage}" })
 @EntityScan({ "net.gplatform.sudoor.server", "${application.basepackage}" })
 @EnableJpaRepositories({ "net.gplatform.sudoor.server", "${application.basepackage}" })
-public class Application {
+public class Application extends SpringBootServletInitializer {
 
 	/*
 	 * Used by spring boot
 	 */
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
+	}
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(Application.class);
 	}
 
 }
