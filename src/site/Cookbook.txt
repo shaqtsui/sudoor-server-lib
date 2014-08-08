@@ -146,3 +146,15 @@ Web(Static Contents)
 Email
 	Inject MailClient & send()
 	
+	
+	
+Captcha Image Validate
+	1, Add image tag with src: "/${context Path}/${dispatchServlet Path}/sudoor/captcha-image.html" in your page to generate image
+		E.g.
+			<img src="/product/app/sudoor/captcha-image.html" />
+			
+	2, Add input with name: "_captcha" to capture the image contents 
+		E.g.
+			<input type="text" name="_captcha" />
+			
+	3, Inject & Invoke CaptchaValidator.validate() in your controller to validate
