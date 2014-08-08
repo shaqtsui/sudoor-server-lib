@@ -1,4 +1,4 @@
-Web
+App
 	1, Add Controller to accept request, invoke Domain Model and return View name
 		Controller include Web Controller, WS Controller and so on
 		Convention: 
@@ -10,7 +10,7 @@ Web
 			Controller Naming Convention: 
 				${base Package}.${module Name}.controller.${Controller Name}.java
 				E.g.
-					com.comp.team.product.account.AccountController.java
+					com.comp.team.product.account.controller.AccountController.java
 
 	2, Add Domain Model to impl biz logic(Include Data manipulation)
 		Convention: 
@@ -58,6 +58,17 @@ DB Access
 			E.g.
 				CredentialUser user=credentialUserRepository.findOne(userName);
 	
+
+
+Security
+	Security is implemented in Spring Security, so just need to config spring security config.
+	Convention: 
+		One config file per Module
+		Security Config Naming Convention: 
+			src/main/resources/spring/security/security-config-${module Name}.xml
+			E.g.
+				src/main/resources/spring/security/security-config-loan.xml
+
 
 	
 Web Service
@@ -122,8 +133,16 @@ Web Service
 				E.g.
 					<jaxws:endpoint id="accountServiceEndPoint" implementor="#accountServiceImpl" address="/account/accountService" />
 				
-				
 
+
+Web(Static Contents)
+	1, Add static files into path: "src/main/resources/static/web/${module Name}"
+	2, Refer to these static files via "/${context Path}/${dispatchServlet Path}/web/${module Name}/${satic File Name}"
+		E.g.
+			"/product/app/web/loan/loanInfo.js"
+
+				
+				
 Email
 	Inject MailClient & send()
 	
