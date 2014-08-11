@@ -88,7 +88,7 @@
 	
 	<!-- Simpliest config for bypass requests  -->
 	<security:http auto-config="true" use-expressions="true" request-matcher="regex"
-		pattern="/index.html|/app/error|/j_spring_security_.*|/spring_security_.*|/app/web/.*|/app/sudoor/.*|/data/rest/sudoor/.*|/data/odata.svc/\$metadata|/data/odata.svc/\$batch">
+		pattern="/index.html|/.*spring_security.*|/app/error|/app/web/.*|/app/sudoor/.*|/data/rest/sudoor/.*|/data/odata.svc/\$metadata|/data/odata.svc/\$batch">
 		<security:intercept-url pattern=".*" access="permitAll" />
 	</security:http>
 
