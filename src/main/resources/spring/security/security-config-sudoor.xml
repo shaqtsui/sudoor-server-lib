@@ -61,8 +61,8 @@
 		<property name="responseCode" value="401" />
 	</bean>
 
-	<security:http auto-config="false" entry-point-ref="401ResponseCodeHandler" use-expressions="true" request-matcher="regex"
-		pattern="/data/odata.svc/Credential.*|/app/connect.*|/app/linkedin.*">
+	<!-- for ajax -->
+	<security:http entry-point-ref="401ResponseCodeHandler" use-expressions="true" request-matcher="regex" pattern="/data/odata.svc/Credential.*">
 		<security:intercept-url pattern="/data/odata.svc/Credential.*" method="GET" access="denyAll" />
 		<security:intercept-url pattern=".*" access="permitAll" />
 		<security:form-login authentication-failure-handler-ref="errorResponseCodeHandler" authentication-success-handler-ref="successResponseCodeHandler" />
@@ -73,13 +73,23 @@
 			<security:concurrency-control max-sessions="1" />
 		</security:session-management>
 	</security:http>
+
+	<!-- for form submision -->
+	<security:http use-expressions="false" request-matcher="regex" pattern="/app/connect.*|/app/linkedin.*">
+		<security:intercept-url pattern=".*" access="ROLE_USER" />
+		<security:form-login />
+		<security:remember-me />
+		<security:csrf />
+		<security:logout delete-cookies="JSESSIONID" />
+		<security:session-management>
+			<security:concurrency-control max-sessions="1" />
+		</security:session-management>
+	</security:http>
 	
 	<!-- Simpliest config for bypass requests  -->
-	<security:http use-expressions="true" request-matcher="regex"
-		pattern="/index.html|/app/error|/app/j_spring_security_.*|/app/web/.*|/app/sudoor/.*|/data/rest/sudoor/.*|/data/odata.svc/\$metadata|/data/odata.svc/\$batch">
+	<security:http auto-config="true" use-expressions="true" request-matcher="regex"
+		pattern="/index.html|/app/error|/j_spring_security_.*|/spring_security_.*|/app/web/.*|/app/sudoor/.*|/data/rest/sudoor/.*|/data/odata.svc/\$metadata|/data/odata.svc/\$batch">
 		<security:intercept-url pattern=".*" access="permitAll" />
-		<security:form-login />
-		<security:logout />
 	</security:http>
 
 	<!-- This can not be used in spring boot, since AuditListener audit will block it. Also none security is not recommended, since security filter not only do auth but also other security check e.g. csrf -->
