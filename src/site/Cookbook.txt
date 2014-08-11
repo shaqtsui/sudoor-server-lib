@@ -83,18 +83,18 @@ Security & Login/Logout
 	
 	Form Login:
 		1, Config login page
-			There is a default login page provided under URL: "/spring_security_login", you can impl customized login page & specify in form-login's login-page attribute
+			There is a default login page(Generated in DefaultLoginPageGeneratingFilter) provided under URL: "/spring_security_login", you can impl customized login page & specify in form-login's login-page attribute
 			E.g.
 				<security:form-login login-page="/app/web/acount/login.html"/>
 		
 		2, Config login processor URL
-			There is a default login processor under URL: "/j_spring_security_check", you can impl customized processor & specify in form-login's login-processing-url attribute
+			There is a default login processor(UsernamePasswordAuthenticationFilter) under URL: "/j_spring_security_check", you can impl customized processor & specify in form-login's login-processing-url attribute
 			E.g.
 				<security:form-login login-processing-url="/app/acount/login"/>
 
 	Logout:
 		1, Config logout processor URL
-			There is a default logout processor under URL: "/j_spring_security_logout", you can impl customized processor & specify in logout's logout-url attribute
+			There is a default logout processor(LogoutFilter) under URL: "/j_spring_security_logout", you can impl customized processor & specify in logout's logout-url attribute
 			E.g.
 				<security:logout logout-url="/app/account/logout" />
 	
