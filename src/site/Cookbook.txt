@@ -62,46 +62,47 @@ DB Access
 
 Security & Login/Logout
 	Security is implemented in Spring Security, so just need to config spring security config.
-	E.g. 
-			<!-- for form submision -->
-			<security:http use-expressions="false" request-matcher="regex" pattern="/app/connect.*|/app/linkedin.*">
-				<security:intercept-url pattern=".*" access="ROLE_USER" />
-				<security:form-login />
-				<security:remember-me />
-				<security:csrf />
-				<security:logout delete-cookies="JSESSIONID" />
-				<security:session-management>
-					<security:concurrency-control max-sessions="1" />
-				</security:session-management>
-			</security:http>
-	Convention: 
-		One config file per Module
-		Security Config Naming Convention: 
-			src/main/resources/spring/security/security-config-${module Name}.xml
-			E.g.
-				src/main/resources/spring/security/security-config-loan.xml
+	E.g.
+		@Configuration
+		@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER - 10)
+		public class ObizSecurityConfig extends WebSecurityConfigurerAdapter{
+			@Override
+			protected void configure(HttpSecurity http) throws Exception {
+				http
+					.regexMatcher("/app/account/.*")
+					.formLogin()
+					.and()
+						.logout()
+							.deleteCookies("JSESSIONID")
+					.and()
+						.authorizeRequests()
+							.regexMatchers("/app/account/.*").permitAll()
+					.and()
+						.rememberMe();
+			}
+		}
 	
 	Form Login:
 		1, Config login page
 			There is a default login page(Generated in DefaultLoginPageGeneratingFilter) provided under URL: "/spring_security_login", you can impl customized login page & specify in form-login's login-page attribute
 			E.g.
-				<security:form-login login-page="/app/web/acount/login.html"/>
+				http
+					.formLogin()
+						.loginPage("/app/account/login.html")
 		
 		2, Config login processor URL
 			There is a default login processor(UsernamePasswordAuthenticationFilter) under URL: "/j_spring_security_check", you can impl customized processor & specify in form-login's login-processing-url attribute
 			E.g.
-				<security:form-login login-processing-url="/app/acount/login"/>
+				http
+					.formLogin()
+						.loginProcessingUrl("/app/account/login")
 
 	Logout:
-		1, Config logout processor URL
-			There is a default logout processor(LogoutFilter) under URL: "/j_spring_security_logout", you can impl customized processor & specify in logout's logout-url attribute
-			E.g.
-				<security:logout logout-url="/app/account/logout" />
-	
-		2, Config logout success page
+		Config logout success page
 			By default logout success will forward to "/", you can impl customized logout page & specify in logout's logout-success-url attribute
 			E.g.
-				<security:logout logout-success-url="/app/web/account/logout.html" />
+				http.logout()
+					.logoutSuccessUrl("/app/web/account/logout.html")
 	
 	
 	
