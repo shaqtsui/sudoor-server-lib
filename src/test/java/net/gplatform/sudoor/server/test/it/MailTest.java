@@ -1,5 +1,7 @@
 package net.gplatform.sudoor.server.test.it;
 
+import javax.mail.MessagingException;
+
 import net.gplatform.sudoor.server.Application;
 import net.gplatform.sudoor.server.mail.MailClient;
 
@@ -21,7 +23,7 @@ public class MailTest {
 	MailClient mailClient;
 	
 	@Test
-	public void test(){
+	public void test() throws MessagingException{
 		mailClient.send("xufucheng@vcredit.com", "Test MSG");
 	}
 
