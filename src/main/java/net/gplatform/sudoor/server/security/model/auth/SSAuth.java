@@ -79,6 +79,12 @@ public class SSAuth {
 	public void updatePassword(String oldPassword, String newPassword) {
 		getUserDetailsManager().changePassword(oldPassword, newPassword);
 	}
+	
+	public void updatePasswordByName(String username, String newPassword) {
+		UserDetails olduds = getUserDetailsManager().loadUserByUsername(username);
+		UserDetails newuds = new User(olduds.getUsername(), newPassword, true, true, true, true, olduds.getAuthorities());
+		getUserDetailsManager().updateUser(newuds);
+	}
 
 	public String disableUser(String username) {
 		UserDetails olduds = getUserDetailsManager().loadUserByUsername(username);
