@@ -24,7 +24,7 @@ public class MailTest {
 	
 	@Test
 	public void test() throws MessagingException{
-		mailClient.send("xufucheng@vcredit.com", "Test MSG");
+		mailClient.send("xufucheng@vcredit.com", "我");
 	}
 
 }
