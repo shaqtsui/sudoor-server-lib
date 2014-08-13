@@ -18,7 +18,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class SSAuthTest {
 	@Autowired
 	SSAuth SSAuth;
-
+	
 	@Test
 	public void test() {
 		SSAuth.register("Shark", "Shark");
@@ -28,5 +28,29 @@ public class SSAuthTest {
 		String currentUserName = SSAuth.getCurrentUser();
 		
 		assert (currentUserName.equals("Shark"));
+	}
+	
+	@Test
+	public void testIsUserExist() {
+
+		boolean res = SSAuth.isUserExist("Shark");
+
+		
+		assert (res);
+	}
+	
+	@Test
+	public void testIsUserExist_No() {
+
+		boolean res = SSAuth.isUserExist("SharkA");
+
+		
+		assert (res);
+	}
+	
+	
+	@Test
+	public void testUserDetailsService() {
+		boolean res = SSAuth.getUserDetailsManager().userExists("Shark");
 	}
 }

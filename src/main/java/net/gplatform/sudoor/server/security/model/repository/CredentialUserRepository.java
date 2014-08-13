@@ -29,6 +29,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * Created by Administrator on 13-12-25.
+ * WARNING: Normally we should not use this class to operate db, pls use UserDetailsManager
  */
 public interface CredentialUserRepository extends JpaRepository<CredentialUser, String> {
 }

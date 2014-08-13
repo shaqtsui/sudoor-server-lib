@@ -1,23 +1,23 @@
 package net.gplatform.sudoor.server.security.model.auth;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
-import net.gplatform.sudoor.server.security.model.entity.CredentialAuthority;
-import net.gplatform.sudoor.server.security.model.entity.CredentialUser;
-import net.gplatform.sudoor.server.security.model.repository.CredentialUserRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 
 @Component
 public class SSAuth {
@@ -27,7 +27,13 @@ public class SSAuth {
 	private AuthenticationManager authenticationManager;
 
 	@Autowired
-	private CredentialUserRepository credentialUserRepository;
+	AuthenticationManagerBuilder authenticationManagerBuilder;
+
+	public UserDetailsManager getUserDetailsManager() {
+		UserDetailsService uds = authenticationManagerBuilder.getDefaultUserDetailsService();
+		UserDetailsManager udm = (UserDetailsManager) uds;
+		return udm;
+	}
 
 	public String getCurrentUser() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -39,15 +45,14 @@ public class SSAuth {
 		}
 		return username;
 	}
-	
+
 	public boolean isUserExist(String username) {
-		CredentialUser credentialUser = credentialUserRepository.findOne(username);
-		return credentialUser != null;
+		return getUserDetailsManager().userExists(username);
 	}
 
 	/**
-	 * WARNING: Normally this is used by non-web interface. For web interface, pls use
-	 * Spring Security config to auto authenticate
+	 * WARNING: Normally this is used by non-web interface. For web interface,
+	 * pls use Spring Security config to auto authenticate
 	 * 
 	 * @param username
 	 * @param password
@@ -66,69 +71,54 @@ public class SSAuth {
 
 	public String register(String username, String password, String[] roles) {
 		logger.debug("Register:" + username);
-
-		CredentialUser credentialUser = new CredentialUser();
-		credentialUser.setUsername(username);
-		credentialUser.setPassword(password);
-		credentialUser.setEnabled(true);
-		credentialUser.setCredentialAuthorities(createCredentialAuthorities(username, roles));
-
-		credentialUserRepository.saveAndFlush(credentialUser);
+		UserDetails ud = new User(username, password, createSimpleGrantedAuthorities(roles));
+		getUserDetailsManager().createUser(ud);
 		return "SUCCESS";
 	}
 
-	public String updatePassword(String username, String password) {
-		CredentialUser credentialUser = credentialUserRepository.findOne(username);
-		credentialUser.setPassword(password);
-		credentialUserRepository.saveAndFlush(credentialUser);
-		return "SUCCESS";
+	public void updatePassword(String oldPassword, String newPassword) {
+		getUserDetailsManager().changePassword(oldPassword, newPassword);
 	}
 
 	public String disableUser(String username) {
-		CredentialUser credentialUser = credentialUserRepository.findOne(username);
-		credentialUser.setEnabled(false);
-		credentialUserRepository.saveAndFlush(credentialUser);
+		UserDetails olduds = getUserDetailsManager().loadUserByUsername(username);
+		UserDetails newuds = new User(olduds.getUsername(), olduds.getPassword(), false, false, false, false, olduds.getAuthorities());
+		getUserDetailsManager().updateUser(newuds);
 		return "SUCCESS";
 	}
 
 	public String enableUser(String username) {
-		CredentialUser credentialUser = credentialUserRepository.findOne(username);
-		credentialUser.setEnabled(true);
-		credentialUserRepository.saveAndFlush(credentialUser);
+		UserDetails olduds = getUserDetailsManager().loadUserByUsername(username);
+		UserDetails newuds = new User(olduds.getUsername(), olduds.getPassword(), true, true, true, true, olduds.getAuthorities());
+		getUserDetailsManager().updateUser(newuds);
 		return "SUCCESS";
 	}
 
 	public String addRole(String username, String[] roles) {
-		CredentialUser credentialUser = credentialUserRepository.findOne(username);
-		credentialUser.setCredentialAuthorities(createCredentialAuthorities(username, roles));
-		credentialUserRepository.saveAndFlush(credentialUser);
+		UserDetails olduds = getUserDetailsManager().loadUserByUsername(username);
+		List<GrantedAuthority> newAuth = new ArrayList<GrantedAuthority>();
+		newAuth.addAll(olduds.getAuthorities());
+		newAuth.addAll(createSimpleGrantedAuthorities(roles));
+		UserDetails newuds = new User(olduds.getUsername(), olduds.getPassword(), true, true, true, true, newAuth);
+		getUserDetailsManager().updateUser(newuds);
 		return "SUCCESS";
 	}
 
 	public String removeRole(String username, String[] roles) {
-		CredentialUser credentialUser = credentialUserRepository.findOne(username);
-		List<CredentialAuthority> credentialAuthorities = credentialUser.getCredentialAuthorities();
-		Iterator rolesIterator = CollectionUtils.arrayToList(roles).iterator();
-
-		for (Iterator iterator = credentialAuthorities.iterator(); iterator.hasNext();) {
-			CredentialAuthority credentialAuthority = (CredentialAuthority) iterator.next();
-			if (CollectionUtils.contains(rolesIterator, credentialAuthority.getAuthority())) {
-				iterator.remove();
-			}
-		}
-		credentialUserRepository.saveAndFlush(credentialUser);
+		UserDetails olduds = getUserDetailsManager().loadUserByUsername(username);
+		List<GrantedAuthority> newAuth = new ArrayList<GrantedAuthority>();
+		newAuth.addAll(olduds.getAuthorities());
+		newAuth.removeAll(createSimpleGrantedAuthorities(roles));
+		UserDetails newuds = new User(olduds.getUsername(), olduds.getPassword(), true, true, true, true, newAuth);
+		getUserDetailsManager().updateUser(newuds);
 		return "SUCCESS";
 	}
 
-	private List<CredentialAuthority> createCredentialAuthorities(String username, String[] roles) {
-		List<CredentialAuthority> credentialAuthorities = new ArrayList<CredentialAuthority>();
+	private List<SimpleGrantedAuthority> createSimpleGrantedAuthorities(String[] roles) {
+		List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<SimpleGrantedAuthority>();
 		for (int i = 0; i < roles.length; i++) {
-			String role = roles[i];
-			CredentialAuthority credentialAuthority = new CredentialAuthority();
-			credentialAuthority.setUsername(username);
-			credentialAuthority.setAuthority(role);
-			credentialAuthorities.add(credentialAuthority);
+			simpleGrantedAuthorities.add(new SimpleGrantedAuthority(roles[i]));
 		}
-		return credentialAuthorities;
+		return simpleGrantedAuthorities;
 	}
 }
