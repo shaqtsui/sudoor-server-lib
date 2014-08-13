@@ -39,6 +39,11 @@ public class SSAuth {
 		}
 		return username;
 	}
+	
+	public boolean isUserExist(String username) {
+		CredentialUser credentialUser = credentialUserRepository.findOne(username);
+		return credentialUser != null;
+	}
 
 	/**
 	 * WARNING: Normally this is used by non-web interface. For web interface, pls use
