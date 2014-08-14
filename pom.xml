@@ -9,7 +9,7 @@
 				Spring Security for login
 
 				Olingo for OData service
-				Jersey for REST router to Utils
+				CXF for REST router to Utils
 
 				JPAManager
 	-->
@@ -30,8 +30,6 @@
 		<org.eclipse.persistence.version>2.5.1</org.eclipse.persistence.version>
 		<cxf.version>3.0.1</cxf.version>
 		<com.fasterxml.jackson.jaxrs.version>2.3.2</com.fasterxml.jackson.jaxrs.version>
-		<!-- from 2.7 it will use jdk 7 -->
-		<org.glassfish.jersey.containers.version>2.6</org.glassfish.jersey.containers.version>
 		<org.apache.olingo.version>2.0.0</org.apache.olingo.version>
 		<kaptcha.version>0.0.9</kaptcha.version>
 		<javax.mail.version>1.4.7</javax.mail.version>
@@ -125,8 +123,6 @@
 		</dependency>
 		
 
-		<!-- Rest Start -->
-
 		<!-- jackson -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.jaxrs</groupId>
@@ -134,25 +130,6 @@
 			<version>${com.fasterxml.jackson.jaxrs.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.glassfish.jersey.containers</groupId>
-			<artifactId>jersey-container-servlet</artifactId>
-			<version>${org.glassfish.jersey.containers.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-multipart</artifactId>
-			<version>${org.glassfish.jersey.containers.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.ext</groupId>
-			<artifactId>jersey-bean-validation</artifactId>
-			<version>${org.glassfish.jersey.containers.version}</version>
-		</dependency>
-
-		<!-- Rest End -->
-		
-		
 		<!-- OData Impl Start -->
 		<dependency>
 			<groupId>org.apache.olingo</groupId>

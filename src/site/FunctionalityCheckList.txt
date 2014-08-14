@@ -1,7 +1,7 @@
 CORS
 
 Web Service:
-	JAXRS(jersey)
+	JAXRS(cxf)
 	JAXWS(cxf)
 	
 	

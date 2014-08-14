@@ -40,8 +40,6 @@ import net.gplatform.sudoor.server.tools.fileupload.model.File;
 import net.gplatform.sudoor.server.tools.fileupload.model.repository.FileRepository;
 
 import org.apache.commons.io.IOUtils;
-import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
-import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,21 +69,21 @@ public class FileResource {
 		}
 	}
 
-	@POST
-	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response addFile(@FormDataParam("file") FormDataContentDisposition fileDetail, @FormDataParam("file") InputStream isFile) {
-		File f = new File();
-		f.setName(fileDetail.getFileName());
-		try {
-			f.setData(IOUtils.toByteArray(isFile));
-		} catch (IOException e) {
-			logger.error("Failed to convert file stream to byte array", e);
-		}
-		fileRepository.saveAndFlush(f);
-		URI createdUri = URI.create("tools/fileupload/File/" + f.getId());
-		f.setData(null);
-		f.setUri(createdUri.getPath());
-		return Response.created(createdUri).entity(f).build();
-	}
+//	@POST
+//	@Consumes(MediaType.MULTIPART_FORM_DATA)
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Response addFile(@FormDataParam("file") FormDataContentDisposition fileDetail, @FormDataParam("file") InputStream isFile) {
+//		File f = new File();
+//		f.setName(fileDetail.getFileName());
+//		try {
+//			f.setData(IOUtils.toByteArray(isFile));
+//		} catch (IOException e) {
+//			logger.error("Failed to convert file stream to byte array", e);
+//		}
+//		fileRepository.saveAndFlush(f);
+//		URI createdUri = URI.create("tools/fileupload/File/" + f.getId());
+//		f.setData(null);
+//		f.setUri(createdUri.getPath());
+//		return Response.created(createdUri).entity(f).build();
+//	}
 }
