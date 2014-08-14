@@ -166,57 +166,35 @@ Web Service
 						</beans>
 						
 				b, add entry:
-					<jaxws:endpoint id="${service Name}ServiceEndPoint" implementor="#${uncaptialized Service Impl Class Name }" address="/${module Name}/${service Name}Service" />
+					<jaxws:endpoint id="${service Name}ServiceEndPoint" implementor="#${uncaptialized Service Impl Class Name }" address="/soap/${module Name}/${service Name}Service" />
 					E.g.
-						<jaxws:endpoint id="accountServiceEndPoint" implementor="#accountServiceImpl" address="/account/accountService" />
-			
+						<jaxws:endpoint id="accountServiceEndPoint" implementor="#accountServiceImpl" address="/soap/account/accountService" />
 			
 	
 	REST Web Service
 		If you are Provider(Server):
-			1, Create Service Interface
-				Any Interface annotated with @WebService should be ok
+			1, Create Resource (Any class be annotated with @Path)
 				Convention: 
-					Service Interface Naming Convention: 
-						${base Package}.${module Name}.controller.${Service Interface Name}.java
-						E.g.
-							com.comp.team.product.account.controller.AccountService.java
-							@WebService
-							public interface AccountService {
-								public String getAccountName();
-							}
-					
-			
-			2, Create Service Impl
-				Class to impl the above defined interface, should be annotated with @WebService & @Component
-				Convention: 
-					Service Impl Naming Convention: 
-						${base Package}.${module Name}.controller.${Service Impl Name}.java
+					Resource Naming Convention: 
+						${base Package}.${module Name}.controller.${Resource Name}.java
 						E.g.
 							com.comp.team.product.account.controller.AccountServiceImpl.java
-							@Component
-							@WebService
-							public class AccountServiceImpl implements AccountService {
-								@Override
-								public String getAccountName() {
-									return "Hello World";
+							@Path("/sudoor/SpringSecurity")
+							public class SpringSecurityResource {
+								@GET
+								@Path("Authentication")
+								@Produces(MediaType.APPLICATION_JSON)
+								public Authentication getAuthentication() {
+									Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+									return authentication;
 								}
 							}
-					
-			3, Register in Spring
-				a, create/update "src/main/resources/spring/ws/ws-config-${module Name}.xml"
+							
+				2, Your resource can be access via URL ${host}/${context Path}/data/ws/rest/${root resource path}/${sub resource path}
 					E.g.
-						<?xml version="1.0" encoding="UTF-8"?>
-						<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
-							xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
-						</beans>
-						
-				b, add entry:
-					<jaxws:endpoint id="${service Name}ServiceEndPoint" implementor="#${uncaptialized Service Impl Class Name }" address="/${module Name}/${service Name}Service" />
-					E.g.
-						<jaxws:endpoint id="accountServiceEndPoint" implementor="#accountServiceImpl" address="/account/accountService" />
-								
-	
+						http://yourhost/product/data/ws/rest/sudoor/SpringSecurity/Authentication
+
+
 
 Web(Static Contents)
 	1, Add static files into path: "src/main/resources/static/web/${module Name}"
