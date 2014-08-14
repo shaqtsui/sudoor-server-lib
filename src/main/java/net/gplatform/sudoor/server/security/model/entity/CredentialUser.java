@@ -22,12 +22,8 @@ package net.gplatform.sudoor.server.security.model.entity;
  * #L%
  */
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -44,8 +40,9 @@ public class CredentialUser {
 	Boolean enabled;
 	// End Files required by SS
 
-	@OneToMany(cascade = CascadeType.ALL)
-	List<CredentialAuthority> credentialAuthorities;
+	//Can not have relationship, since UserDetailsManager will use JDBC to operate table, so there is no update on relation.
+//	@OneToMany(cascade = CascadeType.ALL)
+//	List<CredentialAuthority> credentialAuthorities;
 
 	public String getUsername() {
 		return username;
@@ -70,13 +67,4 @@ public class CredentialUser {
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
-
-	public List<CredentialAuthority> getCredentialAuthorities() {
-		return credentialAuthorities;
-	}
-
-	public void setCredentialAuthorities(List<CredentialAuthority> credentialAuthorities) {
-		this.credentialAuthorities = credentialAuthorities;
-	}
-
 }
