@@ -229,3 +229,5 @@ Pagination
 		a, Use reposotory's findAll(Pageable pageable) to retrieve partial data from DB
 			E.g.
 				Page<User> users = repository.findAll(newPageRequest(1, 20));
+				
+		b, User Rest Service to communicate with host via JSON
