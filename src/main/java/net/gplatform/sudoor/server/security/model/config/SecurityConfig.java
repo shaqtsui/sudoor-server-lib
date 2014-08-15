@@ -50,7 +50,7 @@ public class SecurityConfig{
 		public void configure(WebSecurity web) throws Exception {
 			web
 				.ignoring()
-					.antMatchers("/index.html", "/data/ws/soap/sudoor/**", "/data/ws/rest/sudoor/**", "/data/odata.svc/$metadata", "/data/odata.svc/$batch");
+					.antMatchers("/index.html", "/data/ws/*", "/data/ws/soap/sudoor/**", "/data/ws/rest/sudoor/**", "/data/odata.svc/$metadata", "/data/odata.svc/$batch");
 		}
 		
 		@Override
