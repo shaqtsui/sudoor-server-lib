@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	<head>
+		<meta name="_csrf" content="${_csrf.token}"/>
+		<!-- default header name is X-CSRF-TOKEN -->
+		<meta name="_csrf_header" content="${_csrf.headerName}"/>
 		<script th:src="@{/app/web/jquery/jquery-1.11.1.js}"></script>
 		<script th:src="@{/app/web/security/security.js}"></script>
 	</head>
-	<body>
+	<body  layout:fragment="topBody">
+		topLayout - topBody
 	</body>
 </html>
