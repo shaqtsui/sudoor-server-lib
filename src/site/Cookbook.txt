@@ -1,6 +1,6 @@
 App
 	1, Add Controller to accept request, invoke Domain Model and return View name
-		Controller include Web Controller, WS Controller and so on
+		Controller include Web Controller, WebService Controller and so on
 		Convention: 
 			One particular Controller Object per Module
 			@RequestMapping Path Naming Convention:
@@ -11,6 +11,8 @@ App
 				${base Package}.${module Name}.controller.${Controller Name}.java
 				E.g.
 					com.comp.team.product.account.controller.AccountController.java
+					com.comp.team.product.account.controller.AccountWebService.java
+					com.comp.team.product.account.controller.AccountWebServiceImpl.java
 
 	2, Add Domain Model to impl biz logic(Include Data manipulation)
 		Convention: 
