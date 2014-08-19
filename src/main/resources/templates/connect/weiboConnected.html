@@ -5,12 +5,12 @@
 	  layout:decorator="connect/layout">
 	<body>
 		<div id="content" layout:fragment="content">
-			<h3>Connected to LinkedIn</h3>
+			<h3>Connected to Weibo</h3>
 			
 			<form id="disconnect" method="post">
 				<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
 				<div class="formInfo">
-					<p>The Spring Social Showcase sample application is already connected to your LinkedIn account.
+					<p>The Spring Social Showcase sample application is already connected to your Weibo account.
 						Click the button if you wish to disconnect</p>
 				</div>
 			
@@ -18,7 +18,7 @@
 				<input type="hidden" name="_method" value="delete" />
 			</form>
 			
-			<p><a th:href="@{/app/linkedin}">View your LinkedIn profile</a></p>
+			<p><a th:href="@{/app/linkedin}">View your Weibo profile</a></p>
 		</div>		
 	</body>
 </html>
