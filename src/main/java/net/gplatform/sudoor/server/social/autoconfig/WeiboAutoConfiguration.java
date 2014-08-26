@@ -34,14 +34,15 @@ import org.springframework.web.servlet.View;
 @AutoConfigureBefore(SocialWebAutoConfiguration.class)
 @AutoConfigureAfter(WebMvcAutoConfiguration.class)
 public class WeiboAutoConfiguration {
+	public static final String WEIBO_CONNECTION_FACTORY_NAME = "org.springframework.social.weibo.connect.WeiboConnectionFactory";
+	public static final String WEIBO_API_NAME = "org.springframework.social.weibo.api.Weibo";
 
 	@Configuration
 	@EnableSocial
 	@ConditionalOnWebApplication
+	@ConditionalOnClass(value = { SocialConfigurerAdapter.class }, name = WEIBO_CONNECTION_FACTORY_NAME)
 	protected static class WeiboAutoConfigurationAdapter extends SocialConfigurerAdapter implements EnvironmentAware {
 		private static final Logger LOG = LoggerFactory.getLogger(WeiboAutoConfigurationAdapter.class);
-		public static final String WEIBO_CONNECTION_FACTORY_NAME = "org.springframework.social.weibo.connect.WeiboConnectionFactory";
-		public static final String WEIBO_API_NAME = "org.springframework.social.weibo.api.Weibo";
 		private RelaxedPropertyResolver properties;
 
 		@Override
