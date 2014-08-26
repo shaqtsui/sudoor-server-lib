@@ -250,8 +250,8 @@ Ajax Request
 			
 Password Strength Check
 	1, Include script & css
-		<script th:src="@{/app/web/jquery/strength.js/strength.js}"></script>
-		<link rel="stylesheet" th:href="@{/app/web/jquery/strength.js/strength.css}" type="text/css" media="screen"></link>
+		<script th:src="@{/app/web/strength.js/strength.js}"></script>
+		<link rel="stylesheet" th:href="@{/app/web/strength.js/strength.css}" type="text/css" media="screen"></link>
 	2, Apply strength check: 
 		$(document).ready(function ($) {
 		     $('#myPassword').strength();
