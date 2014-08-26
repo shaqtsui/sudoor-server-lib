@@ -247,3 +247,6 @@ Ajax Request
 				</head>
 		b, Include js: web/security/security.js in your page
 			
+			
+Password Strength Check
+	http://git.aaronlumsden.com/strength.js/
