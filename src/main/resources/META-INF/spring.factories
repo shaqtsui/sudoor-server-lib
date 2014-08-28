@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-net.gplatform.sudoor.server.social.autoconfig.WeiboAutoConfiguration
