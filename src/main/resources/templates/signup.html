@@ -2,16 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:social="http://spring.io/springsocial"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorator="layout">
-	<head>
-		<title>Spring Social Showcase</title>
-		<link rel="stylesheet" th:href="@{/page.css}" type="text/css" media="screen"></link>
-		<link rel="stylesheet" th:href="@{/form.css}" type="text/css" media="screen"></link>
-		<link rel="stylesheet" th:href="@{/messages/messages.css}" type="text/css" media="screen"></link>
-	</head>
+	  layout:decorator="connect/layout">
 	<body>
 		<div id="header">
-			<h1><a th:href="@{/}">Spring Social Showcase</a></h1>
+			<h1><a th:href="@{/app/}">Spring Social Showcase</a></h1>
 		</div>
 		
 		<div id="leftNav">
@@ -25,7 +19,7 @@
 				 th:class="${message.type.cssClass}" 
 				 th:text="${message.text}">error message text</div>
 			
-			<form id="signup" th:action="@{/signup}" method="post" th:object="${signupForm}">
+			<form id="signup" th:action="@{/app/signup}" method="post" th:object="${signupForm}">
 				<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
 				<div class="formInfo">
 					<div class="error" th:if="${#fields.hasErrors('*')}">Unable to sign up. Please fix the errors below and resubmit.</div>
