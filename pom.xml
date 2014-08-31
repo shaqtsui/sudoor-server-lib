@@ -100,7 +100,11 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 		</dependency>
-		
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+		</dependency>
+
 		<!-- use cxf to provider ws support, as spring ws only support contract-first approach which is a effort consuming approach -->
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
