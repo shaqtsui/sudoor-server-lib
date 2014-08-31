@@ -53,7 +53,7 @@ public class SSAuth {
 	/**
 	 * WARNING: Normally this is used by non-web interface. For web interface,
 	 * pls use Spring Security config to auto authenticate
-	 * 
+	 * Here there is no signin, if you want to signin after authenticate pls use authenticateAndSignin
 	 * @param username
 	 * @param password
 	 */
@@ -61,9 +61,39 @@ public class SSAuth {
 		logger.debug("Authenticate:" + username);
 
 		Authentication request = new UsernamePasswordAuthenticationToken(username, password);
+		authenticationManager.authenticate(request);
+	}
+	
+	/**
+	 * WARNING: Normally this is used by non-web interface. For web interface,
+	 * pls use Spring Security config to auto authenticate
+	 * Here there is no authenticate
+	 * @param username
+	 * @param password
+	 */
+	public void signin(String username, String password) {
+		logger.debug("signin:" + username);
+		
+		Authentication request = new UsernamePasswordAuthenticationToken(username, password);
+		SecurityContextHolder.getContext().setAuthentication(request);
+	}
+	
+	/**
+	 * WARNING: Normally this is used by non-web interface. For web interface,
+	 * pls use Spring Security config to auto authenticate
+	 * 
+	 * @param username
+	 * @param password
+	 */
+	public void authenticateAndSignin(String username, String password) {
+		logger.debug("authenticateAndSignin:" + username);
+
+		Authentication request = new UsernamePasswordAuthenticationToken(username, password);
 		Authentication result = authenticationManager.authenticate(request);
 		SecurityContextHolder.getContext().setAuthentication(result);
 	}
+	
+	
 
 	public String register(String username, String password) {
 		return register(username, password, new String[] { "ROLE_USER" });
