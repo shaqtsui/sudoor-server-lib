@@ -23,7 +23,6 @@ import javax.servlet.http.HttpSession;
 import net.gplatform.sudoor.server.security.model.auth.SSAuth;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
@@ -32,7 +31,6 @@ import org.springframework.social.connect.web.SignInAdapter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.NativeWebRequest;
 
-@ConditionalOnMissingBean(SignInAdapter.class)
 @Component
 public class SimpleSignInAdapter implements SignInAdapter {
 
