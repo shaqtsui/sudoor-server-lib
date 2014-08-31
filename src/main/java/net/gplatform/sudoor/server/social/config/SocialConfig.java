@@ -1,6 +1,6 @@
 package net.gplatform.sudoor.server.social.config;
 
-import net.gplatform.sudoor.server.social.model.signin.SimpleSignInAdapter;
+import net.gplatform.sudoor.server.social.model.SimpleSignInAdapter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

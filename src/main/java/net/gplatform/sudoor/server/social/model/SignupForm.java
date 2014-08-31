@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.gplatform.sudoor.server.social.model.signup;
+package net.gplatform.sudoor.server.social.model;
 
 import javax.validation.constraints.Size;
 

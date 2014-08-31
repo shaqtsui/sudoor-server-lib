@@ -18,10 +18,9 @@ package net.gplatform.sudoor.server.social.controller;
 import javax.validation.Valid;
 
 import net.gplatform.sudoor.server.security.model.auth.SSAuth;
-import net.gplatform.sudoor.server.social.model.signin.SignInUtils;
-import net.gplatform.sudoor.server.social.model.signup.SignupForm;
-import net.gplatform.sudoor.server.social.model.signup.message.Message;
-import net.gplatform.sudoor.server.social.model.signup.message.MessageType;
+import net.gplatform.sudoor.server.social.model.Message;
+import net.gplatform.sudoor.server.social.model.MessageType;
+import net.gplatform.sudoor.server.social.model.SignupForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
@@ -59,7 +58,7 @@ public class SignupController {
 		}
 		String status = createAccount(form, formBinding);
 		if (status != null) {
-			SignInUtils.signin(form.getUsername());
+			SSAuth.signin(form.getUsername(), null);
 			providerSignInUtils.doPostSignUp(form.getUsername(), request);
 			return "redirect:/";
 		}
