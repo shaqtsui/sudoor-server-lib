@@ -74,7 +74,7 @@ public class SSAuth {
 	public void signin(String username, String password) {
 		logger.debug("signin:" + username);
 		
-		Authentication request = new UsernamePasswordAuthenticationToken(username, password);
+		Authentication request = new UsernamePasswordAuthenticationToken(username, password, null);
 		SecurityContextHolder.getContext().setAuthentication(request);
 	}
 	
