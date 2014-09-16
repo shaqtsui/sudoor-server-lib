@@ -25,6 +25,10 @@ PDCA
 		
 	Check
 		Submit Design & Impl to review every Friday morning
+		Test support strategy:
+			Morning TIL(No pending) should be fix & promoted in the afternoon
+			Afternoon TIL should be fix & promoted in next morning
+			Emergency TIL need to be fixed a.s.a.p.
 		
 	Action
 		Correction in next iteration
