@@ -46,14 +46,22 @@ public class SSAuth {
 		return username;
 	}
 
+	public boolean getIsPostLogin() {
+		boolean result = false;
+		result = !"anonymousUser".equals(getCurrentUser());
+		return result;
+	}
+
 	public boolean isUserExist(String username) {
 		return getUserDetailsManager().userExists(username);
 	}
 
 	/**
 	 * WARNING: Normally this is used by non-web interface. For web interface,
-	 * pls use Spring Security config to auto authenticate
-	 * Here there is no signin, if you want to signin after authenticate pls use authenticateAndSignin
+	 * pls use Spring Security config to auto authenticate Here there is no
+	 * signin, if you want to signin after authenticate pls use
+	 * authenticateAndSignin
+	 * 
 	 * @param username
 	 * @param password
 	 */
@@ -63,21 +71,22 @@ public class SSAuth {
 		Authentication request = new UsernamePasswordAuthenticationToken(username, password);
 		authenticationManager.authenticate(request);
 	}
-	
+
 	/**
 	 * WARNING: Normally this is used by non-web interface. For web interface,
-	 * pls use Spring Security config to auto authenticate
-	 * Here there is no authenticate
+	 * pls use Spring Security config to auto authenticate Here there is no
+	 * authenticate
+	 * 
 	 * @param username
 	 * @param password
 	 */
 	public void signin(String username, String password) {
 		logger.debug("signin:" + username);
-		
+
 		Authentication request = new UsernamePasswordAuthenticationToken(username, password, null);
 		SecurityContextHolder.getContext().setAuthentication(request);
 	}
-	
+
 	/**
 	 * WARNING: Normally this is used by non-web interface. For web interface,
 	 * pls use Spring Security config to auto authenticate
@@ -92,8 +101,6 @@ public class SSAuth {
 		Authentication result = authenticationManager.authenticate(request);
 		SecurityContextHolder.getContext().setAuthentication(result);
 	}
-	
-	
 
 	public String register(String username, String password) {
 		return register(username, password, new String[] { "ROLE_USER" });
@@ -109,7 +116,7 @@ public class SSAuth {
 	public void updatePassword(String oldPassword, String newPassword) {
 		getUserDetailsManager().changePassword(oldPassword, newPassword);
 	}
-	
+
 	public void updatePasswordByName(String username, String newPassword) {
 		UserDetails olduds = getUserDetailsManager().loadUserByUsername(username);
 		UserDetails newuds = new User(olduds.getUsername(), newPassword, true, true, true, true, olduds.getAuthorities());
