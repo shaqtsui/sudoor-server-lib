@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 
 import net.gplatform.sudoor.server.security.model.auth.SSAuth;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.savedrequest.RequestCache;
@@ -47,7 +48,12 @@ public class SimpleSignInAdapter implements SignInAdapter {
 	@Override
 	public String signIn(String localUserId, Connection<?> connection, NativeWebRequest request) {
 		SSAuth.signin(localUserId, null);
-		return extractOriginalUrl(request);
+		String originalUrl = extractOriginalUrl(request);
+		String targetUrl = "/?entryPoint=oauth";
+		if (StringUtils.isNotEmpty(originalUrl)) {
+			targetUrl = StringUtils.trimToEmpty(originalUrl) + "?entryPoint=oauth";
+		}
+		return targetUrl;
 	}
 
 	private String extractOriginalUrl(NativeWebRequest request) {
