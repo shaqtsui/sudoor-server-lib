@@ -48,12 +48,15 @@ public class SimpleSignInAdapter implements SignInAdapter {
 	@Override
 	public String signIn(String localUserId, Connection<?> connection, NativeWebRequest request) {
 		SSAuth.signin(localUserId, null);
+		String providerId = connection.getKey().getProviderId();
+		String parameter = "?entryPoint=oauth_" + providerId;
+		
+		String targetUrl = "/";
 		String originalUrl = extractOriginalUrl(request);
-		String targetUrl = "/?entryPoint=oauth";
 		if (StringUtils.isNotEmpty(originalUrl)) {
-			targetUrl = StringUtils.trimToEmpty(originalUrl) + "?entryPoint=oauth";
+			targetUrl = StringUtils.trimToEmpty(originalUrl);
 		}
-		return targetUrl;
+		return targetUrl + parameter;
 	}
 
 	private String extractOriginalUrl(NativeWebRequest request) {
