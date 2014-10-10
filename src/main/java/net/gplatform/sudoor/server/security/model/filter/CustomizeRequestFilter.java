@@ -61,10 +61,15 @@ public class CustomizeRequestFilter implements Filter {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		HttpServletRequest httpRequest = (HttpServletRequest)request;
+		
 		logger.debug("CustomizeRequestFilter Start to Customize");
 		logger.debug("Original request -> {}", request);
-		logger.debug("Before process: request.getCharacterEncoding(): {}", request.getCharacterEncoding());
-
+		logger.debug("Before CustomizeRequestFilter: request.getCharacterEncoding() for {} is {}", httpRequest.getRequestURI(),httpRequest.getCharacterEncoding());
+		if(httpRequest.getCharacterEncoding() == null){
+			httpRequest.setCharacterEncoding("UTF-8");
+		}
+		
 		ServletRequest newRequestObject = null;
 		try {
 			Class newRequestClass = Class.forName(requestFullName);
@@ -82,7 +87,7 @@ public class CustomizeRequestFilter implements Filter {
 			chain.doFilter(newRequestObject, response);
 		}
 		
-		logger.debug("After process: request.getCharacterEncoding(): {}", request.getCharacterEncoding());
+		logger.debug("After CustomizeRequestFilter: request.getCharacterEncoding() for {} is {}", httpRequest.getRequestURI(),httpRequest.getCharacterEncoding());
 
 	}
 
