@@ -63,6 +63,7 @@ public class CustomizeRequestFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		logger.debug("CustomizeRequestFilter Start to Customize");
 		logger.debug("Original request -> {}", request);
+		logger.debug("Before process: request.getCharacterEncoding(): {}", request.getCharacterEncoding());
 
 		ServletRequest newRequestObject = null;
 		try {
@@ -80,6 +81,8 @@ public class CustomizeRequestFilter implements Filter {
 			logger.debug("Execute Chain with new request -> {}", newRequestObject);
 			chain.doFilter(newRequestObject, response);
 		}
+		
+		logger.debug("After process: request.getCharacterEncoding(): {}", request.getCharacterEncoding());
 
 	}
 
