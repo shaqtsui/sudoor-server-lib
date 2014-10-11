@@ -36,14 +36,18 @@ public class SSAuth {
 	}
 
 	public String getCurrentUser() {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = null;
-		if (principal instanceof UserDetails) {
-			username = ((UserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
+		try {
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			String username = null;
+			if (principal instanceof UserDetails) {
+				username = ((UserDetails) principal).getUsername();
+			} else {
+				username = principal.toString();
+			}
+			return username;
+		} catch (Exception e) {
+			return null;
 		}
-		return username;
 	}
 
 	public boolean getIsPostLogin() {
