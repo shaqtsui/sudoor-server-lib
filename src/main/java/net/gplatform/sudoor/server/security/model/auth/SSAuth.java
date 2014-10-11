@@ -3,6 +3,7 @@ package net.gplatform.sudoor.server.security.model.auth;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,8 @@ public class SSAuth {
 
 	public boolean getIsPostLogin() {
 		boolean result = false;
-		result = !"anonymousUser".equals(getCurrentUser());
+		String currentUser = getCurrentUser();
+		result = StringUtils.isNotEmpty(currentUser) && !StringUtils.equals("anonymousUser", currentUser);
 		return result;
 	}
 
