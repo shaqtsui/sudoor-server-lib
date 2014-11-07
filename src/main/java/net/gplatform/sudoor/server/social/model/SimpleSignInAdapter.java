@@ -36,6 +36,8 @@ import org.springframework.web.context.request.NativeWebRequest;
 public class SimpleSignInAdapter implements SignInAdapter {
 
 	private final RequestCache requestCache;
+	
+	public static final String CONNECTION_KEY = "sudoor_signIn_connection";
 
 	@Autowired
 	private SSAuth SSAuth;
@@ -48,6 +50,11 @@ public class SimpleSignInAdapter implements SignInAdapter {
 	@Override
 	public String signIn(String localUserId, Connection<?> connection, NativeWebRequest request) {
 		SSAuth.signin(localUserId, null);
+		
+		HttpServletRequest nativeReq = request.getNativeRequest(HttpServletRequest.class);
+		HttpSession session = nativeReq.getSession();
+		session.setAttribute(CONNECTION_KEY, connection);
+		
 		String providerId = connection.getKey().getProviderId();
 		String parameter = "?entryPoint=oauth_" + providerId;
 		
