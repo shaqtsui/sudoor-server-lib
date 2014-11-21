@@ -28,9 +28,9 @@
 
 	<properties>
 		<org.eclipse.persistence.version>2.5.1</org.eclipse.persistence.version>
-		<cxf.version>3.0.1</cxf.version>
+		<cxf.version>3.0.2</cxf.version>
 		<com.fasterxml.jackson.jaxrs.version>2.3.2</com.fasterxml.jackson.jaxrs.version>
-		<org.apache.olingo.version>2.0.0</org.apache.olingo.version>
+		<org.apache.olingo.version>2.0.1</org.apache.olingo.version>
 		<kaptcha.version>0.0.9</kaptcha.version>
 		<javax.mail.version>1.4.7</javax.mail.version>
 	</properties>
