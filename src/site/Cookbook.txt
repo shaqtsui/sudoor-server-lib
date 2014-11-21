@@ -197,6 +197,10 @@ Web Service
 						http://yourhost/product/data/ws/rest/sudoor/SpringSecurity/Authentication
 
 
+OData
+	URL:
+		http://yourhost/product/data/odata.svc
+
 
 Web(Static Contents)
 	1, Add static files into path: "src/main/resources/static/web/${module Name}"
