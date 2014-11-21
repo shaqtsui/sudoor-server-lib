@@ -23,35 +23,42 @@ package net.gplatform.sudoor.server.test.it;
  */
 
 
-import java.io.File;
-
-import com.fasterxml.jackson.jaxrs.annotation.JacksonFeatures;
-
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-/**
- * Created by Administrator on 14-3-28.
- */
+import net.gplatform.sudoor.server.Application;
+
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.IntegrationTest;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import com.fasterxml.jackson.jaxrs.annotation.JacksonFeatures;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(classes = Application.class)
+@WebAppConfiguration
+@EnableTransactionManagement
+@IntegrationTest
 public class DataIT {
 
 	public final String REST_SERVICE_URL = "http://localhost:8080/sudoor-server-lib/data/rest";
 
 	public final String ODATA_SERVICE_URL = "http://localhost:8080/sudoor-server-lib/data/odata.svc";
 
-	Client client = null;
+	static Client client = null;
 
-//	@BeforeClass
-//	public void init() {
-//		client = ClientBuilder.newBuilder().register(MultiPartFeature.class).register(JacksonFeatures.class).build();
-//	}
+	@BeforeClass
+	public static void  init() {
+		client = ClientBuilder.newBuilder().register(JacksonFeatures.class).build();
+	}
 
 	@Test
 	public void retrieveODataMetaData() {
