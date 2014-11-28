@@ -31,6 +31,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.integration.annotation.IntegrationComponentScan;
 
 /**
  * This class as the entry point for application.
@@ -46,6 +47,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan({ "net.gplatform.sudoor.server", "${application.basepackage}" })
 @EntityScan({ "net.gplatform.sudoor.server", "${application.basepackage}" })
 @EnableJpaRepositories({ "net.gplatform.sudoor.server", "${application.basepackage}" })
+@IntegrationComponentScan
 public class Application extends SpringBootServletInitializer {
 
 	/*
