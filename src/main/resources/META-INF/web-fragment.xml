@@ -3,7 +3,8 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
     http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd" metadata-complete="true">
     
-    <!-- spring security headers will seprate multiple values, which will cause error in android browser -->
+    <!-- spring security headers will seprate multiple values, which will cause error in android browser.
+    with this filter we should not handle pre flight OPTION request via StopperFilter in SS any more -->
 	<filter>
 		<filter-name>CorsFilter</filter-name>
 		<filter-class>net.gplatform.sudoor.server.cors.CorsFilter</filter-class>
