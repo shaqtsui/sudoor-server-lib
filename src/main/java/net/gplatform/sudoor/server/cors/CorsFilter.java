@@ -101,6 +101,11 @@ import org.apache.juli.logging.LogFactory;
  */
 
 //spring security headers will seprate multiple values, which will cause error in android browser
+/**
+ * With @WebFilter there should be no need to register in web.xml or web-fragment.xml 
+ * @author Administrator
+ *
+ */
 @WebFilter(urlPatterns = { "/*" }, initParams = {
 		@WebInitParam(name = "cors.allowed.origins", value = "*"),
 		@WebInitParam(name = "cors.allowed.methods", value = "POST,GET,DELETE,PUT,HEAD,OPTIONS,PATCH"),
