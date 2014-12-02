@@ -100,8 +100,10 @@ import org.apache.juli.logging.LogFactory;
  * 
  */
 
-//spring security headers will seprate multiple values, which will cause error in android browser
 /**
+ * spring security headers will seprate multiple values, which will cause error in android browser
+ * with this filter we should not handle pre flight OPTION request via StopperFilter in SS any mor
+ * 
  * With @WebFilter there should be no need to register in web.xml or web-fragment.xml 
  * @author Administrator
  *
