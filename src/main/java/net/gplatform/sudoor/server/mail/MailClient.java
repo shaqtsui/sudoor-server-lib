@@ -26,14 +26,7 @@ public class MailClient {
 	}
 
 	public String send(String to, String msg, boolean isHtml) throws MessagingException {
-		MimeMessage mimeMessage = mailSender.createMimeMessage();
-		MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
-		mimeMessageHelper.setSubject(subject);
-		mimeMessageHelper.setTo(to);
-		mimeMessageHelper.setFrom(from);
-		mimeMessageHelper.setText(msg, isHtml);
-		mailSender.send(mimeMessage);
-		return "SUCCESS";
+		return send(to, subject, msg, isHtml );
 	}
 
 	public String send(String to, String subject, String msg, boolean isHtml) throws MessagingException {

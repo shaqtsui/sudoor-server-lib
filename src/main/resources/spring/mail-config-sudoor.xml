@@ -35,6 +35,11 @@
 		<property name="host" value="${spring.mail.host}" />
 		<property name="username" value="${spring.mail.username}" />
 		<property name="password" value="${spring.mail.password}" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+			</props>
+		</property>
 	</bean>
-	
+
 </beans>
