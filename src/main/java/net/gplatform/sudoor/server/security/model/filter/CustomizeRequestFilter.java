@@ -65,10 +65,6 @@ public class CustomizeRequestFilter implements Filter {
 		
 		logger.debug("CustomizeRequestFilter Start to Customize");
 		logger.debug("Original request -> {}", request);
-		logger.debug("Before CustomizeRequestFilter: request.getCharacterEncoding() for {} is {}", httpRequest.getRequestURI(),httpRequest.getCharacterEncoding());
-		if(httpRequest.getCharacterEncoding() == null){
-			httpRequest.setCharacterEncoding("UTF-8");
-		}
 		
 		ServletRequest newRequestObject = null;
 		try {
@@ -87,8 +83,6 @@ public class CustomizeRequestFilter implements Filter {
 			chain.doFilter(newRequestObject, response);
 		}
 		
-		logger.debug("After CustomizeRequestFilter: request.getCharacterEncoding() for {} is {}", httpRequest.getRequestURI(),httpRequest.getCharacterEncoding());
-
 	}
 
 	@Override
