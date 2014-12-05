@@ -64,8 +64,9 @@ import org.springframework.stereotype.Component;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @Component
-@WebFilter(urlPatterns = { "/*" }, initParams = {
-		@WebInitParam(name = "encoding", value = "UTF-8")})
+//@WebFilter not work now
+//@WebFilter(urlPatterns = { "/*" }, initParams = {
+//		@WebInitParam(name = "encoding", value = "UTF-8")})
 public class SetCharacterEncodingFilter implements Filter {
 
     private static final Log log =
