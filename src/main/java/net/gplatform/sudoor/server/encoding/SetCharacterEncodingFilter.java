@@ -25,12 +25,11 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebInitParam;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -79,6 +78,7 @@ public class SetCharacterEncodingFilter implements Filter {
      * The default character encoding to set for requests that pass through
      * this filter.
      */
+    @Value("UTF-8")
     private String encoding = null;
     public void setEncoding(String encoding) { this.encoding = encoding; }
     public String getEncoding() { return encoding; }
