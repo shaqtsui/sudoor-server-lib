@@ -31,6 +31,9 @@ import javax.servlet.annotation.WebInitParam;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -59,6 +62,8 @@ import org.apache.juli.logging.LogFactory;
  * user's session.</p>
  */
 
+@Order(Ordered.HIGHEST_PRECEDENCE)
+@Component
 @WebFilter(urlPatterns = { "/*" }, initParams = {
 		@WebInitParam(name = "encoding", value = "UTF-8")})
 public class SetCharacterEncodingFilter implements Filter {
@@ -152,4 +157,5 @@ public class SetCharacterEncodingFilter implements Filter {
 	public void destroy() {
 		log.debug("SetCharacterEncodingFilter.destroy()");
 	}
+
 }

@@ -62,6 +62,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.catalina.filters.Constants;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 /**
  * <p>
@@ -108,6 +111,9 @@ import org.apache.juli.logging.LogFactory;
  * @author Administrator
  *
  */
+
+@Order(Ordered.HIGHEST_PRECEDENCE)
+@Component
 @WebFilter(urlPatterns = { "/*" }, initParams = {
 		@WebInitParam(name = "cors.allowed.origins", value = "*"),
 		@WebInitParam(name = "cors.allowed.methods", value = "POST,GET,DELETE,PUT,HEAD,OPTIONS,PATCH"),
@@ -1062,4 +1068,5 @@ public final class CorsFilter implements Filter {
 	 * Key to determine if request should be decorated.
 	 */
 	public static final String PARAM_CORS_REQUEST_DECORATE = "cors.request.decorate";
+
 }
