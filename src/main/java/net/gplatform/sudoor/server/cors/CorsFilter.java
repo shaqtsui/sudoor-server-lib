@@ -242,6 +242,10 @@ public final class CorsFilter implements Filter {
 			parseAndStore(configAllowedOrigins, configAllowedHttpMethods, configAllowedHttpHeaders, configExposedHeaders, configSupportsCredentials,
 					configPreflightMaxAge, configDecorateRequest);
 		}
+		
+		//Added by Shark to enable init via spring
+		parseAndStore(null, null, "Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers,dataserviceversion,maxdataserviceversion"
+				, null, null, null, null);
 	}
 
 	/**
