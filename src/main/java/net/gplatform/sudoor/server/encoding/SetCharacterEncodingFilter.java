@@ -27,8 +27,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.juli.logging.Log;
-import org.apache.juli.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -68,8 +68,8 @@ import org.springframework.stereotype.Component;
 //		@WebInitParam(name = "encoding", value = "UTF-8")})
 public class SetCharacterEncodingFilter implements Filter {
 
-    private static final Log log =
-        LogFactory.getLog(SetCharacterEncodingFilter.class);
+    private static final Logger log =
+    		LoggerFactory.getLogger(SetCharacterEncodingFilter.class);
 
 
     // ----------------------------------------------------- Instance Variables
@@ -110,7 +110,11 @@ public class SetCharacterEncodingFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain)
         throws IOException, ServletException {
-
+    	try{
+    		log.debug("Before SetCharacterEncodingFilter CharacterEncoding for {} is -> {}",BeanUtils.getProperty(request, "requestURL"), request.getCharacterEncoding());
+    	}catch(Exception e){
+    	}
+    	
         // Conditionally select and set the character encoding to be used
         if (ignore || (request.getCharacterEncoding() == null)) {
             String characterEncoding = selectEncoding(request);
@@ -118,7 +122,11 @@ public class SetCharacterEncodingFilter implements Filter {
                 request.setCharacterEncoding(characterEncoding);
             }
         }
-
+        
+        try{
+    		log.debug("After SetCharacterEncodingFilter CharacterEncoding for {} is -> {}",BeanUtils.getProperty(request, "requestURL"), request.getCharacterEncoding());
+    	}catch(Exception e){
+    	}
         // Pass control on to the next filter
         chain.doFilter(request, response);
     }
