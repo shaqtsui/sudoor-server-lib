@@ -49,15 +49,16 @@ import com.fasterxml.jackson.jaxrs.annotation.JacksonFeatures;
 @IntegrationTest
 public class DataIT {
 
-	public final String REST_SERVICE_URL = "http://localhost:8080/sudoor-server-lib/data/rest";
+	public final String REST_SERVICE_URL = "http://localhost:8080/product/data/ws/rest";
 
-	public final String ODATA_SERVICE_URL = "http://localhost:8080/sudoor-server-lib/data/odata.svc";
+	public final String ODATA_SERVICE_URL = "http://localhost:8080/product/data/odata.svc";
 
 	static Client client = null;
 
 	@BeforeClass
 	public static void  init() {
-		client = ClientBuilder.newBuilder().register(JacksonFeatures.class).build();
+		//register(JacksonFeatures.class).
+		client = ClientBuilder.newBuilder().build();
 	}
 
 	@Test
