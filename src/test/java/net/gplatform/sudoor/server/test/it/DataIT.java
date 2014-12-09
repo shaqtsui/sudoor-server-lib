@@ -40,8 +40,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.fasterxml.jackson.jaxrs.annotation.JacksonFeatures;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
