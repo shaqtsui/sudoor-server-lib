@@ -126,6 +126,7 @@
 			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
 			<version>${cxf.version}</version>
 		</dependency>
+		<!-- Providers in cxf-rt-rs-extension-providers can only handle jaxb object & primiry object -->
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-rs-extension-providers</artifactId>
@@ -135,6 +136,14 @@
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-rs-client</artifactId>
 			<version>${cxf.version}</version>
+		</dependency>
+		
+		<!-- jackson -->
+		<!-- Providers in jackson-jaxrs-json-provider can handle pojo -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-json-provider</artifactId>
+			<version>${com.fasterxml.jackson.jaxrs.version}</version>
 		</dependency>
 
 		<!-- OData Impl Start -->
