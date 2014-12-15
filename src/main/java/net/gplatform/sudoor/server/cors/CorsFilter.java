@@ -62,6 +62,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.catalina.filters.Constants;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -114,6 +115,7 @@ import org.springframework.stereotype.Component;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @Component
+@ConditionalOnExpression("'${application.cors}' == 'true'")
 //@WebFilter not work now
 //@WebFilter(urlPatterns = { "/*" }, initParams = {
 //		@WebInitParam(name = "cors.allowed.origins", value = "*"),
