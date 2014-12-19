@@ -1,9 +1,6 @@
 package net.gplatform.sudoor.server.test.it;
 
-import javax.mail.MessagingException;
-
 import net.gplatform.sudoor.server.Application;
-import net.gplatform.sudoor.server.mail.MailClient;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,23 +9,23 @@ import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest
-public class MailTest {
-
+public class TemplateEngineTest {
 	@Autowired
-	MailClient mailClient;
+	TemplateEngine templateEngine;
 
 	@Test
-	public void test() throws MessagingException {
-		try {
-			mailClient.send("xufucheng@vcredit.com", "我");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public void test() {
+		Context ctx = new Context();
+		ctx.setVariable("key", "dyna content");
+		String res = templateEngine.process("xml/paymentRequest", ctx);
+		System.out.println(res);
 	}
 
 }

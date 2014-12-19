@@ -45,17 +45,15 @@ import org.junit.Test;
 @WebAppConfiguration
 @EnableTransactionManagement
 @IntegrationTest
-public class DataIT {
+public class ODataTest {
 
-	public final String REST_SERVICE_URL = "http://localhost:8080/product/data/ws/rest";
 
-	public final String ODATA_SERVICE_URL = "http://localhost:8080/product/data/odata.svc";
+	public final String ODATA_SERVICE_URL = "http://localhost:8080/sudoor-server-lib/data/odata.svc";
 
 	static Client client = null;
 
 	@BeforeClass
 	public static void  init() {
-		//register(JacksonFeatures.class).
 		client = ClientBuilder.newBuilder().build();
 	}
 
@@ -71,32 +69,4 @@ public class DataIT {
 		assert (statusCode == 200);
 	}
 
-	@Test
-	public void retrieveFile1() {
-		WebTarget target = client.target(REST_SERVICE_URL).path("/tools/fileupload/File/1");
-		Response response = target.request(MediaType.WILDCARD_TYPE).get();
-		int statusCode = response.getStatus();
-		String content = response.readEntity(String.class);
-
-		System.out.println("retrieveFile1() statusCode:" + statusCode);
-		// System.out.println("retrieveFile1() content:" + content);
-		assert (statusCode == 200);
-	}
-
-//	@Test
-//	public void addFile() {
-//		WebTarget target = client.target(REST_SERVICE_URL).path("/tools/fileupload/File");
-//
-//		FormDataMultiPart multiPart = new FormDataMultiPart();
-//		File fileToUpload = new File("./src/test/resources/testUpload.JPG");
-//		multiPart.bodyPart(new FileDataBodyPart("file", fileToUpload));
-//
-//		Response response = target.request(MediaType.APPLICATION_JSON).post(Entity.entity(multiPart, MediaType.MULTIPART_FORM_DATA));
-//		int statusCode = response.getStatus();
-//		String content = response.readEntity(String.class);
-//
-//		System.out.println("addFile() statusCode:" + statusCode);
-//		System.out.println("addFile() content:" + content);
-//		assert (statusCode == 201);
-//	}
 }
