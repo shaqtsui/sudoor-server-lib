@@ -18,13 +18,17 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @WebAppConfiguration
 @IntegrationTest
 public class MailTest {
-	
+
 	@Autowired
 	MailClient mailClient;
-	
+
 	@Test
-	public void test() throws MessagingException{
-		mailClient.send("xufucheng@vcredit.com", "我");
+	public void test() throws MessagingException {
+		try {
+			mailClient.send("xufucheng@vcredit.com", "我");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
