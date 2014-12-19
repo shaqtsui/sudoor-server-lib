@@ -39,6 +39,7 @@
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.debug">true</prop>
+				<!-- In 163.com, it still able to do authenticate when this set to false -->
 				<prop key="mail.smtp.auth">true</prop>
 			</props>
 		</property>
