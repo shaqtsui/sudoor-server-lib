@@ -291,3 +291,32 @@ Event Publish & Subscribe:
 						logger.debug("Get Event: {} @ {}", event, new Date());
 					}
 				}
+
+				
+Unit Test:
+	E.g.
+		@RunWith(SpringJUnit4ClassRunner.class)
+		@SpringApplicationConfiguration(classes = Application.class)
+		@WebAppConfiguration
+		@EnableTransactionManagement
+		@IntegrationTest
+		public class FileResourceTest {
+		
+			@Autowired
+			TestUtils testUtils;
+		
+			static Client client = null;
+		
+			@BeforeClass
+			public static void init() {
+				client = ClientBuilder.newBuilder().build();
+			}
+		
+			@Test
+			public void retrieveNotExistFile() {
+				WebTarget target = client.target(testUtils.getEmbeddedServletContainerBaseURL() + "/data/ws/rest").path("/tools/fileupload/File/999999999");
+				Response response = target.request(MediaType.WILDCARD_TYPE).get();
+				int statusCode = response.getStatus();
+				assert (statusCode == 401);
+			}
+		}
