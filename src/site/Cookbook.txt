@@ -292,7 +292,23 @@ Event Publish & Subscribe:
 					}
 				}
 
+
+Template:
+	E.g.
+		public class TemplateEngineTest {
+			@Autowired
+			TemplateEngine templateEngine;
+		
+			@Test
+			public void test() {
+				Context ctx = new Context();
+				ctx.setVariable("key", "dyna content");
+				String res = templateEngine.process("xml/paymentRequest", ctx);
+				System.out.println(res);
+			}
+		}
 				
+		
 Unit Test:
 	E.g.
 		@RunWith(SpringJUnit4ClassRunner.class)
