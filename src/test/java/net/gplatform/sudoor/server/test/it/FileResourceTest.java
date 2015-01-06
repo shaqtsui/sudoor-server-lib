@@ -33,6 +33,7 @@ import net.gplatform.sudoor.server.Application;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -46,7 +47,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @IntegrationTest
 public class FileResourceTest {
 
-	public final String REST_SERVICE_URL = "http://localhost:8080/sudoor-server-lib/data/ws/rest";
+	@Autowired
+	TestUtils testUtils;
 
 	static Client client = null;
 
@@ -57,7 +59,7 @@ public class FileResourceTest {
 
 	@Test
 	public void retrieveNotExistFile() {
-		WebTarget target = client.target(REST_SERVICE_URL).path("/tools/fileupload/File/999999999");
+		WebTarget target = client.target(testUtils.getEmbeddedServletContainerBaseURL() + "/data/ws/rest").path("/tools/fileupload/File/999999999");
 		Response response = target.request(MediaType.WILDCARD_TYPE).get();
 		int statusCode = response.getStatus();
 		assert (statusCode == 401);

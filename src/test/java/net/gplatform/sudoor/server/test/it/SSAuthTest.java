@@ -23,26 +23,28 @@ public class SSAuthTest {
 	@Test
 	public void testSSRegister() {
 		SSAuth.register("Shark", "Shark");
+		SSAuth.register("admin", "admin", new String[] { "ROLE_ADMIN" });
 		SSAuth.authenticate("Shark", "Shark");
+		SSAuth.authenticate("admin", "admin");
 	}
-	
+
 	@Test
 	public void testSSSignin() {
 		SSAuth.register("Shark1", "Shark1");
 		SSAuth.signin("Shark1", "Shark1");
 	}
-	
+
 	@Test
 	public void testIsUserExist() {
 		SSAuth.register("Shark2", "Shark2");
 		boolean res = SSAuth.isUserExist("Shark2");
 		assert (res);
 	}
-	
+
 	@Test
 	public void testIsUserNotExist() {
 		boolean res = SSAuth.isUserExist("NotExistUser");
 		assert (!res);
 	}
-	
+
 }

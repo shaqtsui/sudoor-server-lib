@@ -22,7 +22,6 @@ package net.gplatform.sudoor.server.test.it;
  * #L%
  */
 
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -32,6 +31,7 @@ import javax.ws.rs.core.Response;
 import net.gplatform.sudoor.server.Application;
 
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -47,19 +47,19 @@ import org.junit.Test;
 @IntegrationTest
 public class ODataTest {
 
-
-	public final String ODATA_SERVICE_URL = "http://localhost:8080/sudoor-server-lib/data/odata.svc";
+	@Autowired
+	TestUtils testUtils;
 
 	static Client client = null;
 
 	@BeforeClass
-	public static void  init() {
+	public static void init() {
 		client = ClientBuilder.newBuilder().build();
 	}
 
 	@Test
 	public void retrieveODataMetaData() {
-		WebTarget target = client.target(ODATA_SERVICE_URL).path("/$metadata");
+		WebTarget target = client.target(testUtils.getEmbeddedServletContainerBaseURL() + "/data/odata.svc").path("/$metadata");
 		Response response = target.request(MediaType.APPLICATION_XML_TYPE).get();
 		int statusCode = response.getStatus();
 		String content = response.readEntity(String.class);

@@ -11,6 +11,7 @@ import net.gplatform.sudoor.server.Application;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -21,7 +22,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @WebAppConfiguration
 @IntegrationTest
 public class SpringSecurityResourceTest {
-	public final String REST_SERVICE_URL = "http://localhost:8080/sudoor-server-lib/data/ws/rest";
+	@Autowired
+	TestUtils testUtils;
 
 	public static Client client;
 
@@ -35,7 +37,8 @@ public class SpringSecurityResourceTest {
 	 */
 	@Test
 	public void testSpringSecurityAuthenticationPreLogin() {
-		WebTarget target = client.target(REST_SERVICE_URL).path("/sudoor/SpringSecurity/Authentication");
+		WebTarget target = client.target(testUtils.getEmbeddedServletContainerBaseURL() + "/data/ws/rest").path(
+				"/sudoor/SpringSecurity/Authentication");
 		Response response = target.request(MediaType.WILDCARD_TYPE).get();
 		int statusCode = response.getStatus();
 		assert (statusCode == 204);
