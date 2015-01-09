@@ -226,7 +226,7 @@ Captcha Image Validate
 			
 	3, Inject & Invoke CaptchaValidator.validate() in your controller to validate
 	
-	
+	U can validate Captcha via form submit or rest call : GET - /data/ws/rest/sudoor/captcha/validate
 
 Pagination
 	Client:
