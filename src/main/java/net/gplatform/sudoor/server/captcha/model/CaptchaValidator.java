@@ -1,22 +1,41 @@
 package net.gplatform.sudoor.server.captcha.model;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.google.code.kaptcha.Constants;
 
 @Component
 public class CaptchaValidator {
+
+	@Autowired
+	HttpSession session;
+
+	@Autowired
+	HttpServletRequest request;
+
+	/**
+	 * Deprecated, pls use validate()
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@Deprecated
 	public boolean validate(HttpServletRequest request) {
-		String captchaFromSession = (String) request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
+		return validate();
+	}
+
+	public boolean validate() {
 		String captchaFromPage = request.getParameter("_captcha");
+		String captchaFromSession = (String) session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
 
 		if (StringUtils.equalsIgnoreCase(captchaFromSession, captchaFromPage)) {
 			return true;
 		}
 		return false;
-
 	}
 }
