@@ -18,14 +18,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @EnableTransactionManagement
 @IntegrationTest
 public class CaptchaValidatorTest {
-	
+
 	@Autowired
 	TestUtils testUtils;
 
@@ -38,12 +37,13 @@ public class CaptchaValidatorTest {
 
 	@Test
 	public void validateCaptcha() {
-		WebTarget target = client.target(testUtils.getEmbeddedServletContainerBaseURL() + "/data/ws/rest").path("/sudoor/captcha/validate");
+		WebTarget target = client.target(testUtils.getEmbeddedServletContainerBaseURL() + "/data/ws/rest").path("/sudoor/captcha/validate").queryParam("_captcha", "abc");
 		Response response = target.request(MediaType.WILDCARD_TYPE).get();
-		String content = response.readEntity(String.class);
-		System.out.println(content);
+		boolean res = response.readEntity(boolean.class);
+		System.out.println(res);
 		int statusCode = response.getStatus();
 		assert (statusCode == 200);
+		assert (res == false);
 	}
 
 }
