@@ -26,11 +26,16 @@ public class CaptchaValidator {
 	 */
 	@Deprecated
 	public boolean validate(HttpServletRequest request) {
-		return validate();
+		String captchaFromPage = request.getParameter("_captcha");
+		return validate(captchaFromPage);
 	}
 
 	public boolean validate() {
 		String captchaFromPage = request.getParameter("_captcha");
+		return validate(captchaFromPage);
+	}
+
+	public boolean validate(String captchaFromPage) {
 		String captchaFromSession = (String) session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
 
 		if (StringUtils.equalsIgnoreCase(captchaFromSession, captchaFromPage)) {
