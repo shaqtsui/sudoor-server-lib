@@ -1,6 +1,6 @@
 package net.gplatform.sudoor.server.captcha.controller;
 
-import javax.ws.rs.POST;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
 import net.gplatform.sudoor.server.captcha.model.CaptchaValidator;
@@ -19,7 +19,7 @@ public class CaptchaValidateController {
 	 * @return
 	 * @throws Exception
 	 */
-	@POST
+	@GET
 	@Path("validate")
 	public boolean validate() throws Exception {
 		return captchaValidator.validate();
