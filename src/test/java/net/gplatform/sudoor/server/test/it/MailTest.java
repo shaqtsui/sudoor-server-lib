@@ -26,13 +26,17 @@ public class MailTest {
 
 	@Test
 	public void test() throws MessagingException {
-		MimeMessage mimeMessage = mailSender.createMimeMessage();
-		MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
-		mimeMessageHelper.setSubject("test");
-		mimeMessageHelper.setTo("xufucheng@vcredit.com");
-		mimeMessageHelper.setFrom("xufucheng@vcredit.com");
-		mimeMessageHelper.setText( "我", false);
-		mailSender.send(mimeMessage);
+		try {
+			MimeMessage mimeMessage = mailSender.createMimeMessage();
+			MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
+			mimeMessageHelper.setSubject("test");
+			mimeMessageHelper.setTo("xfcjscn@163.com");
+			mimeMessageHelper.setFrom("xfcjscn@163.com");
+			mimeMessageHelper.setText("我", false);
+			mailSender.send(mimeMessage);
+		} catch (Exception e) {
+		}
+
 	}
 
 }
