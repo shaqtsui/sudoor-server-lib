@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.mail.MailAuthenticationException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -34,7 +35,8 @@ public class MailTest {
 			mimeMessageHelper.setFrom("xfcjscn@163.com");
 			mimeMessageHelper.setText("我", false);
 			mailSender.send(mimeMessage);
-		} catch (Exception e) {
+		} catch (MailAuthenticationException e) {
+			e.printStackTrace();
 		}
 
 	}
