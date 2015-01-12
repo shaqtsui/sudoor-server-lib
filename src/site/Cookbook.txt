@@ -211,7 +211,26 @@ Web(Static Contents)
 				
 				
 Email
-	Inject MailClient & send()
+	E.g.
+		public class MailTest {
+	
+			@Autowired
+			JavaMailSender mailSender;
+		
+			@Test
+			public void test() throws MessagingException {
+				try {
+					MimeMessage mimeMessage = mailSender.createMimeMessage();
+					MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
+					mimeMessageHelper.setSubject("test");
+					mimeMessageHelper.setTo("xfcjscn@163.com");
+					mimeMessageHelper.setFrom("xfcjscn@163.com");
+					mimeMessageHelper.setText("我", false);
+					mailSender.send(mimeMessage);
+				} catch (Exception e) {
+				}
+			}
+		}
 	
 	
 	
