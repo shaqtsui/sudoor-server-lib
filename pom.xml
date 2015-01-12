@@ -27,16 +27,15 @@
 	<packaging>jar</packaging>
 
 	<properties>
-		<org.eclipse.persistence.version>2.5.1</org.eclipse.persistence.version>
 		<cxf.version>3.0.3</cxf.version>
 		<!-- jackson 2.3.3 already included by spring boot, so here include jackson.jaxrs 2.3.3-->
 		<com.fasterxml.jackson.jaxrs.version>2.3.3</com.fasterxml.jackson.jaxrs.version>
 		<org.apache.olingo.version>2.0.1</org.apache.olingo.version>
 		<kaptcha.version>0.0.9</kaptcha.version>
-		<javax.mail.version>1.4.7</javax.mail.version>
 	</properties>
 
 	<dependencies>
+		<!-- spring-boot-starter start -->
 		<!-- used to track app status -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -96,13 +95,15 @@
 			<artifactId>spring-boot-starter-integration</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.integration</groupId>
-			<artifactId>spring-integration-mail</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 		</dependency>
+		<!-- spring-boot-starter end -->
+		
 		
 		<!-- Infra Comp -->
 		<dependency>
@@ -191,12 +192,6 @@
 			<groupId>com.github.axet</groupId>
 			<artifactId>kaptcha</artifactId>
 			<version>${kaptcha.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>${javax.mail.version}</version>
 		</dependency>
 
 		<dependency>
