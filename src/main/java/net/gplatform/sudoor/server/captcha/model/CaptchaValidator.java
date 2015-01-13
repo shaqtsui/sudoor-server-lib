@@ -14,7 +14,7 @@ import com.google.code.kaptcha.Constants;
 @Component
 public class CaptchaValidator {
 	final Logger logger = LoggerFactory.getLogger(CaptchaValidator.class);
-	
+
 	@Autowired
 	HttpSession session;
 
@@ -40,8 +40,8 @@ public class CaptchaValidator {
 
 	public boolean validate(String captchaFromPage) {
 		String captchaFromSession = (String) session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
-		
-		logger.debug("CaptchaValidator: captchaFromPage:{} captchaFromSession:{}", captchaFromPage, captchaFromSession);
+
+		logger.debug("CaptchaValidator: Session ID:{} captchaFromPage:{} captchaFromSession:{}", session.getId(), captchaFromPage, captchaFromSession);
 
 		if (StringUtils.equalsIgnoreCase(captchaFromSession, captchaFromPage)) {
 			return true;

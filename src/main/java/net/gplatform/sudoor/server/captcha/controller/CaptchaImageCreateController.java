@@ -7,6 +7,10 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.gplatform.sudoor.server.captcha.model.CaptchaValidator;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +47,8 @@ import com.google.code.kaptcha.Producer;
 
 @Controller
 public class CaptchaImageCreateController {
+		final Logger logger = LoggerFactory.getLogger(CaptchaImageCreateController.class);
+	
         private Producer captchaProducer = null;
         
         @Autowired
@@ -71,6 +77,7 @@ public class CaptchaImageCreateController {
                 
                 // store the text in the session
                 request.getSession().setAttribute(Constants.KAPTCHA_SESSION_KEY, capText);
+                logger.debug("Save Captcha: {} in Session:{}", capText,  request.getSession().getId());
 
                 // create the image with the text
                 BufferedImage bi = captchaProducer.createImage(capText);
