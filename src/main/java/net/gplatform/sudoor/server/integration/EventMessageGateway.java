@@ -7,6 +7,6 @@ import org.springframework.integration.annotation.MessagingGateway;
 public interface EventMessageGateway {
 
 	@Gateway(requestChannel = "eventPublishChannel")
-	public void publishEvent(Object event);
+	public Object publishEvent(Object event);
 
 }
