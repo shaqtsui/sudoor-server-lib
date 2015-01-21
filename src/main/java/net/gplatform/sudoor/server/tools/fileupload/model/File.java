@@ -26,6 +26,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -37,6 +38,8 @@ import javax.validation.constraints.NotNull;
  */
 
 @Entity
+//Avoid key "file "name in Oracle
+@Table(name="SUDOOR_LIB_FILE")
 public class File {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
