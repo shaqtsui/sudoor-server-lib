@@ -1,6 +1,6 @@
 package net.gplatform.sudoor.server.jpa.autoconfig;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
@@ -17,6 +17,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jta.JtaAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
@@ -28,12 +29,30 @@ import org.springframework.orm.jpa.vendor.AbstractJpaVendorAdapter;
 import org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.util.ClassUtils;
-
+/**
+ * To avoid error "Cannot apply class transformer without LoadTimeWeaver specified"
+ * Need to:
+ * 	add spring.jpa.eclipselink.eclipselink.weaving=false to disable loadTimeWeaver
+ * Or:
+ * 	Config loadTimeWeaver
+ * @author xufucheng
+ *
+ */
 @Configuration
 @ConditionalOnClass({ LocalContainerEntityManagerFactoryBean.class, EnableTransactionManagement.class, EntityManager.class })
 @Conditional(EclipselinkEntityManagerCondition.class)
 @AutoConfigureAfter({ DataSourceAutoConfiguration.class, JtaAutoConfiguration.class })
+@ConfigurationProperties(prefix = "spring.jpa.eclipselink")
 public class EclipselinkJpaAutoConfiguration extends JpaBaseConfiguration {
+	private Map<String, Object> eclipselink = new HashMap<String, Object>();
+	
+	public Map<String, Object> getEclipselink() {
+		return eclipselink;
+	}
+
+	public void setEclipselink(Map<String, Object> eclipselink) {
+		this.eclipselink = eclipselink;
+	}
 
 	@Autowired
 	private JpaProperties properties;
@@ -49,8 +68,7 @@ public class EclipselinkJpaAutoConfiguration extends JpaBaseConfiguration {
 
 	@Override
 	protected Map<String, Object> getVendorProperties() {
-		Map<String, Object> vendorProperties = new LinkedHashMap<String, Object>();
-		return vendorProperties;
+		return eclipselink;
 	}
 
 	@Order(Ordered.HIGHEST_PRECEDENCE + 20)
