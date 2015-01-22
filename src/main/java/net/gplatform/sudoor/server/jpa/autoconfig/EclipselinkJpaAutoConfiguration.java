@@ -44,13 +44,13 @@ import org.springframework.util.ClassUtils;
 @AutoConfigureAfter({ DataSourceAutoConfiguration.class, JtaAutoConfiguration.class })
 @ConfigurationProperties(prefix = "spring.jpa")
 public class EclipselinkJpaAutoConfiguration extends JpaBaseConfiguration {
-	private Map<String, Object> eclipselink = new HashMap<String, Object>();
+	private Map<String, String> eclipselink = new HashMap<String, String>();
 	
-	public Map<String, Object> getEclipselink() {
+	public Map<String, String> getEclipselink() {
 		return eclipselink;
 	}
 
-	public void setEclipselink(Map<String, Object> eclipselink) {
+	public void setEclipselink(Map<String, String> eclipselink) {
 		this.eclipselink = eclipselink;
 	}
 
@@ -68,7 +68,9 @@ public class EclipselinkJpaAutoConfiguration extends JpaBaseConfiguration {
 
 	@Override
 	protected Map<String, Object> getVendorProperties() {
-		return eclipselink;
+		Map<String, Object> vendorProperties = new HashMap<String, Object>();
+		vendorProperties.putAll(eclipselink);
+		return vendorProperties;
 	}
 
 	@Order(Ordered.HIGHEST_PRECEDENCE + 20)
