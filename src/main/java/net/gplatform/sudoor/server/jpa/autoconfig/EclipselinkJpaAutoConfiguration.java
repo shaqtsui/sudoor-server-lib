@@ -42,7 +42,7 @@ import org.springframework.util.ClassUtils;
 @ConditionalOnClass({ LocalContainerEntityManagerFactoryBean.class, EnableTransactionManagement.class, EntityManager.class })
 @Conditional(EclipselinkEntityManagerCondition.class)
 @AutoConfigureAfter({ DataSourceAutoConfiguration.class, JtaAutoConfiguration.class })
-@ConfigurationProperties(prefix = "spring.jpa.eclipselink")
+@ConfigurationProperties(prefix = "spring.jpa")
 public class EclipselinkJpaAutoConfiguration extends JpaBaseConfiguration {
 	private Map<String, Object> eclipselink = new HashMap<String, Object>();
 	
