@@ -23,7 +23,7 @@
 	</parent>
 
 	<artifactId>sudoor-server-lib</artifactId>
-  <version>1.0.14-SNAPSHOT</version>
+	<version>1.0.14-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -61,11 +61,25 @@
 <!-- 			<groupId>org.springframework.boot</groupId> -->
 <!-- 			<artifactId>spring-boot-starter-undertow</artifactId> -->
 <!-- 		</dependency> -->
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-entitymanager</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
+
+		<!-- use  eclipselink to replace hibernate to avoid hibernate temporal literal issue. bug: HHH-8653-->
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>eclipselink</artifactId>
+			<version>2.5.2</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
