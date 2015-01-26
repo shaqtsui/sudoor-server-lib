@@ -73,7 +73,9 @@
 			</exclusions>
 		</dependency>
 
-		<!-- use  eclipselink to replace hibernate to avoid hibernate temporal literal issue. bug: HHH-8653-->
+		<!-- use  eclipselink to replace hibernate to avoid hibernate temporal literal issue. bug: HHH-8653
+			To use eclipselink need to speify *QL for "in" clause due to bug: 349477
+		-->
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>eclipselink</artifactId>
