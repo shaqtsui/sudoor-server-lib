@@ -28,15 +28,13 @@ import net.gplatform.sudoor.server.integration.EventMessageGateway;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
-@WebAppConfiguration
-@IntegrationTest
+@WebIntegrationTest
 public class EventMessageGatewayTest {
 
 	@Autowired
@@ -44,12 +42,13 @@ public class EventMessageGatewayTest {
 
 	@Test
 	public void test() {
+		boolean res = true;
 		try {
 			eventMessageGateway.publishEvent("TestPublisher");
 		} catch (Exception e) {
-			System.out.println(e);
+			res = false;
 		}
-		System.out.println("Complete");
+		assert (res);
 
 	}
 
