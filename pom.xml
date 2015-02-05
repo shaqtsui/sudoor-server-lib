@@ -127,6 +127,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jersey</artifactId>
+		</dependency>
 		<!-- for Generating your own meta-data for @ConfigurationProperties -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
