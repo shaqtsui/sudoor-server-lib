@@ -89,14 +89,14 @@ public class SecurityConfig{
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			http
-				.regexMatcher("/app/connect.*|/app/signin.*|/app/signup.*|/app/linkedin.*|/data/odata.svc/Credential.*")
+				.regexMatcher("/login|/logout|/app/connect.*|/app/signin.*|/app/signup.*|/app/linkedin.*|/data/odata.svc/Credential.*")
 				.formLogin()
 				.and()
 					.logout()
 						.deleteCookies("JSESSIONID")
 				.and()
 					.authorizeRequests()
-						.regexMatchers("/app/connect.*","/app/signin.*", "/app/signup.*", "/app/linkedin.*").permitAll()
+						.regexMatchers("/login", "/logout", "/app/connect.*","/app/signin.*", "/app/signup.*", "/app/linkedin.*").permitAll()
 						.regexMatchers(HttpMethod.GET, "/data/odata.svc/Credential.*").denyAll()
 				.and()
 					.rememberMe();
