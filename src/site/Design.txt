@@ -1,0 +1,10 @@
+Resources:
+	DispatcherServlet - /app
+	jerseyServlet - /data/odata.svc
+	nonODataRestJerseyServlet - /data/ws/rest
+	
+	SpringSecurityFilter - /
+	
+	CxfSoapWSServer - specified in ws-config-sudoor.xml 
+		E.g.
+			http://localhost:8080/obiz/data/ws/soap/sudoor/authService
