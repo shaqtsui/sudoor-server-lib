@@ -38,7 +38,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-@Component
+/**
+ * Unregister in spring to disable this filter.
+ * @author xufucheng
+ *
+ */
+//@Component
 public class CustomizeRequestFilter implements Filter {
 	final Logger logger = LoggerFactory.getLogger(CustomizeRequestFilter.class);
 
