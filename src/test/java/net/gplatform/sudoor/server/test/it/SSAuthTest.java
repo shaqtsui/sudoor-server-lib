@@ -43,9 +43,9 @@ public class SSAuthTest {
 	@Test
 	public void testSSRegister() {
 		SSAuth.register("Shark", "Shark");
-		SSAuth.register("admin", "admin", new String[] { "ROLE_ADMIN" });
+		SSAuth.register("admin1", "admin1", new String[] { "ROLE_ADMIN" });
 		SSAuth.authenticate("Shark", "Shark");
-		SSAuth.authenticate("admin", "admin");
+		SSAuth.authenticate("admin1", "admin1");
 	}
 
 	@Test
