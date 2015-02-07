@@ -65,7 +65,7 @@ public class SecurityConfig{
 	 *
 	 */
 	@Configuration
-	@Order(SecurityProperties.IGNORED_ORDER - 10)
+	@Order(SecurityProperties.IGNORED_ORDER + 10)
 	public static class IgnoredPathsWebSecurityConfigurerAdapter implements WebSecurityConfigurer<WebSecurity> {
 
 		@Override
