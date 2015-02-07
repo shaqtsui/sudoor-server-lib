@@ -30,7 +30,6 @@ import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
@@ -60,7 +59,8 @@ public class SecurityConfig{
 	}
 	
 	/**
-	 * Ignore config for non-dispatchServlet requests 
+	 * Ignore config for non-dispatchServlet requests, dispatchServlet resource ignore should configed in application.properties
+	 * normally only static content ingored, since no SS context available if not go through SS filters
 	 * @author xufucheng
 	 *
 	 */
@@ -72,7 +72,7 @@ public class SecurityConfig{
 		public void configure(WebSecurity web) throws Exception {
 			web
 				.ignoring()
-					.antMatchers("/", "/index.html", "/data/ws/*", "/data/ws/soap/sudoor/**", "/data/ws/rest/sudoor/**", "/data/odata.svc/$metadata", "/data/odata.svc/$batch");
+					.antMatchers("/", "/index.html");
 		}
 		
 		@Override
@@ -82,22 +82,68 @@ public class SecurityConfig{
 	
 	/*
 	 * Enable form http config, The order will only impact http filter sequence
+	 * This conifg for jerseyServlet Resource
 	 */
 	@Configuration
 	@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
-	public static class CommonWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter{
+	public static class JerseyServletResourceSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter{
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			http
-				.regexMatcher("/login|/logout|/app/connect.*|/app/signin.*|/app/signup.*|/app/linkedin.*|/data/odata.svc/Credential.*")
+				.regexMatcher("/data/odata.svc/\\$metadata")
 				.formLogin()
 				.and()
 					.logout()
 						.deleteCookies("JSESSIONID")
 				.and()
 					.authorizeRequests()
-						.regexMatchers("/login", "/logout", "/app/connect.*","/app/signin.*", "/app/signup.*", "/app/linkedin.*").permitAll()
-						.regexMatchers(HttpMethod.GET, "/data/odata.svc/Credential.*").denyAll()
+						.regexMatchers("/data/odata.svc/\\$metadata").permitAll()
+				.and()
+					.rememberMe();
+		}
+	}
+	
+	/*
+	 * Enable form http config, The order will only impact http filter sequence
+	 * This conifg for nonODataRestJerseyServlet Resource
+	 */
+	@Configuration
+	@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER-1)
+	public static class NonODataRestJerseyServletResourceSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter{
+		@Override
+		protected void configure(HttpSecurity http) throws Exception {
+			http
+				.regexMatcher("/data/ws/rest/sudoor/.*")
+				.formLogin()
+				.and()
+					.logout()
+						.deleteCookies("JSESSIONID")
+				.and()
+					.authorizeRequests()
+						.regexMatchers("/data/ws/rest/sudoor/.*").permitAll()
+				.and()
+					.rememberMe();
+		}
+	}
+	
+	/*
+	 * Enable form http config, The order will only impact http filter sequence
+	 * This config for DispatcherServlet Resource
+	 */
+	@Configuration
+	@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER-2)
+	public static class DispatcherServletResourceSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter{
+		@Override
+		protected void configure(HttpSecurity http) throws Exception {
+			http
+				.regexMatcher("/|/index.html|/login|/logout|/app/connect.*|/app/signin.*|/app/signup.*|/app/linkedin.*")
+				.formLogin()
+				.and()
+					.logout()
+						.deleteCookies("JSESSIONID")
+				.and()
+					.authorizeRequests()
+						.regexMatchers("/", "/index.html", "/login", "/logout", "/app/connect.*","/app/signin.*", "/app/signup.*", "/app/linkedin.*").permitAll()
 				.and()
 					.rememberMe();
 		}
