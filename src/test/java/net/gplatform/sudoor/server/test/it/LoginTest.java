@@ -22,23 +22,28 @@ package net.gplatform.sudoor.server.test.it;
  * #L%
  */
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Cookie;
+import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 
 import net.gplatform.sudoor.server.Application;
 
+import org.glassfish.jersey.client.ClientProperties;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -47,7 +52,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 //@SpringApplicationConfiguration(classes = Application.class)
 //@WebIntegrationTest
 public class LoginTest {
-	
+
 	static Client client = null;
 
 	@BeforeClass
@@ -56,28 +61,31 @@ public class LoginTest {
 	}
 
 	String url = "http://localhost:8080/sudoor-server-lib";
-	
+
 	@Test
 	public void login() {
 
 		WebTarget signin = client.target(url + "/login");
-		Response signinResponse = signin.request(MediaType.WILDCARD_TYPE).get();
-		Map<String, NewCookie> signinCookies = signinResponse.getCookies();
-		assert (signinResponse.getStatus() == 200);
+		//WebTarget signin = client.target(url + "/data/odata.svc/$metadata");
+		Form f = new Form();
+		f.param("username", "admin");
+		f.param("password", "admin");
+		Response signinResponse = signin.property(ClientProperties.FOLLOW_REDIRECTS, false).request(MediaType.WILDCARD_TYPE).post(Entity.form(f));
+		assert (signinResponse.getStatus() == 302);
 
-/*		String pageCaptcha = "abc";
-		WebTarget validateTarget = client.target(url + "/data/ws/rest").path("/sudoor/captcha/validate")
-				.queryParam("_captcha", pageCaptcha);
-		Builder validateBuilder = validateTarget.request(MediaType.WILDCARD_TYPE);
-		for (Iterator iterator = signinCookies.values().iterator(); iterator.hasNext();) {
-			Cookie cookie = (Cookie) iterator.next();
-			validateBuilder.cookie(cookie);
-		}
-		Response validateResponse = validateBuilder.get();
-		assert (validateResponse.getStatus() == 200);
+		
+		WebTarget target = client.target(url + "/data/ws/rest").path("/sudoor/SpringSecurity/Authentication");
+		Builder authenticationRequestBuilder = target.request(MediaType.WILDCARD_TYPE);
+		
+		TestUtils.copyCookies(authenticationRequestBuilder, signinResponse);
+		
+		Response response = authenticationRequestBuilder.get();
+		int statusCode = response.getStatus();
+		assert (statusCode == 200);
 
-		boolean res = validateResponse.readEntity(boolean.class);
-		assert (res == false);*/
+		Map result = response.readEntity(Map.class);
+		assert ("anonymousUser".equals(result.get("principal")));
+
 	}
 
 }

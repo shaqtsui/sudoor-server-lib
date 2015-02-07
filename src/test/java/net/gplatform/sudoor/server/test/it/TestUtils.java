@@ -23,6 +23,11 @@ package net.gplatform.sudoor.server.test.it;
  */
 
 import java.net.InetAddress;
+import java.util.Iterator;
+
+import javax.ws.rs.client.Invocation.Builder;
+import javax.ws.rs.core.Cookie;
+import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.AbstractConfigurableEmbeddedServletContainer;
@@ -45,6 +50,14 @@ public class TestUtils {
 		String contextPath = abstractConfigurableEmbeddedServletContainer.getContextPath();
 
 		return "http://" + addressStr + ":" + port + contextPath;
+	}
+	
+	
+	public static void copyCookies(Builder targetRequstBuilder, Response fromResponse) {
+		for (Iterator iterator = fromResponse.getCookies().values().iterator(); iterator.hasNext();) {
+			Cookie cookie = (Cookie) iterator.next();
+			targetRequstBuilder.cookie(cookie);
+		}
 	}
 
 }
