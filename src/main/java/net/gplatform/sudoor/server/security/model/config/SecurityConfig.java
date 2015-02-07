@@ -136,14 +136,14 @@ public class SecurityConfig{
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			http
-				.regexMatcher("/|/index.html|/login|/logout|/app/connect.*|/app/signin.*|/app/signup.*|/app/linkedin.*")
+				.regexMatcher("/|/index.html|/login|/logout|/app/connect.*|/app/signin.*|/app/signup.*|/app/linkedin.*|/app/linkedin.*|/app/sudoor/.*")
 				.formLogin()
 				.and()
 					.logout()
 						.deleteCookies("JSESSIONID")
 				.and()
 					.authorizeRequests()
-						.regexMatchers("/", "/index.html", "/login", "/logout", "/app/connect.*","/app/signin.*", "/app/signup.*", "/app/linkedin.*").permitAll()
+						.regexMatchers("/", "/index.html", "/login", "/logout", "/app/connect.*","/app/signin.*", "/app/signup.*", "/app/linkedin.*", "/app/sudoor/.*").permitAll()
 				.and()
 					.rememberMe();
 		}
