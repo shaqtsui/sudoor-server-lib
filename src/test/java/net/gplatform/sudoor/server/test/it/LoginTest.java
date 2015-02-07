@@ -84,7 +84,7 @@ public class LoginTest {
 		assert (statusCode == 200);
 
 		Map result = response.readEntity(Map.class);
-		assert ("anonymousUser".equals(result.get("principal")));
+		assert ("ROLE_ADMIN".equals(((Map)((java.util.List)result.get("authorities")).get(0)).get("authority")));
 
 	}
 
