@@ -22,6 +22,8 @@ package net.gplatform.sudoor.server.test.it;
  * #L%
  */
 
+import java.util.Map;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -61,7 +63,10 @@ public class SpringSecurityResourceTest {
 				"/sudoor/SpringSecurity/Authentication");
 		Response response = target.request(MediaType.WILDCARD_TYPE).get();
 		int statusCode = response.getStatus();
-		assert (statusCode == 204);
+		assert (statusCode == 200);
+		
+		Map result = response.readEntity(Map.class);
+		assert ("anonymousUser".equals(result.get("principal")));
 	}
 
 }
