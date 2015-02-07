@@ -91,15 +91,12 @@ public class SecurityConfig{
 		protected void configure(HttpSecurity http) throws Exception {
 			http
 				.regexMatcher("/data/odata.svc/\\$metadata")
-				.formLogin()
-				.and()
-					.logout()
-						.deleteCookies("JSESSIONID")
+				.httpBasic()
 				.and()
 					.authorizeRequests()
 						.regexMatchers("/data/odata.svc/\\$metadata").permitAll()
 				.and()
-					.rememberMe();
+					.csrf().disable();
 		}
 	}
 	
@@ -114,15 +111,12 @@ public class SecurityConfig{
 		protected void configure(HttpSecurity http) throws Exception {
 			http
 				.regexMatcher("/data/ws/rest/sudoor/.*")
-				.formLogin()
-				.and()
-					.logout()
-						.deleteCookies("JSESSIONID")
+				.httpBasic()
 				.and()
 					.authorizeRequests()
 						.regexMatchers("/data/ws/rest/sudoor/.*").permitAll()
 				.and()
-					.rememberMe();
+					.csrf().disable();
 		}
 	}
 	
@@ -145,7 +139,7 @@ public class SecurityConfig{
 					.authorizeRequests()
 						.regexMatchers("/", "/index.html", "/login", "/logout", "/app/connect.*","/app/signin.*", "/app/signup.*", "/app/linkedin.*", "/app/sudoor/.*").permitAll()
 				.and()
-					.rememberMe();
+					.csrf().disable();
 		}
 	}
 }
