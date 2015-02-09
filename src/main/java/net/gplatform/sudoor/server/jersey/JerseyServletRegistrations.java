@@ -36,7 +36,7 @@ public class JerseyServletRegistrations {
 	/**
 	 * Cann not use @ApplicationPath in JerseyConfig refer to JerseyConfig comment
 	 */
-	private String jerseyServletRegistrationPath = "/data/ws/rest/*";
+	private String jerseyServletRegistrationPath = "/data/odata.svc/*";
 
 	@Value("${application.basepackage}")
 	private String applicationBasepackage;
