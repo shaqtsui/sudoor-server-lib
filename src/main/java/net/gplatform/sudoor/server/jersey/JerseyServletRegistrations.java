@@ -31,14 +31,19 @@ public class JerseyServletRegistrations {
 	@Autowired
 	private ResourceConfig config;
 
-	private String path = "/data/ws/rest/*";
+	private String nonODataRestJerseyServletRegistrationPath = "/data/ws/rest/*";
+	
+	/**
+	 * Cann not use @ApplicationPath in JerseyConfig refer to JerseyConfig comment
+	 */
+	private String jerseyServletRegistrationPath = "/data/ws/rest/*";
 
 	@Value("${application.basepackage}")
 	private String applicationBasepackage;
 
 	@Bean
 	public ServletRegistrationBean nonODataRestJerseyServletRegistration() {
-		ServletRegistrationBean registration = new ServletRegistrationBean(new ServletContainer(), this.path);
+		ServletRegistrationBean registration = new ServletRegistrationBean(new ServletContainer(), this.nonODataRestJerseyServletRegistrationPath);
 		registration.addInitParameter(ServerProperties.PROVIDER_PACKAGES, "net.gplatform.sudoor.server," + applicationBasepackage);
 		registration.addInitParameter(ServerProperties.PROVIDER_SCANNING_RECURSIVE, "true");
 		registration.setName("nonODataRestJerseyServlet");
@@ -53,8 +58,7 @@ public class JerseyServletRegistrations {
 	 */
 	@Bean
 	public ServletRegistrationBean jerseyServletRegistration() {
-		String path = findPath(AnnotationUtils.findAnnotation(this.config.getClass(), ApplicationPath.class));
-		ServletRegistrationBean registration = new ServletRegistrationBean(new ServletContainer(this.config), path);
+		ServletRegistrationBean registration = new ServletRegistrationBean(new ServletContainer(this.config), jerseyServletRegistrationPath);
 		addInitParameters(registration);
 		registration.setName(config.getClass().getName());
 		return registration;
@@ -67,15 +71,4 @@ public class JerseyServletRegistrations {
 		}
 	}
 
-	private static String findPath(ApplicationPath annotation) {
-		// Jersey doesn't like to be the default servlet, so map to /* as a fallback
-		if (annotation == null) {
-			return "/*";
-		}
-		String path = annotation.value();
-		if (!path.startsWith("/")) {
-			path = "/" + path;
-		}
-		return path.equals("/") ? "/*" : path + "/*";
-	}
 }

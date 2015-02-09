@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 
 /**
  * This config only used by default jerseyServletRegistration & jerseyFilterRegistration in Spring Auto config
+ * If ApplicationPath available, a servlet will be created to handle request, so need to remove it add hard code in Registration
  * @author xufucheng
  *
  */
 @Component
-@ApplicationPath("/data/odata.svc")
 public class JerseyConfig extends ResourceConfig {
 	public JerseyConfig() {
 		Application application = new ODataApplication();
