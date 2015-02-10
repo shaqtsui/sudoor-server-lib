@@ -40,6 +40,8 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebIntegrationTest
@@ -52,6 +54,7 @@ public class SpringSecurityResourceTest {
 	@BeforeClass
 	public static void init() {
 		client = ClientBuilder.newBuilder().build();
+		client.register(JacksonJsonProvider.class);
 	}
 
 	/**

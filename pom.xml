@@ -29,7 +29,7 @@
 	<properties>
 		<cxf.version>3.0.3</cxf.version>
 		<!-- jackson 2.3.3 already included by spring boot, so here include jackson.jaxrs 2.3.3-->
-		<com.fasterxml.jackson.jaxrs.version>2.3.3</com.fasterxml.jackson.jaxrs.version>
+		<com.fasterxml.jackson.jaxrs.version>2.4.4</com.fasterxml.jackson.jaxrs.version>
 		<org.apache.olingo.version>2.0.1</org.apache.olingo.version>
 		<kaptcha.version>0.0.9</kaptcha.version>
 	</properties>
@@ -127,10 +127,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jersey</artifactId>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.boot</groupId> -->
+<!-- 			<artifactId>spring-boot-starter-jersey</artifactId> -->
+<!-- 		</dependency> -->
 		<!-- for Generating your own meta-data for @ConfigurationProperties -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -170,14 +170,37 @@
 			<artifactId>cxf-rt-ws-security</artifactId>
 			<version>${cxf.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<!-- Providers in cxf-rt-rs-extension-providers can only handle jaxb object & primiry object -->
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-rs-extension-providers</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-rs-client</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<!-- jackson 2.3.3 already included by spring boot -->
+		<!-- Providers in jackson-jaxrs-json-provider can handle pojo -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-json-provider</artifactId>
+			<version>${com.fasterxml.jackson.jaxrs.version}</version>
+		</dependency>
 		
-		<!-- jersey client for rest test, but we recommend to use RestTemplate -->
+		<!-- jersey client for rest test, but we recommend to use RestTemplate 
 		<dependency>
 		    <groupId>org.glassfish.jersey.core</groupId>
 		    <artifactId>jersey-client</artifactId>
 		    <version>2.13</version>
 		</dependency>
-
+		-->
 
 		<!-- OData Impl Start -->
 		<dependency>

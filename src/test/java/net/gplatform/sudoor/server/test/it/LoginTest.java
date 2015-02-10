@@ -39,7 +39,6 @@ import javax.ws.rs.core.Response;
 
 import net.gplatform.sudoor.server.Application;
 
-import org.glassfish.jersey.client.ClientProperties;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,6 +46,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
 //@RunWith(SpringJUnit4ClassRunner.class)
 //@SpringApplicationConfiguration(classes = Application.class)
@@ -58,6 +59,7 @@ public class LoginTest {
 	@BeforeClass
 	public static void init() {
 		client = ClientBuilder.newBuilder().build();
+		client.register(JacksonJsonProvider.class);
 	}
 
 	String url = "http://localhost:8080/sudoor-server-lib";
@@ -70,7 +72,7 @@ public class LoginTest {
 		Form f = new Form();
 		f.param("username", "admin");
 		f.param("password", "admin");
-		Response signinResponse = signin.property(ClientProperties.FOLLOW_REDIRECTS, false).request(MediaType.WILDCARD_TYPE).post(Entity.form(f));
+		Response signinResponse = signin.request(MediaType.WILDCARD_TYPE).post(Entity.form(f));
 		assert (signinResponse.getStatus() == 302);
 
 		
