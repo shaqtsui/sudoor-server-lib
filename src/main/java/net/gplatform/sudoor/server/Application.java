@@ -44,9 +44,9 @@ import org.springframework.integration.annotation.IntegrationComponentScan;
 @ImportResource({ "classpath:META-INF/cxf/cxf.xml", "classpath:META-INF/cxf/cxf-servlet.xml", "classpath*:META-INF/cxf/cxf-extension-*.xml",
 		"classpath*:spring/**/*-config-*.xml" })
 //TODO: Don't support multiple config, so can only config multiple value. Will change this once multiple config supported
-@ComponentScan({ "net.gplatform.sudoor.server", "${application.basepackage}" })
-@EntityScan({ "net.gplatform.sudoor.server", "${application.basepackage}" })
-@EnableJpaRepositories({ "net.gplatform.sudoor.server", "${application.basepackage}" })
+@ComponentScan({ "net.gplatform.sudoor.server", "${sudoor.application.basepackage}" })
+@EntityScan({ "net.gplatform.sudoor.server", "${sudoor.application.basepackage}" })
+@EnableJpaRepositories({ "net.gplatform.sudoor.server", "${sudoor.application.basepackage}" })
 @IntegrationComponentScan
 public class Application extends SpringBootServletInitializer {
 

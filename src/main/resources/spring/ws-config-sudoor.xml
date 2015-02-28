@@ -65,7 +65,7 @@
 
 	<jaxws:client id="authServiceClient" serviceClass="net.gplatform.sudoor.server.security.controller.AuthService" address="http://localhost:8080/obiz/data/ws/soap/sudoor/authService">
 	</jaxws:client>
-	<jaxrs:server address="/rest" basePackages="net.gplatform.sudoor.server.,${application.basepackage}.">
+	<jaxrs:server address="/rest" basePackages="net.gplatform.sudoor.server.,${sudoor.application.basepackage}.">
 		<jaxrs:providers>
 			<!-- Providers in cxf-rt-rs-extension-providers can only handle jaxb object & primiry object -->
 			<bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"></bean>
