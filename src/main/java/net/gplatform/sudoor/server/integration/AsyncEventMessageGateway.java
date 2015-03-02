@@ -22,25 +22,13 @@ package net.gplatform.sudoor.server.integration;
  * #L%
  */
 
-import java.util.Date;
+import org.springframework.integration.annotation.Gateway;
+import org.springframework.integration.annotation.MessagingGateway;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.integration.annotation.MessageEndpoint;
-import org.springframework.integration.annotation.ServiceActivator;
+@MessagingGateway
+public interface AsyncEventMessageGateway {
 
-@MessageEndpoint
-public class DefaultEventServiceActivator {
-	final Logger logger = LoggerFactory.getLogger(DefaultEventServiceActivator.class);
-
-	@ServiceActivator(inputChannel = "eventPublishChannel")
-	public void handle(Object event) throws Exception {
-		logger.debug("Get Event: {} @ {}", event, new Date());
-	}
-	
-	@ServiceActivator(inputChannel = "asyncEventPublishChannel")
-	public void handleAsyncEvent(Object event) throws Exception {
-		logger.debug("Get Asnyc Event: {} @ {}", event, new Date());
-	}
+	@Gateway(requestChannel = "asyncEventPublishChannel")
+	public void publishEvent(Object event);
 
 }

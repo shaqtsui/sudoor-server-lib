@@ -29,5 +29,9 @@
 	xmlns:context="http://www.springframework.org/schema/context" xmlns:int="http://www.springframework.org/schema/integration" xmlns:task="http://www.springframework.org/schema/task">
 
 	<int:publish-subscribe-channel id="eventPublishChannel" />
+	
+	<int:publish-subscribe-channel id="asyncEventPublishChannel" task-executor="taskExecutor"/>
+	
+	<task:executor id="taskExecutor" pool-size="20" queue-capacity="20"/>
 
 </beans>

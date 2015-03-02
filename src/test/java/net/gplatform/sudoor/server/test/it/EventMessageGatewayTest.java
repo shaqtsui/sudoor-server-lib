@@ -23,6 +23,7 @@ package net.gplatform.sudoor.server.test.it;
  */
 
 import net.gplatform.sudoor.server.Application;
+import net.gplatform.sudoor.server.integration.AsyncEventMessageGateway;
 import net.gplatform.sudoor.server.integration.EventMessageGateway;
 
 import org.junit.Test;
@@ -39,6 +40,9 @@ public class EventMessageGatewayTest {
 
 	@Autowired
 	EventMessageGateway eventMessageGateway;
+	
+	@Autowired
+	AsyncEventMessageGateway asyncEventMessageGateway;
 
 	@Test
 	public void test() {
@@ -51,5 +55,18 @@ public class EventMessageGatewayTest {
 		assert (res);
 
 	}
+	
+	@Test
+	public void testAsync() {
+		boolean res = true;
+		try {
+			asyncEventMessageGateway.publishEvent("AsyncTestPublisher");
+		} catch (Exception e) {
+			res = false;
+		}
+		assert (res);
+
+	}
+
 
 }
