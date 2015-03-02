@@ -293,13 +293,13 @@ HttpSession
 
 Event Publish & Subscribe:
 	Publish:
-		1, Inject EventMessageGateway into your component
-		2, Invoke EventMessageGateway.publishEvent() to publish event
-		3, If you want to get the Subscribe's execution status(success/failure), you can add try/cache out of EventMessageGateway.publishEvent()
+		1, Inject EventMessageGateway/AsyncEventMessageGateway into your component
+		2, Invoke EventMessageGateway/AsyncEventMessageGateway.publishEvent() to publish event
+		3, For EventMessageGateway If you want to get the Subscribe's execution status(success/failure), you can add try/cache out of EventMessageGateway.publishEvent()
 			and get real exception via e.getRootCause()
 			
 	Subscribe:
-		Write ServiceActivator(Class annotated with @MessageEndpoint, method annotated with @ServiceActivator(inputChannel = "eventPublishChannel"))
+		Write ServiceActivator(Class annotated with @MessageEndpoint, method annotated with @ServiceActivator(inputChannel = "eventPublishChannel") / @ServiceActivator(inputChannel = "asyncEventPublishChannel"))
 			E.g.
 				@MessageEndpoint
 				public class DefaultEventServiceActivator {
@@ -307,6 +307,11 @@ Event Publish & Subscribe:
 				
 					@ServiceActivator(inputChannel = "eventPublishChannel")
 					public void handle(Object event) throws Exception {
+						logger.debug("Get Event: {} @ {}", event, new Date());
+					}
+					
+					@ServiceActivator(inputChannel = "asyncEventPublishChannel")
+					public void handleAsyncEvent(Object event) throws Exception {
 						logger.debug("Get Event: {} @ {}", event, new Date());
 					}
 				}
