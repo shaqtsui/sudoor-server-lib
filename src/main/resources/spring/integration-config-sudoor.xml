@@ -25,13 +25,30 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
-		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns:int="http://www.springframework.org/schema/integration" xmlns:task="http://www.springframework.org/schema/task">
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+		http://www.springframework.org/schema/integration/ftp http://www.springframework.org/schema/integration/ftp/spring-integration-ftp.xsd"
+
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:int="http://www.springframework.org/schema/integration" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:int-ftp="http://www.springframework.org/schema/integration/ftp">
 
 	<int:publish-subscribe-channel id="eventPublishChannel" />
-	
-	<int:publish-subscribe-channel id="asyncEventPublishChannel" task-executor="taskExecutor"/>
-	
-	<task:executor id="taskExecutor" pool-size="20" queue-capacity="20"/>
+
+	<int:publish-subscribe-channel id="asyncEventPublishChannel" task-executor="taskExecutor" />
+
+	<task:executor id="taskExecutor" pool-size="20" queue-capacity="20" />
+
+	<bean id="ftpSessionFactory" class="org.springframework.integration.ftp.session.DefaultFtpSessionFactory">
+		<property name="host" value="${sudoor.ftp.host}" />
+		<property name="port" value="${sudoor.ftp.port}" />
+		<property name="username" value="${sudoor.ftp.username}" />
+		<property name="password" value="${sudoor.ftp.password}" />
+		<property name="clientMode" value="${sudoor.ftp.clientMode}" />
+		<property name="fileType" value="${sudoor.ftp.fileType}" />
+		<property name="bufferSize" value="${sudoor.ftp.bufferSize}" />
+	</bean>
+
+	<int-ftp:outbound-channel-adapter id="ftpOutbound" channel="ftpChannel" session-factory="ftpSessionFactory" charset="UTF-8"
+		remote-file-separator="/" auto-create-directory="true" remote-directory-expression="headers.['remote_dir']" temporary-remote-directory-expression="headers.['temp_remote_dir']"
+		mode="REPLACE" remote-filename-generator-expression="#this.toUpperCase() + '.pdf'" />
 
 </beans>
