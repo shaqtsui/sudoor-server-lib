@@ -31,11 +31,17 @@
 	xmlns:context="http://www.springframework.org/schema/context" xmlns:int="http://www.springframework.org/schema/integration" xmlns:task="http://www.springframework.org/schema/task"
 	xmlns:int-ftp="http://www.springframework.org/schema/integration/ftp">
 
+	<int:poller default="true" max-messages-per-poll="10" cron="*/10 * * * * *" />
+
+	<task:executor id="taskExecutor" pool-size="20" queue-capacity="20" />
+
 	<int:publish-subscribe-channel id="eventPublishChannel" />
 
 	<int:publish-subscribe-channel id="asyncEventPublishChannel" task-executor="taskExecutor" />
 
-	<task:executor id="taskExecutor" pool-size="20" queue-capacity="20" />
+	<int:channel id="ftpChannel">
+		<int:queue capacity="25" />
+	</int:channel>
 
 	<bean id="ftpSessionFactory" class="org.springframework.integration.ftp.session.DefaultFtpSessionFactory">
 		<property name="host" value="${sudoor.ftp.host}" />
@@ -48,7 +54,7 @@
 	</bean>
 
 	<int-ftp:outbound-channel-adapter id="ftpOutbound" channel="ftpChannel" session-factory="ftpSessionFactory" charset="UTF-8"
-		remote-file-separator="/" auto-create-directory="true" remote-directory-expression="headers.['remote_dir']" temporary-remote-directory-expression="headers.['temp_remote_dir']"
+		remote-file-separator="/" auto-create-directory="true" remote-directory-expression="headers['remote_dir']" temporary-remote-directory-expression="headers['temp_remote_dir']"
 		mode="REPLACE" remote-filename-generator-expression="#this.toUpperCase() + '.pdf'" />
 
 </beans>
