@@ -317,6 +317,43 @@ Event Publish & Subscribe:
 				}
 
 
+FTP File Push:
+	Config:
+		######## ftp config
+		sudoor.ftp.host=localhost
+		sudoor.ftp.port=21
+		sudoor.ftp.username=xufucheng
+		sudoor.ftp.password=xufucheng
+		sudoor.ftp.clientMode=0
+		sudoor.ftp.fileType=2
+		sudoor.ftp.bufferSize=100000
+		sudoor.ftp.directory=default
+	
+	Usage Example:
+		@RunWith(SpringJUnit4ClassRunner.class)
+		@SpringApplicationConfiguration(classes = Application.class)
+		@WebIntegrationTest
+		public class FtpMessageGatewayTest {
+		
+			@Autowired
+			FtpMessageGateway ftpMessageGateway;
+		
+			@Test
+			public void test() {
+				boolean res = true;
+				try {
+					org.springframework.messaging.Message<String> msg = MessageBuilder.withPayload("test").setHeader("file_name", "testftp.txt").build();
+					ftpMessageGateway.sendFtpMessage(msg);
+				} catch (Exception e) {
+					e.printStackTrace();
+					res = false;
+				}
+				assert (res);
+		
+			}
+		}
+
+
 Logging:
 	Need to use slf4j.
 	E.g.
