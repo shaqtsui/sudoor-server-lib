@@ -40,7 +40,7 @@
 	<int:publish-subscribe-channel id="asyncEventPublishChannel" task-executor="taskExecutor" />
 
 	<int:channel id="ftpChannel">
-		<int:queue capacity="25" />
+<!-- 		<int:queue capacity="25" /> -->
 	</int:channel>
 
 	<bean id="ftpSessionFactory" class="org.springframework.integration.ftp.session.DefaultFtpSessionFactory">
@@ -54,7 +54,6 @@
 	</bean>
 
 	<int-ftp:outbound-channel-adapter id="ftpOutbound" channel="ftpChannel" session-factory="ftpSessionFactory" charset="UTF-8"
-		remote-file-separator="/" auto-create-directory="true" remote-directory-expression="headers['remote_dir']" temporary-remote-directory-expression="headers['temp_remote_dir']"
-		mode="REPLACE" remote-filename-generator-expression="#this.toUpperCase() + '.pdf'" />
+		remote-file-separator="/" auto-create-directory="true" remote-directory="${sudoor.ftp.directory}" mode="REPLACE" />
 
 </beans>
