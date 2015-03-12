@@ -29,6 +29,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.google.code.kaptcha.Constants;
@@ -42,6 +43,9 @@ public class CaptchaValidator {
 
 	@Autowired
 	HttpServletRequest request;
+	
+	@Value("${sudoor.captcha.dummy}")
+	boolean dummy;
 
 	/**
 	 * Deprecated, pls use validate()
@@ -64,9 +68,16 @@ public class CaptchaValidator {
 		String captchaFromSession = (String) session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
 
 		logger.debug("CaptchaValidator: Session ID:{} captchaFromPage:{} captchaFromSession:{}", session.getId(), captchaFromPage, captchaFromSession);
-
-		if (StringUtils.equalsIgnoreCase(captchaFromSession, captchaFromPage)) {
-			return true;
+		
+		if(dummy){
+			logger.warn("Dummy captcha!!!, you can disable dummy via config sudoor.captcha.dummy=false");
+			if (StringUtils.equalsIgnoreCase("dummy", captchaFromPage)) {
+				return true;
+			}
+		}else{
+			if (StringUtils.equalsIgnoreCase(captchaFromSession, captchaFromPage)) {
+				return true;
+			}
 		}
 		return false;
 	}
