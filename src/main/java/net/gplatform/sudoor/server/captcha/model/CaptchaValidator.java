@@ -29,12 +29,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import com.google.code.kaptcha.Constants;
 
 @Component
+@ConfigurationProperties(prefix = "sudoor.captcha")
 public class CaptchaValidator {
 	final Logger logger = LoggerFactory.getLogger(CaptchaValidator.class);
 
@@ -43,9 +44,16 @@ public class CaptchaValidator {
 
 	@Autowired
 	HttpServletRequest request;
-	
-	@Value("${sudoor.captcha.dummy}")
-	boolean dummy;
+
+	String masterKey;
+
+	public String getMasterKey() {
+		return masterKey;
+	}
+
+	public void setMasterKey(String masterKey) {
+		this.masterKey = masterKey;
+	}
 
 	/**
 	 * Deprecated, pls use validate()
@@ -68,16 +76,16 @@ public class CaptchaValidator {
 		String captchaFromSession = (String) session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
 
 		logger.debug("CaptchaValidator: Session ID:{} captchaFromPage:{} captchaFromSession:{}", session.getId(), captchaFromPage, captchaFromSession);
+
+		if (StringUtils.isNotEmpty(masterKey)) {
+			logger.warn("Master key configed for captcha!!!, you can comment out: sudoor.captcha.master-key={} in application.properties", masterKey);
+			if (StringUtils.equalsIgnoreCase(masterKey, captchaFromPage)) {
+				return true;
+			}
+		}
 		
-		if(dummy){
-			logger.warn("Dummy captcha!!!, you can disable dummy via config sudoor.captcha.dummy=false");
-			if (StringUtils.equalsIgnoreCase("dummy", captchaFromPage)) {
-				return true;
-			}
-		}else{
-			if (StringUtils.equalsIgnoreCase(captchaFromSession, captchaFromPage)) {
-				return true;
-			}
+		if (StringUtils.equalsIgnoreCase(captchaFromSession, captchaFromPage)) {
+			return true;
 		}
 		return false;
 	}

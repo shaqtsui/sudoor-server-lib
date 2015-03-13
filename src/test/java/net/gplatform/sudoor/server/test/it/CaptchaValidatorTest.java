@@ -40,6 +40,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -53,6 +54,9 @@ public class CaptchaValidatorTest {
 	TestUtils testUtils;
 
 	static Client client = null;
+	
+	@Value("${sudoor.captcha.master-key}")
+	String masterKey = "test"; 
 
 	@BeforeClass
 	public static void init() {
@@ -67,9 +71,8 @@ public class CaptchaValidatorTest {
 		Map<String, NewCookie> captchaImgCookies = captchaImgResponse.getCookies();
 		assert (captchaImgResponse.getStatus() == 200);
 
-		String pageCaptcha = "abc";
 		WebTarget validateTarget = client.target(testUtils.getEmbeddedServletContainerBaseURL() + "/data/ws/rest").path("/sudoor/captcha/validate")
-				.queryParam("_captcha", pageCaptcha);
+				.queryParam("_captcha", masterKey);
 		Builder validateBuilder = validateTarget.request(MediaType.WILDCARD_TYPE);
 		for (Iterator iterator = captchaImgCookies.values().iterator(); iterator.hasNext();) {
 			Cookie cookie = (Cookie) iterator.next();
@@ -79,7 +82,7 @@ public class CaptchaValidatorTest {
 		assert (validateResponse.getStatus() == 200);
 
 		boolean res = validateResponse.readEntity(boolean.class);
-		assert (res == false);
+		assert (res == true);
 	}
 
 }
