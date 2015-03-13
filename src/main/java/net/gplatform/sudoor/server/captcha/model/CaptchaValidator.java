@@ -25,6 +25,8 @@ package net.gplatform.sudoor.server.captcha.model;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import net.gplatform.sudoor.server.masterkey.MasterKey;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,15 +47,8 @@ public class CaptchaValidator {
 	@Autowired
 	HttpServletRequest request;
 
-	String masterKey;
-
-	public String getMasterKey() {
-		return masterKey;
-	}
-
-	public void setMasterKey(String masterKey) {
-		this.masterKey = masterKey;
-	}
+	@Autowired
+	MasterKey masterKey;
 
 	/**
 	 * Deprecated, pls use validate()
@@ -77,13 +72,10 @@ public class CaptchaValidator {
 
 		logger.debug("CaptchaValidator: Session ID:{} captchaFromPage:{} captchaFromSession:{}", session.getId(), captchaFromPage, captchaFromSession);
 
-		if (StringUtils.isNotEmpty(masterKey)) {
-			logger.warn("Master key configed for captcha!!!, you can comment out: sudoor.captcha.master-key={} in application.properties", masterKey);
-			if (StringUtils.equalsIgnoreCase(masterKey, captchaFromPage)) {
-				return true;
-			}
+		if (masterKey.checkWithMasterKey(captchaFromPage)) {
+			return true;
 		}
-		
+
 		if (StringUtils.equalsIgnoreCase(captchaFromSession, captchaFromPage)) {
 			return true;
 		}
