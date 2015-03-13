@@ -55,7 +55,7 @@ public class CaptchaValidatorTest {
 
 	static Client client = null;
 	
-	@Value("${sudoor.captcha.master-key}")
+	@Value("${sudoor.masterkey.value}")
 	String masterKey = "test"; 
 
 	@BeforeClass
@@ -63,8 +63,7 @@ public class CaptchaValidatorTest {
 		client = ClientBuilder.newBuilder().build();
 	}
 
-	@Test
-	public void validateCaptchaFalse() {
+	public void validateCaptcha(String inputCaptcha, boolean response) {
 
 		WebTarget captchaImgTarget = client.target(testUtils.getEmbeddedServletContainerBaseURL() + "/app/sudoor/captcha-image.html");
 		Response captchaImgResponse = captchaImgTarget.request(MediaType.WILDCARD_TYPE).get();
@@ -72,7 +71,7 @@ public class CaptchaValidatorTest {
 		assert (captchaImgResponse.getStatus() == 200);
 
 		WebTarget validateTarget = client.target(testUtils.getEmbeddedServletContainerBaseURL() + "/data/ws/rest").path("/sudoor/captcha/validate")
-				.queryParam("_captcha", masterKey);
+				.queryParam("_captcha", inputCaptcha);
 		Builder validateBuilder = validateTarget.request(MediaType.WILDCARD_TYPE);
 		for (Iterator iterator = captchaImgCookies.values().iterator(); iterator.hasNext();) {
 			Cookie cookie = (Cookie) iterator.next();
@@ -82,7 +81,17 @@ public class CaptchaValidatorTest {
 		assert (validateResponse.getStatus() == 200);
 
 		boolean res = validateResponse.readEntity(boolean.class);
-		assert (res == true);
+		assert (res == response);
+	}
+	
+	@Test
+	public void validateCaptchaFalse() {
+		validateCaptcha(masterKey, true);
+	}
+	
+	@Test
+	public void validateCaptchaTrue() {
+		validateCaptcha("false captcha", false);
 	}
 
 }
