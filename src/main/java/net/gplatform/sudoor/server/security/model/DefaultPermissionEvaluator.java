@@ -22,10 +22,15 @@ package net.gplatform.sudoor.server.security.model;
  * #L%
  */
 
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
@@ -35,38 +40,29 @@ import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import java.io.InputStream;
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-
 /**
  * Created by Administrator on 14-1-15.
  */
 
 @Component
+@ConfigurationProperties(prefix = "sudoor.permissionevaluator.default")
 public class DefaultPermissionEvaluator implements PermissionEvaluator {
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultPermissionEvaluator.class);
 
-	public static final String CONFIG_FILE = "PermissionEvaluator/PermissionEvaluator.properties";
-	public static final String CONFIG_EXPRESSION_PREFIX = "PermissionEvaluator.expression.";
+	public static final String CONFIG_EXPRESSION_PREFIX = "expression.";
 
-	private Properties configProperties = new Properties();
+	private Properties properties;
 
 	private ExpressionParser parser = new SpelExpressionParser();
 	private EvaluationContext context = new StandardEvaluationContext();
 	private Map<String, Map<Object, Expression>> expressions = new HashMap<String, Map<Object, Expression>>();
+	
+	public Properties getProperties() {
+		return properties;
+	}
 
-	public DefaultPermissionEvaluator() {
-		LOG.debug("Start to init DefaultPermissionEvaluator");
-		try {
-			InputStream is = this.getClass().getClassLoader().getResourceAsStream(CONFIG_FILE);
-			configProperties.load(is);
-			LOG.debug("Successfully Init DefaultPermissionEvaluator");
-		} catch (Exception e) {
-			LOG.error("Can not init DefaultPermissionEvaluator", e);
-		}
+	public void setProperties(Properties properties) {
+		this.properties = properties;
 	}
 
 	/**
@@ -77,11 +73,11 @@ public class DefaultPermissionEvaluator implements PermissionEvaluator {
 	 * @return
 	 */
 	public String getExpressionString(String name, Object permission) {
-		String expression = configProperties.getProperty(CONFIG_EXPRESSION_PREFIX + name + "." + permission);
+		String expression = properties.getProperty(CONFIG_EXPRESSION_PREFIX + name + "." + permission);
 
 		//Get generic permit
 		if (expression == null) {
-			expression = configProperties.getProperty(CONFIG_EXPRESSION_PREFIX + name);
+			expression = properties.getProperty(CONFIG_EXPRESSION_PREFIX + name);
 		}
 
 		//Get parent permit
