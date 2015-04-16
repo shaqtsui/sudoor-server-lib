@@ -22,7 +22,6 @@ package net.gplatform.sudoor.server.security.model.auth;
  * #L%
  */
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +29,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -41,10 +41,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Component;
 
 @Component
+@ConfigurationProperties(prefix = "sudoor.security")
 public class SSAuth {
 	private Logger logger = LoggerFactory.getLogger(SSAuth.class);
 
@@ -53,6 +55,18 @@ public class SSAuth {
 
 	@Autowired
 	AuthenticationManagerBuilder authenticationManagerBuilder;
+
+	boolean passwordEncoderEnabled;
+
+	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	
+	public boolean isPasswordEncoderEnabled() {
+		return passwordEncoderEnabled;
+	}
+
+	public void setPasswordEncoderEnabled(boolean passwordEncoderEnabled) {
+		this.passwordEncoderEnabled = passwordEncoderEnabled;
+	}
 
 	public UserDetailsManager getUserDetailsManager() {
 		UserDetailsService uds = authenticationManagerBuilder.getDefaultUserDetailsService();
@@ -137,8 +151,12 @@ public class SSAuth {
 	}
 
 	public String register(String username, String password, String[] roles) {
-		logger.debug("Register:" + username);
-		UserDetails ud = new User(username, password, createSimpleGrantedAuthorities(roles));
+		logger.debug("Register user: {} , with passwordEncoderEnabled: {}", username, passwordEncoderEnabled);
+		String savedPw = password;
+		if (passwordEncoderEnabled) {
+			savedPw = passwordEncoder.encode(password);
+		}
+		UserDetails ud = new User(username, savedPw, createSimpleGrantedAuthorities(roles));
 		getUserDetailsManager().createUser(ud);
 		return "SUCCESS";
 	}
@@ -194,7 +212,7 @@ public class SSAuth {
 		}
 		return simpleGrantedAuthorities;
 	}
-	
+
 	@PreAuthorize("hasPermission(#target, #method)")
 	public void checkPermission(Object target, String method) {
 		logger.debug("Grant permission [{}] to name [{}]", method, target);

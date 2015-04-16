@@ -27,12 +27,14 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
+import org.springframework.security.config.annotation.authentication.configurers.provisioning.JdbcUserDetailsManagerConfigurer;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -48,14 +50,29 @@ public class SecurityConfig{
 	 */
 	@Configuration
 	@Order(Ordered.HIGHEST_PRECEDENCE + 10)
+	@ConfigurationProperties(prefix = "sudoor.security")
 	public static class AuthenticationSecurity extends GlobalAuthenticationConfigurerAdapter {
-
+		
+		boolean passwordEncoderEnabled;
+		
 		@Autowired
 		private DataSource dataSource;
+		
+
+		public boolean isPasswordEncoderEnabled() {
+			return passwordEncoderEnabled;
+		}
+
+		public void setPasswordEncoderEnabled(boolean passwordEncoderEnabled) {
+			this.passwordEncoderEnabled = passwordEncoderEnabled;
+		}
 
 		@Override
 		public void init(AuthenticationManagerBuilder auth) throws Exception {
-			auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder()).dataSource(this.dataSource);
+			JdbcUserDetailsManagerConfigurer<AuthenticationManagerBuilder> cfg = auth.jdbcAuthentication().dataSource(this.dataSource);
+			if(passwordEncoderEnabled){
+				cfg.passwordEncoder(new BCryptPasswordEncoder());
+			}
 		}
 	}
 	
