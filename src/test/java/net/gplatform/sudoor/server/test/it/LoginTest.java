@@ -22,8 +22,6 @@ package net.gplatform.sudoor.server.test.it;
  * #L%
  */
 
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.ws.rs.client.Client;
@@ -31,21 +29,13 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
-
-import net.gplatform.sudoor.server.Application;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.WebIntegrationTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
@@ -88,6 +78,12 @@ public class LoginTest {
 		Map result = response.readEntity(Map.class);
 		assert ("ROLE_ADMIN".equals(((Map)((java.util.List)result.get("authorities")).get(0)).get("authority")));
 
+	}
+	
+	public static void main(String[] args) {
+		String pw ="admin";
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		System.out.print(passwordEncoder.encode(pw));
 	}
 
 }
