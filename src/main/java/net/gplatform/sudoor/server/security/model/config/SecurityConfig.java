@@ -37,6 +37,7 @@ import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @ConditionalOnClass(AuthenticationManager.class)
 @Configuration
@@ -54,7 +55,7 @@ public class SecurityConfig{
 
 		@Override
 		public void init(AuthenticationManagerBuilder auth) throws Exception {
-			auth.jdbcAuthentication().dataSource(this.dataSource);
+			auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder()).dataSource(this.dataSource);
 		}
 	}
 	
