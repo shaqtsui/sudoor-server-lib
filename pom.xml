@@ -30,7 +30,7 @@
 		<cxf.version>3.0.3</cxf.version>
 		<!-- jackson 2.3.3 already included by spring boot, so here include jackson.jaxrs 2.3.3-->
 		<com.fasterxml.jackson.jaxrs.version>2.4.4</com.fasterxml.jackson.jaxrs.version>
-		<org.apache.olingo.version>2.0.1</org.apache.olingo.version>
+		<org.apache.olingo.version>2.0.3</org.apache.olingo.version>
 		<kaptcha.version>0.0.9</kaptcha.version>
 	</properties>
 
