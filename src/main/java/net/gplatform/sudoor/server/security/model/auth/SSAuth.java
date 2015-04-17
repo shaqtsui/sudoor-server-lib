@@ -162,12 +162,20 @@ public class SSAuth {
 	}
 
 	public void updatePassword(String oldPassword, String newPassword) {
-		getUserDetailsManager().changePassword(oldPassword, newPassword);
+		String savedPw = newPassword;
+		if (passwordEncoderEnabled) {
+			savedPw = passwordEncoder.encode(newPassword);
+		}
+		getUserDetailsManager().changePassword(oldPassword, savedPw);
 	}
 
 	public void updatePasswordByName(String username, String newPassword) {
+		String savedPw = newPassword;
+		if (passwordEncoderEnabled) {
+			savedPw = passwordEncoder.encode(newPassword);
+		}
 		UserDetails olduds = getUserDetailsManager().loadUserByUsername(username);
-		UserDetails newuds = new User(olduds.getUsername(), newPassword, true, true, true, true, olduds.getAuthorities());
+		UserDetails newuds = new User(olduds.getUsername(), savedPw, true, true, true, true, olduds.getAuthorities());
 		getUserDetailsManager().updateUser(newuds);
 	}
 
