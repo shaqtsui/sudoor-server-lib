@@ -66,5 +66,18 @@ public class SSAuthTest {
 		boolean res = SSAuth.isUserExist("NotExistUser");
 		assert (!res);
 	}
+	
+	@Test
+	public void testUpdatePassword() {
+		SSAuth.updatePassword("Shark", "Shark2");
+	}
+	
+	@Test
+	public void testUpdatePasswordByName() {
+		SSAuth.register("Shark3", "Shark");
+		SSAuth.updatePasswordByName("Shark3", "Shark2");
+		SSAuth.authenticate("Shark3", "Shark2");
+	}
+	
 
 }
