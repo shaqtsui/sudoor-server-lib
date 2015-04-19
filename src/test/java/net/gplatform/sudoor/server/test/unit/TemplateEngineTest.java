@@ -1,10 +1,10 @@
-package net.gplatform.sudoor.server.test.it;
+package net.gplatform.sudoor.server.test.unit;
 
 /*
  * #%L
  * sudoor-server-lib
  * %%
- * Copyright (C) 2013 - 2014 Shark Xu
+ * Copyright (C) 2013 - 2015 Shark Xu
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -22,42 +22,30 @@ package net.gplatform.sudoor.server.test.it;
  * #L%
  */
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
 import net.gplatform.sudoor.server.Application;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebIntegrationTest
-public class FileResourceTest {
-
+public class TemplateEngineTest {
 	@Autowired
-	TestUtils testUtils;
-
-	static Client client = null;
-
-	@BeforeClass
-	public static void init() {
-		client = ClientBuilder.newBuilder().build();
-	}
+	TemplateEngine templateEngine;
 
 	@Test
-	public void retrieveNotExistFile() {
-		WebTarget target = client.target(testUtils.getEmbeddedServletContainerBaseURL() + "/data/ws/rest").path("/tools/fileupload/File/999999999");
-		Response response = target.request(MediaType.WILDCARD_TYPE).get();
-		int statusCode = response.getStatus();
-		assert (statusCode == 401);
+	public void test() {
+		Context ctx = new Context();
+		ctx.setVariable("key", "dyna content");
+		String res = templateEngine.process("xml/paymentRequest", ctx);
+		System.out.println(res);
 	}
+
 }

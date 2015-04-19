@@ -1,4 +1,4 @@
-package net.gplatform.sudoor.server.test.it;
+package net.gplatform.sudoor.server.test.unit;
 
 /*
  * #%L
@@ -22,30 +22,54 @@ package net.gplatform.sudoor.server.test.it;
  * #L%
  */
 
+import java.util.Map;
+
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import net.gplatform.sudoor.server.Application;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
+
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebIntegrationTest
-public class TemplateEngineTest {
+public class SpringSecurityResourceTest {
 	@Autowired
-	TemplateEngine templateEngine;
+	TestUtils testUtils;
 
+	public static Client client;
+
+	@BeforeClass
+	public static void init() {
+		client = ClientBuilder.newBuilder().build();
+		client.register(JacksonJsonProvider.class);
+	}
+
+	/**
+	 * Post login can not be tested here as we can not send the cookie
+	 */
 	@Test
-	public void test() {
-		Context ctx = new Context();
-		ctx.setVariable("key", "dyna content");
-		String res = templateEngine.process("xml/paymentRequest", ctx);
-		System.out.println(res);
+	public void testSpringSecurityAuthenticationPreLogin() {
+		WebTarget target = client.target(testUtils.getEmbeddedServletContainerBaseURL() + "/data/ws/rest").path(
+				"/sudoor/SpringSecurity/Authentication");
+		Response response = target.request(MediaType.WILDCARD_TYPE).get();
+		int statusCode = response.getStatus();
+		assert (statusCode == 200);
+		
+		Map result = response.readEntity(Map.class);
+		assert ("anonymousUser".equals(result.get("principal")));
 	}
 
 }

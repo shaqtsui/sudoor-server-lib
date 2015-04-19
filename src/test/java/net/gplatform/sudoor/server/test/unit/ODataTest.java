@@ -1,10 +1,10 @@
-package net.gplatform.sudoor.server.test.it;
+package net.gplatform.sudoor.server.test.unit;
 
 /*
  * #%L
  * sudoor-server-lib
  * %%
- * Copyright (C) 2013 - 2015 Shark Xu
+ * Copyright (C) 2013 - 2014 Shark Xu
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -22,8 +22,6 @@ package net.gplatform.sudoor.server.test.it;
  * #L%
  */
 
-import java.util.Map;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -40,36 +38,31 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebIntegrationTest
-public class SpringSecurityResourceTest {
+public class ODataTest {
+
 	@Autowired
 	TestUtils testUtils;
 
-	public static Client client;
+	static Client client = null;
 
 	@BeforeClass
 	public static void init() {
 		client = ClientBuilder.newBuilder().build();
-		client.register(JacksonJsonProvider.class);
 	}
 
-	/**
-	 * Post login can not be tested here as we can not send the cookie
-	 */
 	@Test
-	public void testSpringSecurityAuthenticationPreLogin() {
-		WebTarget target = client.target(testUtils.getEmbeddedServletContainerBaseURL() + "/data/ws/rest").path(
-				"/sudoor/SpringSecurity/Authentication");
-		Response response = target.request(MediaType.WILDCARD_TYPE).get();
+	public void retrieveODataMetaData() {
+		WebTarget target = client.target(testUtils.getEmbeddedServletContainerBaseURL() + "/data/odata.svc").path("/$metadata");
+		Response response = target.request(MediaType.APPLICATION_XML_TYPE).get();
 		int statusCode = response.getStatus();
+		String content = response.readEntity(String.class);
+
+		System.out.println("retrieveODataMetaData() statusCode:" + statusCode);
+		System.out.println("retrieveODataMetaData() content:" + content);
 		assert (statusCode == 200);
-		
-		Map result = response.readEntity(Map.class);
-		assert ("anonymousUser".equals(result.get("principal")));
 	}
 
 }

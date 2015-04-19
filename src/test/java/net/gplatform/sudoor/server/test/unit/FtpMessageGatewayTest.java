@@ -1,4 +1,4 @@
-package net.gplatform.sudoor.server.test.it;
+package net.gplatform.sudoor.server.test.unit;
 
 import net.gplatform.sudoor.server.Application;
 import net.gplatform.sudoor.server.integration.FtpMessageGateway;

@@ -1,10 +1,10 @@
-package net.gplatform.sudoor.server.test.it;
+package net.gplatform.sudoor.server.test.unit;
 
 /*
  * #%L
  * sudoor-server-lib
  * %%
- * Copyright (C) 2013 - 2014 Shark Xu
+ * Copyright (C) 2013 - 2015 Shark Xu
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -22,15 +22,10 @@ package net.gplatform.sudoor.server.test.it;
  * #L%
  */
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
 import net.gplatform.sudoor.server.Application;
+import net.gplatform.sudoor.server.integration.AsyncEventMessageGateway;
+import net.gplatform.sudoor.server.integration.EventMessageGateway;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,28 +36,37 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebIntegrationTest
-public class ODataTest {
+public class EventMessageGatewayTest {
 
 	@Autowired
-	TestUtils testUtils;
-
-	static Client client = null;
-
-	@BeforeClass
-	public static void init() {
-		client = ClientBuilder.newBuilder().build();
-	}
+	EventMessageGateway eventMessageGateway;
+	
+	@Autowired
+	AsyncEventMessageGateway asyncEventMessageGateway;
 
 	@Test
-	public void retrieveODataMetaData() {
-		WebTarget target = client.target(testUtils.getEmbeddedServletContainerBaseURL() + "/data/odata.svc").path("/$metadata");
-		Response response = target.request(MediaType.APPLICATION_XML_TYPE).get();
-		int statusCode = response.getStatus();
-		String content = response.readEntity(String.class);
+	public void test() {
+		boolean res = true;
+		try {
+			eventMessageGateway.publishEvent("TestPublisher");
+		} catch (Exception e) {
+			res = false;
+		}
+		assert (res);
 
-		System.out.println("retrieveODataMetaData() statusCode:" + statusCode);
-		System.out.println("retrieveODataMetaData() content:" + content);
-		assert (statusCode == 200);
 	}
+	
+	@Test
+	public void testAsync() {
+		boolean res = true;
+		try {
+			asyncEventMessageGateway.publishEvent("AsyncTestPublisher");
+		} catch (Exception e) {
+			res = false;
+		}
+		assert (res);
+
+	}
+
 
 }

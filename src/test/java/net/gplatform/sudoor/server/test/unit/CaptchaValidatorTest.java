@@ -1,4 +1,4 @@
-package net.gplatform.sudoor.server.test.it;
+package net.gplatform.sudoor.server.test.unit;
 
 /*
  * #%L
