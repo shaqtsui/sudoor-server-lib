@@ -55,7 +55,7 @@ public class MailTest {
 			mimeMessageHelper.setFrom("xfcjscn@163.com");
 			mimeMessageHelper.setText("我", false);
 			mailSender.send(mimeMessage);
-		} catch (MailAuthenticationException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 

@@ -18,12 +18,12 @@
 	<parent>
 		<groupId>net.gplatform</groupId>
 		<artifactId>sudoor-server-parent</artifactId>
-		<version>1.0.16</version>
+		<version>1.0.17-SNAPSHOT</version>
 		<relativePath />
 	</parent>
 
 	<artifactId>sudoor-server-lib</artifactId>
-	<version>1.0.21-SNAPSHOT</version>
+	<version>1.0.22-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<properties>
