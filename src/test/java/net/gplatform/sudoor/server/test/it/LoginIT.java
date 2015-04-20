@@ -22,7 +22,9 @@ public class LoginIT {
   @Before
   public void setUp() throws Exception {
     driver = new ChromeDriver();
-    baseUrl = "http://localhost:8080";
+    String hostname = System.getProperty("runtime.websvr.hostname");
+    String port = System.getProperty("runtime.websvr.port");
+    baseUrl = "http://"+hostname+":"+ port;
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
