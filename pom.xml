@@ -29,7 +29,7 @@
 	<properties>
 		<cxf.version>3.0.3</cxf.version>
 		<!-- jackson 2.3.3 already included by spring boot, so here include jackson.jaxrs 2.3.3-->
-		<com.fasterxml.jackson.jaxrs.version>2.4.4</com.fasterxml.jackson.jaxrs.version>
+		<com.fasterxml.jackson.jaxrs.version>2.4.5</com.fasterxml.jackson.jaxrs.version>
 		<org.apache.olingo.version>2.0.3</org.apache.olingo.version>
 		<kaptcha.version>0.0.9</kaptcha.version>
 	</properties>
@@ -43,6 +43,7 @@
 <!-- 		    <type>pom</type> -->
 <!-- 		    <scope>import</scope> -->
 <!-- 		</dependency> -->
+
 		<!-- spring-boot-starter start -->
 		<!-- used to track app status -->
 		<dependency>
@@ -53,7 +54,10 @@
 			<groupId>org.jolokia</groupId>
 			<artifactId>jolokia-core</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-redis</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -64,12 +68,10 @@
 <!-- 				</exclusion> -->
 <!-- 			</exclusions> -->
 		</dependency>
-		
 <!-- 		<dependency> -->
 <!-- 			<groupId>org.springframework.boot</groupId> -->
 <!-- 			<artifactId>spring-boot-starter-undertow</artifactId> -->
 <!-- 		</dependency> -->
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -80,7 +82,6 @@
 <!-- 				</exclusion> -->
 <!-- 			</exclusions> -->
 		</dependency>
-
 		<!-- use  eclipselink to replace hibernate to avoid hibernate temporal literal issue. bug: HHH-8653
 			To use eclipselink need to speify *QL for "in" clause due to bug: 349477
 			Also txn need to be confinged for eclipselink
@@ -90,7 +91,6 @@
 <!-- 			<artifactId>eclipselink</artifactId> -->
 <!-- 			<version>2.5.2</version> -->
 <!-- 		</dependency> -->
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jta-bitronix</artifactId>
@@ -139,6 +139,13 @@
 <!-- 			<groupId>org.springframework.boot</groupId> -->
 <!-- 			<artifactId>spring-boot-starter-jersey</artifactId> -->
 <!-- 		</dependency> -->
+		<!-- jersey client for rest test, but we recommend to use RestTemplate 
+		<dependency>
+		    <groupId>org.glassfish.jersey.core</groupId>
+		    <artifactId>jersey-client</artifactId>
+		    <version>2.13</version>
+		</dependency>
+		-->
 		<!-- for Generating your own meta-data for @ConfigurationProperties -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -147,8 +154,14 @@
 		</dependency>
 		<!-- spring-boot-starter end -->
 		
+		<!-- spring project  start -->
+		<dependency>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session</artifactId>
+		</dependency>
+		<!-- spring project  start -->
 		
-		<!-- Infra Comp -->
+		<!-- Infra Comp start -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
@@ -161,7 +174,9 @@
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
 		</dependency>
-
+		<!-- Infra Comp end -->
+		
+		<!-- cxf start -->
 		<!-- use cxf to provider ws support, as spring ws only support contract-first approach which is a effort consuming approach -->
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
@@ -201,14 +216,7 @@
 			<artifactId>jackson-jaxrs-json-provider</artifactId>
 			<version>${com.fasterxml.jackson.jaxrs.version}</version>
 		</dependency>
-		
-		<!-- jersey client for rest test, but we recommend to use RestTemplate 
-		<dependency>
-		    <groupId>org.glassfish.jersey.core</groupId>
-		    <artifactId>jersey-client</artifactId>
-		    <version>2.13</version>
-		</dependency>
-		-->
+		<!-- cxf end -->
 
 		<!-- OData Impl Start -->
 		<dependency>
@@ -238,30 +246,27 @@
 		</dependency>
 		<!-- OData Impl End -->
 
+		<!-- other project start -->
 		<dependency>
 			<groupId>com.github.axet</groupId>
 			<artifactId>kaptcha</artifactId>
 			<version>${kaptcha.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		
-		<!-- hibernate.infinispan -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-infinispan</artifactId>
 			<version>4.3.8.Final</version>
 		</dependency>
-		<!-- hibernate.infinispan -->
-		
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
 		</dependency>
+		<!-- other project end -->
 	</dependencies>
 
 	<!-- Environment Settings -->
