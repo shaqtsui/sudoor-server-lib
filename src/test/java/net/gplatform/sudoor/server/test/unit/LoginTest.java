@@ -52,7 +52,7 @@ public class LoginTest {
 		client.register(JacksonJsonProvider.class);
 	}
 
-	String url = "http://localhost:8080/sudoor-server-lib";
+	String url = "http://localhost:8080/sudoor";
 
 	@Test
 	public void login() {
