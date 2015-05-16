@@ -269,6 +269,20 @@
 		<!-- other project end -->
 	</dependencies>
 
+	<!-- Build Settings -->
+	<build>
+		<plugins>
+			<!-- skip this plugin to avoid full package used as dependency -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
 	<!-- Environment Settings -->
 	<issueManagement>
 		<system>GitHub</system>
