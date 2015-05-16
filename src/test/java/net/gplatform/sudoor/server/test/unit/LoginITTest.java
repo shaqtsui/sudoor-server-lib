@@ -1,9 +1,12 @@
-package net.gplatform.sudoor.server.test.it;
+package net.gplatform.sudoor.server.test.unit;
 
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 
+import net.gplatform.sudoor.server.Application;
+
 import org.junit.*;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -12,8 +15,14 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-public class LoginIT {
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(classes = Application.class)
+@WebIntegrationTest
+public class LoginITTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -30,7 +39,7 @@ public class LoginIT {
 
   @Test
   public void testLogin() throws Exception {
-    driver.get(baseUrl + "/sudoor-server-lib/login");
+    driver.get(baseUrl + "/sudoor/login");
     driver.findElement(By.name("username")).clear();
     driver.findElement(By.name("username")).sendKeys("admin");
     driver.findElement(By.name("password")).clear();
