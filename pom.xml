@@ -27,6 +27,7 @@
 	<packaging>jar</packaging>
 
 	<properties>
+		<packaging.executable.disabled>true</packaging.executable.disabled>
 		<cxf.version>3.0.3</cxf.version>
 		<!-- jackson 2.3.3 already included by spring boot, so here include jackson.jaxrs 2.3.3-->
 		<com.fasterxml.jackson.jaxrs.version>2.4.5</com.fasterxml.jackson.jaxrs.version>
@@ -277,7 +278,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<skip>true</skip>
+					<skip>${packaging.executable.disabled}</skip>
 				</configuration>
 			</plugin>
 		</plugins>
