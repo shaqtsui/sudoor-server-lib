@@ -31,13 +31,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import com.google.code.kaptcha.Constants;
 
 @Component
-@ConfigurationProperties(prefix = "sudoor.captcha")
 public class CaptchaValidator {
 	final Logger logger = LoggerFactory.getLogger(CaptchaValidator.class);
 
