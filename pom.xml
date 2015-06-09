@@ -28,6 +28,12 @@
 
 	<properties>
 		<packaging.executable.disabled>true</packaging.executable.disabled>
+		<!-- If update to 3.0.5+ get error: 
+			1, javax.ws.rs.client.ResponseProcessingException: No message body reader has been found for class boolean, ContentType: application/octet-stream;charset=UTF-8
+				as PrimitiveTextProvider.isSupported() need to check mt.isCompatible(MediaType.TEXT_PLAIN_TYPE) from 3.0.5. So need to specify @Produces(MediaType.TEXT_PLAIN) 
+			2, Incorrectly parse "Set-Cookie: SESSION=17d74ede-aac0-4e65-95d6-0b62079b41a9; Path=/sudoor/; HttpOnly" to {HttpOnly=HttpOnly=HttpOnly;Path=/sudoor/;Version=1} 
+				when 302 response
+			-->
 		<cxf.version>3.0.3</cxf.version>
 		<!-- jackson 2.3.3 already included by spring boot, so here include jackson.jaxrs 2.3.3-->
 		<com.fasterxml.jackson.jaxrs.version>2.4.5</com.fasterxml.jackson.jaxrs.version>
@@ -36,15 +42,6 @@
 	</properties>
 
 	<dependencies>
-	<!-- this is for wildfly debug purpose -->
-<!-- 		<dependency> -->
-<!-- 		    <groupId>org.wildfly</groupId> -->
-<!-- 		    <artifactId>wildfly-build</artifactId> -->
-<!-- 		    <version>8.1.0.Final</version> -->
-<!-- 		    <type>pom</type> -->
-<!-- 		    <scope>import</scope> -->
-<!-- 		</dependency> -->
-
 		<!-- spring-boot-starter start -->
 		<!-- used to track app status -->
 		<dependency>

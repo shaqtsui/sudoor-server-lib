@@ -93,5 +93,29 @@ public class CaptchaValidatorTest {
 	public void validateCaptchaTrue() {
 		validateCaptcha("false captcha", false);
 	}
+	
+	public static void main(String[] args) {
+		init();
+		String inputCaptcha = "123";
+		boolean response = true;
+		
+		WebTarget captchaImgTarget = client.target("http://localhost:8080/sudoor" + "/app/sudoor/captcha-image.html");
+		Response captchaImgResponse = captchaImgTarget.request(MediaType.WILDCARD_TYPE).get();
+		Map<String, NewCookie> captchaImgCookies = captchaImgResponse.getCookies();
+		assert (captchaImgResponse.getStatus() == 200);
+
+		WebTarget validateTarget = client.target("http://localhost:8080/sudoor" + "/data/ws/rest").path("/sudoor/captcha/validate")
+				.queryParam("_captcha", inputCaptcha);
+		Builder validateBuilder = validateTarget.request(MediaType.WILDCARD_TYPE);
+		for (Iterator iterator = captchaImgCookies.values().iterator(); iterator.hasNext();) {
+			Cookie cookie = (Cookie) iterator.next();
+			validateBuilder.cookie(cookie);
+		}
+		Response validateResponse = validateBuilder.get();
+		assert (validateResponse.getStatus() == 200);
+
+		boolean res = validateResponse.readEntity(boolean.class);
+		assert (res == response);
+	}
 
 }

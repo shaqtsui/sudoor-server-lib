@@ -81,9 +81,8 @@ public class LoginTest {
 	}
 	
 	public static void main(String[] args) {
-		String pw ="admin";
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		System.out.print(passwordEncoder.encode(pw));
+		init();
+		new LoginTest().login();
 	}
 
 }

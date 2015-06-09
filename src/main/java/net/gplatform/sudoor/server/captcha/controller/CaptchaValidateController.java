@@ -24,12 +24,15 @@ package net.gplatform.sudoor.server.captcha.controller;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import net.gplatform.sudoor.server.captcha.model.CaptchaValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Path("/sudoor/captcha")
+@Produces(MediaType.TEXT_PLAIN)
 public class CaptchaValidateController {
 	@Autowired
 	CaptchaValidator captchaValidator;
