@@ -54,8 +54,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -63,9 +61,9 @@ import org.apache.catalina.filters.Constants;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import net.gplatform.sudoor.server.constant.SudoorConstants;
 
 /**
  * <p>
@@ -113,7 +111,7 @@ import org.springframework.stereotype.Component;
  *
  */
 
-@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(SudoorConstants.ORDER_FILTER_CORS)
 @Component
 @ConditionalOnExpression("'${sudoor.cors}' == 'true'")
 //@WebFilter not work now
