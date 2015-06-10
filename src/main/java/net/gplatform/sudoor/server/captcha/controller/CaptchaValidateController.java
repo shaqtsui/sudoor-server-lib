@@ -22,12 +22,14 @@ package net.gplatform.sudoor.server.captcha.controller;
  * #L%
  */
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
-import net.gplatform.sudoor.server.captcha.model.CaptchaValidator;
+import net.gplatform.sudoor.server.captcha.model.CaptchaEngine;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -35,18 +37,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Produces(MediaType.TEXT_PLAIN)
 public class CaptchaValidateController {
 	@Autowired
-	CaptchaValidator captchaValidator;
+	CaptchaEngine captchaEngine;
 
 	/**
-	 * parameter _captcha need to be availabe in request No need to pass request
-	 * as parameter, since it's injected into CaptchaValidator
-	 * 
+	 * parameter _captcha need to be availabe in request
 	 * @return
 	 * @throws Exception
 	 */
 	@GET
 	@Path("validate")
-	public boolean validate() throws Exception {
-		return captchaValidator.validate();
+	public boolean validate(@Context HttpServletRequest request) throws Exception {
+		return captchaEngine.validate(request);
 	}
 }
