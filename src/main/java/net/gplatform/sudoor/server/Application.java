@@ -32,7 +32,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.integration.annotation.IntegrationComponentScan;
-import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 /**
  * This class as the entry point for application.
@@ -49,7 +48,6 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @EntityScan({ "net.gplatform.sudoor.server", "${sudoor.application.basepackage}" })
 @EnableJpaRepositories({ "net.gplatform.sudoor.server", "${sudoor.application.basepackage}" })
 @IntegrationComponentScan
-@EnableRedisHttpSession
 public class Application extends SpringBootServletInitializer {
 
 	/*
