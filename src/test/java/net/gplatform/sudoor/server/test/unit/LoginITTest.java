@@ -44,7 +44,9 @@ public class LoginITTest {
     driver.findElement(By.name("username")).sendKeys("admin");
     driver.findElement(By.name("password")).clear();
     driver.findElement(By.name("password")).sendKeys("admin");
+    TestUtils.takeScreenshot(driver, "LoginITTest/loginPage.png");
     driver.findElement(By.name("submit")).click();
+    TestUtils.takeScreenshot(driver, "LoginITTest/successPage.png");
   }
 
   @After
