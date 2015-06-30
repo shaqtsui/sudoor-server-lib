@@ -53,6 +53,7 @@ public class MDCSessionInsertingServletFilter implements Filter {
 			HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 			HttpSession session = httpServletRequest.getSession();
 			String sessionId = session.getId();
+			logger.debug("Insert sessionId: [{}] to MDC", sessionId);
 			MDC.put("sessionId", sessionId);
 		}
 	}
