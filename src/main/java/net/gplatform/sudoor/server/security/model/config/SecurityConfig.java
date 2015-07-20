@@ -97,42 +97,24 @@ public class SecurityConfig{
 		public void init(WebSecurity builder) throws Exception {
 		}
 	}
+
 	
 	/*
 	 * Enable form http config, The order will only impact http filter sequence
-	 * This conifg for jerseyServlet Resource
-	 */
-	@Configuration
-	@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
-	public static class JerseyServletResourceSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter{
-		@Override
-		protected void configure(HttpSecurity http) throws Exception {
-			http
-				.regexMatcher("/data/odata.svc/\\$metadata")
-				.httpBasic()
-				.and()
-					.authorizeRequests()
-						.regexMatchers("/data/odata.svc/\\$metadata").permitAll()
-				.and()
-					.csrf().disable();
-		}
-	}
-	
-	/*
-	 * Enable form http config, The order will only impact http filter sequence
-	 * This conifg for nonODataRestJerseyServlet Resource
+	 * This conifg for rest Resource
 	 */
 	@Configuration
 	@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER-1)
-	public static class NonODataRestJerseyServletResourceSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter{
+	public static class JaxRSResourceSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter{
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			http
-				.regexMatcher("/data/ws/rest/sudoor/.*")
+				.regexMatcher("/data/ws/rest/sudoor/.*|/app/api")
 				.httpBasic()
 				.and()
 					.authorizeRequests()
 						.regexMatchers("/data/ws/rest/sudoor/.*").permitAll()
+						.regexMatchers("/app/api").permitAll()
 				.and()
 					.csrf().disable();
 		}

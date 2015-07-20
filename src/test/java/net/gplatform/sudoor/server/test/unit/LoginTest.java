@@ -58,7 +58,6 @@ public class LoginTest {
 	public void login() {
 
 		WebTarget signin = client.target(url + "/login");
-		//WebTarget signin = client.target(url + "/data/odata.svc/$metadata");
 		Form f = new Form();
 		f.param("username", "admin");
 		f.param("password", "admin");
