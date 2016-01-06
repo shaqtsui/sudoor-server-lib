@@ -1,5 +1,3 @@
-CORS
-
 Web Service:
 	JAXRS(cxf)
 	JAXWS(cxf)

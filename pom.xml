@@ -4,14 +4,18 @@
 	<!--
 		NOTE :
 			sudoor Lib Project Provide Interface:
-				CORS filter
-
 				Spring Security for login
 
 				Olingo for OData service
 				CXF for REST router to Utils
 
 				JPAManager
+
+			Env Dependency:
+				Development:
+					webdriver - for integration test
+				Runtime:
+					N.A.
 	-->
 
 	<!-- The Basics -->
