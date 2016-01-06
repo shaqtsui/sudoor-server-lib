@@ -29,7 +29,7 @@
 		<meta name="_csrf" th:content="${_csrf?.token}"/>
 		<!-- default header name is X-CSRF-TOKEN -->
 		<meta name="_csrf_header" th:content="${_csrf?.headerName}"/>
-		<script th:src="@{/app/web/jquery/jquery-1.11.1.js}"></script>
+		<script th:src="@{/app/webjars/jquery/2.1.4/jquery.min.js}"></script>
 		<script th:src="@{/app/web/security/security.js}"></script>
 	</head>
 	<body  layout:fragment="topBody">
